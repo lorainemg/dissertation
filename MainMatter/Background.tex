@@ -1,13 +1,13 @@
 \chapter{Estado del arte }\label{chapter:review}
 
  \begin{itemize}
- 	\item[$\checkmark$] Realizar una introducción sobre el contenido 
- 	\item[$\checkmark$] Hablar de la estructura del capítulo.
- 	\item La sección de AutoML se define el problema de AutoML, se da una (o varias) definiciones del concepto de AutoML y se realiza un estudio del mismo desde los diferentes tipos de métodos de optimización usados para la selección de modelos, destacando el uso de meta-learning.
- 	\item En la sección de Meta-Learning se define el problema de meta-learning, se dan definiciones del mismo y se realiza un estudio de meta-learning aplicado al problema de la selección de modelos separados por el tipo de solución que se da para el mismo.
+ 	\item Realizar una introducción sobre el contenido 
+ 	\item Hablar un poco de la estructura del capítulo.
+ 	 \item En la sección de Meta-Learning se define el problema de meta-learning, se dan definiciones del mismo y se realiza un estudio de meta-learning aplicado al problema de la selección de modelos separados por el tipo de solución que se da para el mismo ~\ref{sec:metalearning}
+ 	\item La sección de AutoML se define el problema de AutoML, se da una (o varias) definiciones del concepto de AutoML y se realiza un estudio del mismo desde los diferentes tipos de métodos de optimización usados para la selección de modelos, destacando el uso de meta-learning. ~\ref{sec:automl}
  \end{itemize}
 
-\section{Meta-Learning}
+\section{Meta-Learning}\label{sec:metalearning}
 
 \begin{itemize}
 	\item[$\checkmark$] Introducir esta sección hablando un poco del concepto de meta-learning y un poco de su historia (referirse a los papers: \textit{Metalearning: A survey of trends and technologies} y \textit{A Comprehensive Overview and Survey of Recent Advances in Meta-Learning})
@@ -15,11 +15,11 @@
 
 El término meta-learning ocurrió por primera vez en el área de psicología educacional. Uno de los investigadores más citados en este campo, John Biggs, describió meta-learning como \textit{ser consciente y tomar el control del conocimiento de uno}. Por lo tanto, meta-learning es visto como un entendimiento y adaptación del aprendizaje en sí en un nivel más alto que simplemente adquirir conocimiento de una materia. De una forma, una persona consciente y capaz de meta-learning es capaz de evaluar su enfoque de aprendizaje de acuerdo a los requerimientos de una tarea en específico.
 
-Meta-learning usada en el contexto de aprendizaje de máquina tiene muchas similitudes a esta descripción. El conocimiento de una matera se traduce en \textit{base-learning}, donde la experiencia es acumulada para una tarea en específico. Meta-learning empieza en un nivel mayor y se encarga de acumular experiencia sobre varias aplicaciones de un sistema de aprendizaje de acuerdo a..[poner link]
+Meta-learning usada en el contexto de aprendizaje de máquina tiene muchas similitudes a esta descripción. El conocimiento de una materia se traduce en \textit{base-learning}, donde la experiencia es acumulada para una tarea en específico. Meta-learning empieza en un nivel mayor y se encarga de acumular experiencia sobre varias aplicaciones de un sistema de aprendizaje de acuerdo a..[poner link]
 
-En los últimos 20 años, la investigación de aprendizaje de máquinas enfrentó un número creciente de algoritmos disponibles incluyendo multitudes de parametrizaciones, enfoques de pre-procesamiento y post-procesamiento, así como una gran variedad de aplicaciones debido al creciente poder de computación y gran disponibilidad de conjuntos de datos. Promoviendo un mejor entendimiento del aprendizaje de máquinas en sí, meta-learning puede ser de un ayuda invaluable, evitando procedimientos extensivos de prueba y error para la selección de algoritmos. Además, puede permitir entender mejor que hace a un determinado algoritmo desempeñarse bien en un determinado problema.
+En los últimos 20 años, la investigación de aprendizaje de máquinas enfrentó un creciente número de algoritmos disponibles, incluyendo multitudes de parametrizaciones, enfoques de pre-procesamiento y post-procesamiento, así como una gran variedad de aplicaciones debido al creciente poder de computación y gran disponibilidad de conjuntos de datos. Promoviendo un mejor entendimiento del aprendizaje de máquinas en sí, meta-learning puede ser de un ayuda invaluable, evitando procedimientos extensivos de prueba y error para la selección de algoritmos. Además, puede permitir entender mejor que hace a un determinado algoritmo desempeñarse bien en un determinado problema.
 
-\subsection{Definición}
+\subsection{Definición}\label{subsec:mtl-definition}
 
 \begin{itemize}
 	\item[$\checkmark$] Hablar de distintas definiciones formales del término de meta-learning (referirse a:  \textit{Metalearning: A survey of trends and technologies})
@@ -34,269 +34,64 @@ La primera definición de \textit{meta-learning} en el campo de aprendizaje de m
 	\item \emph{Meta-learning} monitorea el proceso de aprendizaje automático en sí, en el contexto de aprender los problemas que encuentra, e intenta adaptar su comportamiento para desempeñarse mejor.
 \end{enumerate}
 
-En la mayoría de las definiciones son conceptos claves sistemas de aprendizaje que se adaptan y mejoran con la experiencia, excepto en la definición 2. Esta enfatiza en una mejor comprensión de la interacción entre dominios y mecanismos de aprendizaje, lo cual no necesariamente implica el objetivo de un sistema de aprendizaje mejorado, sino la búsqueda de un mejor entendimiento de cuales tareas los aprendices tienen éxito o fallan.
+En la mayoría de las definiciones son conceptos claves sistemas de aprendizaje que se adaptan y mejoran con la experiencia, excepto en la definición 2. Esta enfatiza en una mejor comprensión de la interacción entre dominios y mecanismos de aprendizaje, lo cual no necesariamente implica el objetivo de un sistema de aprendizaje mejorado, sino la búsqueda de un mejor entendimiento de cuales tareas tienen éxito o fallan.
 
-\emph{Meta-learning} es mejor entendido comúnmente como \textit{aprendiendo a aprender}, lo cual se refiere al proceso de mejorar un algoritmo de aprendizaje a través de múltiples episodios de aprendizaje. En contraste, el aprendizaje de máquinas convencional mejora las predicciones del modelo sobre múltiples instancias de datos. Durante el \textit{aprendizaje base}, un algoritmo de aprendizaje interior (o inferior/base) resuelve una \textit{tarea} como clasificación de imágenes, definida por una dataset y un objetivo. Durante \emph{meta-learning}, un algoritmo externo (o superior/meta) actualiza el algoritmo interior de tal forma que el modelo que aprende mejore el objetivo exterior. Los episodios de aprendizaje de la tarea base pueden ser vistos como una forma de proveer las instancias necesitadas por el algoritmo externo para aprender el algoritmo de aprendizaje base. 
+\emph{Meta-learning} es mejor entendido comúnmente como \textit{aprendiendo a aprender}, lo cual se refiere al proceso de mejorar un algoritmo de aprendizaje a través de múltiples episodios de aprendizaje. En contraste, el aprendizaje de máquinas convencional mejora las predicciones del modelo sobre múltiples instancias de datos. Durante el \textit{base-learning} o aprendizaje base, un algoritmo de aprendizaje interior (o inferior/base) resuelve una \textit{tarea} como clasificación de imágenes, definida por una dataset y un objetivo. Durante \emph{meta-learning}, un algoritmo externo (o superior/meta) actualiza el algoritmo interior de tal forma que el modelo que aprende mejore el objetivo exterior. Los episodios de aprendizaje de la tarea base pueden ser vistos como una forma de proveer las instancias necesitadas por el algoritmo externo para aprender el algoritmo de aprendizaje base. 
+
+Meta-learning difiere de \textit{base-learning} en el alcance del nivel de adaptación. Mientras que el aprendizaje en un nivel base está enfocado en acumular experiencia en una tarea específica, el aprendizaje en meta-learning tiene el objetivo de acumular experiencia en el rendimiento de múltiples aplicaciones de un sistema de aprendizaje.  
 
 De esta forma, muchos algoritmos convencionales tales como la búsqueda aleatoria de hiperparámetros mediante validación cruzada podrían caer en la definición de \emph{meta-learning}. La característica destacada del \emph{meta-learning} contemporáneo es un meta-objetivo explícitamente definido, y una optimización de extremo a extremo del algoritmo interior con respecto a este objetivo.
 
-\subsection{Campos relacionados}
+\subsection{Campos relacionados}\label{subsec:mtl_related_fields}
 
 \begin{itemize}
 	\item[$\checkmark$] Mencionar y resumir algunas áreas relacionadas con meta-learning, para incluir AutoML (referirse a: \textit{Meta-Learning in Neural Networks: A Survey})
+	\item No estoy segura si esta sección es necesaria...
 \end{itemize}
 
 Aquí posicionamos meta-learning contra áreas relacionadas cuya relación con meta-learning es a menudo una fuente de confusión:
 
 \begin{description}
-	\item[Transfer Learning (TL):] TL usa experiencia pasada de una tarea fuente para mejorar el aprendizaje (la velocidad, la eficiencia de los datos, la precisión) de una tarea destino. TL se refiere tanto a esta área de problemas como familia de soluciones, mejor conocidas conmúnmente como transferencia de parámetros más ajuste de los mismos opcional. En contraste, meta-learning se refiere al paradigma que puede ser usado para mejorar TL así como otros problemas. En TL el modelo final es extraído por aprendizaje \textit{vainilla} en la tarea fuente sin el uso de un meta-objetivo. En \emph{meta-learning}, el modelo final estaría definido por la optimización externa que evalúa el beneficio del modelo cuando aprende una nueva tarea. De una forma más general, \emph{meta-learning} trata con un rango mucho más grande de meta-representaciones.
+	\item[Transfer Learning (TL):] TL usa experiencia pasada de una tarea fuente para mejorar el aprendizaje (la velocidad, la eficiencia de los datos, la precisión) de una tarea destino. TL se refiere a esta área de problemas como familia de soluciones, y para su solución hace uso de la transferencia de parámetros, más el ajuste opcional de los mismos. En contraste, meta-learning se refiere al paradigma que puede ser usado para mejorar TL, así como otros problemas. En TL el modelo final es extraído por aprendizaje simple en la tarea fuente sin el uso de un meta-objetivo. En \emph{meta-learning}, el modelo final estaría definido por la optimización externa que evalúa el beneficio del modelo cuando aprende una nueva tarea. De una forma más general, \emph{meta-learning} trata con un rango mucho más grande de meta-representaciones.
 	\item[Aprendizaje multi-tarea (MTL):] intenta aprender en conjunto algunas tareas relacionadas, para beneficiarse de la regularización debido al intercambio de parámetros y la diversidad de la representación compartida resultante. Como TL, MTL convencional es una optimización de un solo nivel sin un meta-objetivo. Además, el propósito de MTL es el de aprender de una cantidad fija de tareas conocidas, mientras que el punto de meta-learning es a menudo aprender de taras futuras no vistas. 
 	\item[Optimización de Hiperparámetros (HO):] está dentro de las consideraciones de meta-learning, en el sentido de que hiperparámetros como la tasa de aprendizaje o la fuerza de regularización describen “como aprender”. Aquí se suelen incluir tareas de HO que definen un meta-objetivo que es entrenado de extremo a extremo con redes neuronales, tales como el aprendizaje de hiperparámetros basados en gradientes y la búsqueda de arquitectura neuronal. Pero excluyen otros enfoques como búsqueda random y optimización bayesiana, las cuales raramente están consideradas como meta-learning.
 	\item[AutoML:] AutoML es más bien una sombrilla amplia para los enfoques con el objetivo de automatizar partes del proceso de aprendizaje de máquinas que son típicamente manuales, tales como la preparación de los datos, la selección de algoritmos, ajuste de hiperparámetros, y búsqueda de arquitecturas. AutoML a menudo hace uso de numerosas heurísticas afuera del alcance de meta-learning tal y como está definido aquí, y se centra en tareas como limpieza de datos, que son menos centrales a meta-learning. Sin embargo, AutoML a veces hace uso de optimizaciones de extremo a extremo de un meta-objetivo, así que meta-learning puede ser visto como una especialización de AutoML.
 \end{description}
 
-\subsection{Aplicaciones de Meta-Learning para la Selección de Modelos}
+\subsection{Estructura de un sistema de Meta-Learning}
 
-\begin{itemize}
-	\item[$\checkmark$] Introducir mencionando varias de las aplicaciones  que se mencionan en \textit{Metalearning: A survey of trends and technologies}
-	\item[$\checkmark$] La idea principal es estructurarlo como en el paper de \textit{Meta-learning: A survey}
-\end{itemize}
+Un sistema de meta-learning está compuesto esencialmente por dos partes. Una parte tiene la tarea de adquirir meta-conocimiento de sistemas de aprendizaje automático. La otra parte tiene el objetivo de aplicar este meta-conocimiento a nuevos problemas con el objetivo de identificar un algoritmo o técnica de aprendizaje óptimo.
 
-Meta-learning puede ser empleada en una variedad de configuraciones, con cierto desacuerdo en la literatura sobre lo que constituye exactamente un problema de aprendizaje. Meta-learning es extremandamente útil en los casos donde el modelo interno es requerido y hay poca cantidad de datos, ya que el modelo interno contiene muchos parámetros que no pueden ser estimados precisamente con pocos datos. Algunas de las aplicaciones comunes son en la investigación robótica, donde se espera que los robots tengan un mayor nivel de autonomía en IA general, en el descubrimiento de drogas para manejar los datos de altas dimensiones con un tamaño de muestra pequeño y en la traducción de lenguajes raramente usados. 
+\subsubsection{Adquisición de meta-conocimiento} 
 
-La principal área de investigación de meta-learning estudiada en este trabajo es la selección de algoritmos, la cual ha recibido una considerable cantidad de investigación. En este caso especial de meta-learning, el aspecto de interés es la relación entre las características de los datos y el rendimiento del algoritmo, con el objetivo final de predecir un algoritmo o un conjunto de algoritmos adecuado para un problema específico. Como motivación está el hecho de que es inviable examinar todas las posibles alternativas de algoritmos en un procedimiento de prueba y error. La aplicación de meta-learning en este campo puede por lo tanto ser útil tanto para proveer una recomendación para un usuario final o seleccionar automáticamente o ponderar los algoritmos que son más prometedores. 
+Hay dos formas naturales en las cuales el meta-conocimiento puede ser adquirido. Una posibilidad es depender de conocimiento experto y otra posibilidad es usar un procedimiento automático. 
 
-El desafío en meta-learning para la selección de modelos es aprender de experiencia pasada de una forma sistemática e impulsada por los datos. Primero, es necesario coleccionar los meta-datos que describen las tareas de aprendizaje anteriores y los modelos previamente aprendidos. Ellos comprenden las configuraciones exactas de los algoritmos usados para entrenar los modelos, incluyendo:
+La obtención de meta-conocimiento a través del conocimiento experto se realiza en la forma de reglas que coinciden con las características de dominio (dataset) y con algoritmos de aprendizaje de máquinas. Estas reglas pueden ser hechas a mano, teniendo en cuenta resultados teóricos, el conocimiento humano y evidencia empírica. Sin embargo, este método tiene serias desventajas: el conjunto de reglas resultantes probablemente esté incompleto y el mantenimiento a tiempo y preciso del conjunto de reglas a medida que nuevos algoritmos se vuelven disponibles es problemático. Como resultado, la mayoría de la investigación se ha enfocado en métodos automáticos.
+	
+Para la automatización de la adquisición de conocimiento es necesario un conjunto de problemas (datasets) y un conjunto de algoritmos de aprendizaje de máquinas que queremos considerar. Entonces se necesita definir un método experimental que determine con cuáles alternativas deberíamos experimentar y en qué orden. Suponguemos que tenemos un dataset (caracterizado por ciertas meta-features) y ciertos algoritmos de aprendizaje automático. Para cada uno de estos algoritmos se producen resultados de rendimiento a través de un método de evaluación (por ejemplo, validación cruzada). Los resultados, junto con la caracterización, represetan un pedazo de información que es guardado en una base de meta-conocimiento. El proceso es entonces repetido para otras combinaciones de datasets y algoritmos.
 
-\begin{itemize}
-	\item Las configuraciones de los hiperparámetros, composiciones de los pipelines y/o arquitecturas de redes neuronales.
-	\item Las evaluaciones del modelo resultante, tales como la precisión y el tiempo de entrenamiento.
-	\item Los parámetros del modelo aprendidos, tales como los pesos entrenados de una red neuronal.
-	\item Propiedades medibles de la tarea en sí, también conocidas como meta-features.
-\end{itemize}
+\subsubsection{Aplicación de meta-conocimiento}
 
-Luego necesitamos aprender de estos meta-datos previos, para extraer y transferir conocimiento de la búsqueda de los modelos óptimos para nuevas tareas. El resto de esta sección presenta una visión general de diferentes enfoques de meta-learning para hacer esto efectivamente.
+En un sistema de meta-learning la aplicación de meta-conocimiento puede ser usado para ayudar a seleccionar o adaptar algoritmos de aprendizaje de máquinas. Por ejemplo, podemos considerar nuestro problema de la selección de algoritmos de aprendizaje automático dado un determinado conjunto. El problema puede ser visto como un problema de búsqueda, donde el espacio de búsqueda incluye los algoritmos de aprendizaje de máquinas individuales y el objetivo es identificar el mejor algoritmo. Este proceso puede ser dividido en dos fases separadas. 
 
-Las técnicas de meta-learning basadas en el tipo de meta-datos que ellas aprovechan son categorizadas. Primero, se describe como se aprende solamente de evaluaciones de los modelos y luego se discute cómo caracterizar las tareas para expresar más explícitamente la similaridad entre las tareas y construir meta-modelos para aprender las relaciones entre las características de los datos y aprender el rendimiento.
+En la primera fase el objetivo es identificar un subconjunto de algoritmos de aprendizaje de máquinas adecuados basados en un dataset de entrada. El método de selección usado en ese proceso se basa en el meta-conocimiento. Por lo general el resultado de esta fase es representado en la forma de un subconjunto rankeado de algortimos de aprendizaje de máquinas.
 
-\subsubsection{Aprendiendo de las evaluaciones de modelos}
-
-\begin{itemize}
-	\item Falta un poco de itroducción...
-	\item[$\checkmark$] Explicar en qué consiste
-\end{itemize}
-
-Consideremos que tenemos acceso a:
-\begin{itemize}
-	\item Tareas anteriores $t_j \in T$, siendo esto último el conjunto de todas las tareas conocidas.
-	\item Un conjunto de algoritmos de aprendizaje, completamente definidos por sus configuraciones $\omega_i \in \Omega$; aquí $\Omega$ representa un espacio de configuración discreto, continuo o mixto que puede cubrir configuraciones de hiperparámetros, componentes de pipeline y/o componentes de una arquitectura de redes.
-	\item $P$ el conjunto de todas las evaluaciones escalares anteriores $P_{i,j} = P(\omega_i, t_j)$ de una configuración $\omega_i$ en una tarea $t_j$, de acuerdo a una medida de evaluación predefinida, por ejemplo accuracy, y una técnica de evaluación de modelos, por ejemplo validación cruzada. 
-	\item $P_{new}$, el conjunto de todas las evaluaciones conocidas $P_{i, new}$ en una nueva tarea $t_{new}$ 
-\end{itemize}
-
-Ahora queremos entrenar un \emph{meta-learner} $L$ que predice las configuraciones recomendadas $\Omega^*_{new}$ para una nueva tarea $t_{new}$. El meta-learner es entrenado en meta-data $P\cup P_{new}$ donde:
-
-\begin{itemize}
-	\item $P$ usualmente es recogido de antemano, o extraído de repositorios de meta-data.
-	\item $P_{new}$ es aprendido por la técnica de meta-lerning en sí de una forma iterativa, algunas veces inicializado con un $P'_{new}$ inicial generado por otro método.
-\end{itemize}
-
-Estas técnicas son usadas generalmente para recomendar configuraciones y espacios de búsqueda útiles, así como transferir conocimiento de tareas \textit{empíricamente} similares. Algunas de estas técnicas son explicadas a continuación. \\
-
-\textbf{Recomendaciones independientes de la tarea}
-
-\begin{itemize}
-	\item[$\checkmark$] Explicar en qué consiste
-	\item Poner ejemplos
-	\begin{itemize}
-		\item \textit{Selecting Classification Algorithms with Active Testing}
-		\item \textit{Ranking Learning Algorithms: Using IBL and Meta-Learning on Accuracy and Time Results}
-		\item \textit{Speeding up algorithm selection using average ranking and active testing by introducing runtime}
-		\item \textit{Learning hyperparameter optimization initializations}
-	\end{itemize}
-\end{itemize}
-
-Supongamos que $P_{new} = 0$, por lo que no tenemos acceso a ninguna evaluación de $t_{new}$. Aún así se puede aprender una función $f: \Omega x T \textrightarrow \{\omega^*_k\}, k=1..K$, resultando en un conjunto de evaluaciones recomendadas \textit{independientes} de $t_{new}$. Estos $\omega^*_k$ pueden ser evaluados en $t_{new}$ para seleccionar el mejor, o para inicializar otros enfoques de optimización.
-
-Tales enfoques a menudo producen un ranking, es decir, un conjunto ordenado $\omega^*_k$. Esto es típicamente hecho discreteando $\Omega$ en un conjunto de configuraciones candidatas $\omega_i$, también llamada \textit{portafolio}, evaluado en un gran número de tareas $t_j$. Luego podemos construir un ranking por clase, por ejemplo usando \textit{success rates}, \textit{AUC}, o \textit{significant wins}. Sin embargo, a menudo es deseable que algortimos igualmente buenos pero más rápidos estén rankeados mejor, y múltiples métodos han sido propuestos para compensar tiempo de entrenamiento y precisión. Luego podemos agregar estos rankings de una sola tarea en rankings globales, por ejemplo calculando el rank promedio a través de todas las tareas. Cuando hay insuficientes datos para construir un ranking global, uno puede recomendar un subconjunto de configuraciones basados en la configuración mejor conocida para cada tarea anterior, o retornar quasi-lineal rankings.
-
-Para encontrar el mejor $\omega^*$ para una tarea $t_{new}$ nunca vista antes, un método simple es seleccionar las K mejores configuraciones, bajando en la lista y evaluando cada configuración en $t_{new}$. Esta evaluación puede ser terminada después de un valor predefinido para K, un presupuesto de tiempo, o cuando un modelo lo suficientemente preciso es encontrado. \\
-
-\textbf{Diseño del espacio de configuración}
-
-\begin{itemize}
-	\item[$\checkmark$] Explicar en qué consiste
-	\item Poner ejemplos
-	\item Functional ANOVA
-	\item \textit{Hyperparameter Importance Across Datasets}
-	\item \textit{Hyperparameter Search Space Pruning - A New Component for Sequential Model-Based Hyperparameter Optimization}
-\end{itemize}
+La segunda fase es usada para buscar a través del espacio reducido. Cada opción es evaluada usando una métrica de rendimiento determinado (por ejemplo, \textit{accuracy}). Usualmente, la validación cruzada es usada para identificar el mejor algoritmo de aprendizaje. Es necesario notar que el meta-conocimiento no elimina completamente la necesidad del proceso de búsqueda, sino que proporciona una búsqueda más efectiva. La efectividad de la búsqueda depende de la calidad del meta-conocimiento.
 
 
-Las evaluaciones previas también pueden ser usadas para aprender mejores \textit{espacios de configuración} $\Omega^*$. Incluso siendo independientes de $t_{new}$, esto puede radicalmente acelerar la búsqueda para modelos óptimos, ya que solo las regiones más relevantes de los espacios de configuración son explorados. Esto es crítico cuando los recursos computacionales están limitados. \\
+\subsection{Aplicaciones de Meta-Learning}\label{subsec:mtl_aplications}
 
+Meta-learning puede ser empleada en una variedad de configuraciones, con cierto desacuerdo en la literatura sobre lo que constituye exactamente un problema de meta-learning. Meta-learning es extremandamente útil en los casos donde el modelo interno es requerido y hay poca cantidad de datos, ya que el modelo interno contiene muchos parámetros que no pueden ser estimados precisamente con pocos datos. Algunas de las aplicaciones comunes son en la investigación robótica, donde se espera que los robots tengan un mayor nivel de autonomía en IA general, en el descubrimiento de drogas para manejar los datos de altas dimensiones con un tamaño de muestra pequeño y en la traducción de lenguajes raramente usados. Además, meta-learning es ampliamente usado en el problema de selección de algoritmos, sobre esta aplicación se profundiza en el sección \ref{sec:metalearning-automl}.
 
-\textbf{Transferencia de la configuración}
-
-Si se quiere dar recomendaciones para una tarea específica $t_{new}$, necesitamos información sobre que tan similar $t_{new}$ es a las tareas anteriores $t_j$. Una manera de hacer esto es evaluando un número de configuraciones recomendadas (o parcialmente aleatorias) en $t_{new}$, dando lugar a nueva evidencia $P_{new}$. Si luego observamos que las evaluaciones de $P_{i,new}$ son similares a $P_{i,j}$, entonces $t_j$ y $t_{new}$ pueden ser consideradas similares, basadas en evidencia empírica. Se puede incluir este conocimiento para entrenar un meta-learner que predice un conjunto de configuraciones recomendadas $\Omega_{new}^*$ para $t_{new}$. Además, cada $\omega^*_{new}$ seleccionado puede ser evaluado y luego incluido en $P_{new}$, repitiendo el ciclo y coleccionando más evidencia empírica para aprender cuales tareas son similares entre sí.\\
-
-\textit{Landmarks relativos}
-
-\begin{itemize}
-	\item[$\checkmark$] Explicar en qué consiste
-	\item Hablar de Active Testing
-	\item Poner ejemplos
-	\item \textit{Pairwise meta rules for better meta learning based algorithm ranking}
-	\item \textit{Toward Automatic Generation of Meta-features}
-\end{itemize}
-
-Una primera medida para la similaridad de las tareas considera las diferencias en el rendimiento relativas (pairwise), también llamadas \textit{relative landmarks}, $RL_{a,b,j} = P_{a,j} - P_{b,j}$ entre dos configuraciones $\omega_a$ y $\omega_b$ en una tarea particular $t_j$. (hablar de los papers que tratan de esto) \\
-
-\textit{Modelos sustitutos}
-
-\begin{itemize}
-	\item[$\checkmark$] Explicar en qué consiste
-	\item Me falta explicar qué es un modelo sustituto
-	\item Poner ejemplos
-	\item \textit{Collaborative hyperparameter tuning}
-	\item \textit{Efficient Transfer Learning Method for Automatic Hyperparameter Tuning}
-	\item \textit{Hyperparameter Optimization with Factorized Multilayer Perceptrons}
-	\item \textit{Scalable Gaussian process-based transfer surrogates for hyperparameter optimization.}
-\end{itemize}
-
-Una forma más flexible de transferir información es construir un \textit{modelo sustituto} $s_j(\omega_i) = P_{i,j}$ para todas las tareas anteriores $t_j$, entrenadas usando todo el conjunto $P$ disponible. Uno puede definir la similitud entre tareas en términos de error entre $s_j(\omega)$ y $P_{i, new}$: si el modelo sustituto para $t_j$ puede generar predicciones precisas para $t_new$, entonces esas tareas son intrínsicamente similares. Esto es realizado usualmente en combinación con la optimización Bayesiana para determinar el siguiente $\omega_i$. 
-
-\subsubsection{Aprendiendo de las propiedades de las tareas}
-
-Otra rica fuente de meta-datos son caracterizaciones (meta-features) de la tarea en cuestión. Cada tarea $t_j \in T$ es descrita por un vector $m(t_j) = (m_{j,1}, …, m_{j,K}$ de K meta-features, $m_{j,k}$ es el conjunto de todas las meta-features conocidas. Esto puede ser usado para definir la medida de la similitud de las tareas, por ejemplo, la distancia euclidiana entre $m(t_i)$ y $m(t_j)$, así podemos transferir información de las tareas más similares a la nueva tarea $t_{new}$. Además, junto con las evaluaciones anteriores $P$, podemos entrenar un \emph{meta-learner} $L$ para predecir el rendimiento $P_{i, new}$ de las configuraciones $\omega_i$ en la nueva tarea $t_{new}$. \\
-
-\textbf{Meta-Features}
-
-\begin{itemize}
-	\item[$\checkmark$] Poner algunos ejemplos de meta-features dividido por el tipo de meta-feature qué es.
-	\item Hablar de varios papers que definen los distintos tipos de meta-features, puedo además mencionar varios survey de meta-features.
-	\item \textit{Meta-Learning and the Full Model Selection Problem}
-	\item \textit{Pairwise meta rules for better meta learning based algorithm ranking}
-	\item \textit{Selection Classification Algorithms with Active Testing}
-\end{itemize}
-
-Las meta-features caracterizan un dataset y generalmente en la literatura se encuentran divididos en 5 grupos:
-
-\begin{description}
-	\item[Simple:] son medidas que son fácilmente extraídas de los datos, son conocidas comúnmente y no requieren recursos computacionales significativos. Representan información básica sobre el dataset. Hasta un determinado punto son concebidas para medir la complejidad del problema subyacente. Algunas de las caracterizaciones incluidas en este grupo son: el número de instancias, el número de atributos, la dimensionalidad del dataset, el radio de valores faltantes, etc. También son llamadas medidas \textit{generales}.
-	\item[Estadísticas:] son medidas que capturan las propiedades estadísticas de los datos. Estas métricas capturan los indicadores de distribución de datos, tales como la media, la desviación estándar, la correlación y curtosis. Solo caracterizan los atributos numéricos. Las caracterizaciones estadísticas son deterministas y algunas de ellas requieren la definición de valores de hiperparámetros, mientras otras pueden generar excepciones.
-	\item[Teóricas de la información:] son medidas del campo de teoría de la información. Estas medidas están basadas en la entropía, la cual captura la cantidad de información en los datos y su complejidad. Ellos pueden ser usados para caracterizar los atributos discretos. Además, son computadas directamente, libres de hiperparámetros, determinísticas y robustas. Semánticamente, describen la variedad y la redundancia de los atributos predictivos para representar las clases.
-	\item[Basados en modelos:] on medidas extraídas de un modelo inducido de los datos de entrenamiento. Las meta-características en este grupo están caracterizadas por la extracción de información de un modelo de aprendizaje de predicción, generalmente, un árbol de decisión. Las medidas caracterizan la complejidad de los problemas basados en las hojas, los nodos y la forma del árbol. Están diseñadas para caracterizar problemas supervisados, todas las medidas son determinísticas, robustas y requieren la definición de los hiperparámetros que hay en el algoritmo de árboles de decisión para inducir el modelo.
-	\item[\textit{Landmarking}:] son medidas que usan el rendimiento de algoritmos de aprendizaje simples y rápidos para caracterizar los datasets. Los algoritmos deben tener diferentes sesgos y capturar información importante con un costo computacional bajo. Las medidas caracterizan problemas supervisados y son indirectamente extraídos. Requieren la definición de hiperparámetros: el algoritmo de aprendizaje, la medida de evaluación usada para comprobar el rendimiento del modelo y el procedimiento usado para calcularla (por ejemplo, validación cruzada).
-\end{description}
-
-Los primeros tres grupos representan los enfoques más comunes y tradicionales de las caracterizaciones de los datos. Los últimos dos requieren el uso de algoritmos de aprendizaje de máquinas, porque extraen la complejidad del modelo o medidas de rendimiento. \\
-
-\textbf{Selección Automática de Meta-Features}
-
-\begin{itemize}
-	\item[$\checkmark$] Introducir la idea de aprender una representación automáticamente de un grupo de tareas
-	\item Ejemplos
-	\item \textit{Automatic classifier selection for non-experts}
-	\item \textit{Towards Automatic Generation of Meta-Features}
-	\item \textit{On the predictive power of meta-features in OpenML}
-	\item \textit{Towards Reproducible Empirical Research in Meta-Learning}
-	\item \textit{A Framework to decompose and develop metafeatures}
-\end{itemize}
-
-En vez de definir manualmente los meta-features, uno puede además aprender una representación conjunta para un grupo de tareas. \\
-
-\textbf{Meta-modelos}
-
-\begin{itemize}
-	\item[$\checkmark$] Explicar en qué consiste
-\end{itemize}
-
-Además, podemos aprender las relaciones complejas entre los meta-features de una tarea y la utilidad de una configuración específica construyendo un meta-modelo $L$ que recomienda la configuración más útil $\Omega_{new}^*$ dados los meta-features $M$ de la nueva tarea $t_{new}$. Existe un gran grupo de trabajo previo construyendo modelos para la selección de algoritmos y recomendación de hiperparámetros. \\
-
-\textit{Ranking}
-
-\begin{itemize}
-	\item[$\checkmark$] Explicar en qué consiste
-	\item Poner ejemplos de papers
-	\begin{itemize}
-		\item \textit{KNN} 	
-		\begin{itemize}
-			\item \textit{Selection of Time Series Forecasting Models based on Performance Information}
-			\item \textit{Ranking Learning Algorithms: Using IBL and Meta-Learning on Accuracy and Time Results. (its somewhat old)}
-			\item \textit{Approximate Ranking Tree Forests (ART Forests)}
-			\item \textit{Pairwise meta rules for better meta learning based algorithm ranking}	
-		\end{itemize}
-		\item \textit{Clustering Trees:}
-		\begin{itemize}
-			\item \textit{Ranking with Predictive Clustering Trees}
-		\end{itemize}
-		\item \textit{XGBoost}
-		\begin{itemize}
-			\item \textit{RankML: Meta Learning-Based Approach for Pre-Ranking Machine Learning Pipelines}
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-Los meta-modelos también pueden generar un $ranking$ de las $K$ configuraciones más prometedoras. 
-
-\textit{Predicción de Rendimiento}
-
-\begin{itemize}
-	\item[$\checkmark$] Explicar en qué consiste
-	\item Poner ejemplos de papers
-	\item \textit{Predicting the Performance of Learning Algorithms Using Support Vector Machines as Meta-regressors}
-	\item \textit{Selection Classification Algorithms with Active Testing}
-	\item \textit{Automatic classifier selection for non-experts}
-\end{itemize}
-
-Los meta-modelos además pueden predecir directamente el rendimiento, es decir, la predicción o el tiempo de entrenamiento de una configuración en una tarea dada, dada sus meta-features. Esto nos permite estimar si una configuración será lo suficientemente interesante para evaluar cualquier procedimiento de optimización.
-
-\textit{Sintesis de \textit{Pipeline}}
-
-\begin{itemize}
-	\item[$\checkmark$] Explicar en qué consiste
-	\item Poner ejemplos de papers
-	\item \textit{Towards Automatic Machine Learning Pipeline Design}
-	\item \textit{AlphaD3M}
-	\item En general puedo poner varios ejemplos de sistemas de AutoML
-\end{itemize}
-
-Cuando se crean pipelines enteros de machine learning, el número de opciones de configuración crece dinámicamente, haciendolo incluso más importante para aprovechar la experiencia previa. Uno puede controlar el espacio de búsqueda imponiendo una estructura fija en el pipeline, completamente descrita por sus hiperparámetros. Luego uno puede usar los pipelines más prometedores para inicializar otros procesos de optimización.
-
-\subsubsection{Ajustar o no ajustar?}
-
-\begin{itemize}
-	\item[$\checkmark$] Introducir este tema
-	\item Poner ejemplos de papers
-	\item \textit{Using Metalearning to Predict When Parameter Optimization Is Likely to Improve Classification Accuracy}
-	\item \textit{Informing the Use of Hyperparameter Optimization Through Metalearning}
-\end{itemize}
-
-Para reducir el número de configuraciones de parámetros a ser optimizados, y para salvar valioso tiempo de optimización en las configuraciones con restricciones de tiempo. Los meta-modelos también han sido propuestos para predecir si un algoritmo dado vale la pena ser ajustado dados las meta-features de la tarea en cuestión y cuánta mejora puede ser esperada del ajuste de un algoritmo específico contra la inversión de tiempo adicional.
-
-\subsubsection{Otras técnicas}
-
-\begin{itemize}
-	\item Introducir otras técnicas y poner ejemplos de papers
-	\item Collaborative Filtering
-	\item \textit{Recommending Learning Algorithms and Their Associated Hyperparameters}
-	\item Los ejemplos de sistemas de AutoML que usan CF
-\end{itemize}
-
-\subsubsection{Conclusión} 
-
-\begin{itemize}
-	\item Concluir
-\end{itemize}
-
-\section{AutoML}
+Meta-learning constituye una solución factible para los problemas donde una definición específica de \textit{tarea} y \textit{label} puede ser claramente especificada. Un sistema de meta-learning es flexible y puede ser integrado convenientemente con la mayoría de los algoritmos de aprendizaje de máquinas para proporcionar soluciones factibles. Para las tareas que son computacionalmente costosas, meta-learning presenta la opción de agregación o adaptación de los resultados anteriores para salvar recursos computacionales.
+ 
+\section{AutoML}\label{sec:automl}
 
 \begin{itemize}
 	\item Introducir el tema de AutoML y su próposito
 \end{itemize}
 
-\subsection{Definición} 
+\subsection{Definición}\label{subsec:automl_definition}
 
 
 \begin{itemize}
@@ -307,7 +102,7 @@ Para reducir el número de configuraciones de parámetros a ser optimizados, y p
 	\item \textit{Neural architecture search}
 \end{itemize}
 
-\subsection{Definición del problema} 
+\subsection{Definición del problema}\label{subsec:automl_problem_definition}
 
 \begin{itemize}
 	\item Definir el problema de automl
@@ -319,7 +114,7 @@ Para reducir el número de configuraciones de parámetros a ser optimizados, y p
 	\item El sistema de AutoML está fundamentalmente definida por la técnica de optimización usada y la definición del espacio de búsqueda.
 \end{itemize}
 
-\subsection{Métodos de Optimización}
+\subsection{Métodos de Optimización}\label{subsec:automl_methods}
 
 \begin{itemize}
 	\item Introducir esta sección
@@ -338,13 +133,13 @@ A diferencia de los parámetros del modelo que se aprenden durante el entrenamie
 	\item Poner ejemplos de sistemas que usan RS y GS (casi todos los hacen), hablar quizá de que estos métodos están implementados en sklearn
 \end{itemize}
 
-Al ajustar los hiperparámetros de un estimador, \textit{grid search} y \textit{radom search} son métodos populares usados por su simplicidad y por el hecho de que no realizan suposiciones sobre el espacio de búsqueda. Cada configuración en el espacio de búsqueda pueden ser evaluado independientemente. Estos enfoques simples de búsqueda recopilan los comentarios del evaluador simplemente para realizar un seguimiento de las buenas configuraciones. Usualmente es ineficiente porque no explota el conocimiento ganado de evaluaciones pasadas.
+Al ajustar los hiperparámetros de un algoritmo, \textit{grid search} y \textit{radom search} son métodos populares usados por su simplicidad y por el hecho de que no realizan suposiciones sobre el espacio de búsqueda. Cada configuración en el espacio de búsqueda pueden ser evaluado independientemente. Usualmente es ineficiente porque no explota el conocimiento ganado de evaluaciones pasadas.
 
-\textit{Grid Search} (GS) es el proceso de discretizar cada HP y evaluar exhaustivamente cada combinación de valores. Los valores numéricos de los hiperparámetros suelen estar espaciados equidistantemente en sus restricciones de cuadro. Para los HP categóricos, se consideran un subconjunto o todos los valores posibles. Es la manera más tradicional de ajustar hiper-parámetros. Para obtener la configuración de hiper-parámetros óptima, \textit{grid search} tiene que enumerar cada configuración posible en el espacio de búsqueda, lo que lo hace muy ineficiente. Por ejemplo, la búsqueda de 20 valores de parámetros diferentes para cada uno de los 4 parámetros requerirá 160.000 ensayos de validación cruzada. Esto equivale a 1.600.000 ajustes de modelo y 1.600.000 predicciones si se utiliza una validación cruzada de 10 veces. extremadamente costosa tanto en potencia como en tiempo. Además la discretización es necesaria cuando el espacio de búsqueda es continuo.
+\textit{Grid Search} (GS) es el proceso de discretizar cada hiperparámetro y evaluar exhaustivamente cada combinación de valores. Los valores numéricos de los hiperparámetros suelen estar espaciados equidistantemente en sus restricciones de cuadro. Para los hiperparámetros categóricos, se consideran un subconjunto o todos los valores posibles. Es la manera más tradicional de ajustar hiper-parámetros. Para obtener la configuración de hiper-parámetros óptima, \textit{grid search} tiene que enumerar cada configuración posible en el espacio de búsqueda, lo que lo hace muy ineficiente. Por ejemplo, la búsqueda de 20 valores de parámetros diferentes para cada uno de los 4 parámetros requerirá 160.000 ensayos de validación cruzada. Esto equivale a 1.600.000 ajustes de modelo y 1.600.000 predicciones si se utiliza una validación cruzada de 10 veces. Es extremadamente costosa tanto en potencia como en tiempo. Además, la discretización es necesaria cuando el espacio de búsqueda es continuo.
 
-Por otro lado, \textit{random search} (RS) configura una cuadrícula de valores de hiperparámetros y selecciona combinaciones aleatorias para entrenar el modelo y la puntuación. Esto permite controlar explícitamente el número de combinaciones de parámetros que se intentan. El número de iteraciones de búsqueda se pueden establecer en función del tiempo o los recursos.
+Por otro lado, \textit{random search} (RS) configura una cuadrícula de valores de hiperparámetros y selecciona combinaciones aleatorias para entrenar el modelo. Esto permite controlar explícitamente el número de combinaciones de parámetros que se intentan. El número de iteraciones de búsqueda se pueden establecer en función del tiempo o los recursos.
 
-RS a menudo tiene un rendimiento mucho mejor que GS en entornos de HPO de mayor dimensión. GS sufre directamente de la maldición de la dimensionalidad, ya que el número requerido de evaluaciones aumenta exponencialmente con el número de hiperparámetros para un número de valores de hiper-parámetros fijo. Esto también parece ser cierto para RS a primera vista, y ciertamente necesitamos un número exponencial de puntos en $dim(\varLambda)$ para cubrir bien el espacio. Pero en la práctica, los problemas de HPO a menudo tienen una dimensionalidad efectiva baja: el conjunto de hiperparámetros que influyen en el rendimiento suele ser un pequeño subconjunto de todos los hiperparámetros disponibles. Otra ventaja de RS es que se puede ampliar fácilmente con más muestras; por el contrario, el número de puntos en una cuadrícula debe especificarse de antemano y refinar la resolución de GS posteriormente es más complicado. Todo esto hace que RS sea preferible a GS y una base sorprendentemente sólida para HPO en muchos entornos prácticos. Tanto GS como RS se utilizan e implementan ampliamente en casi todos los marcos de software de ML.
+RS a menudo tiene un rendimiento mucho mejor que GS en entornos de HPO de mayor dimensión. GS sufre directamente de la maldición de la dimensionalidad, ya que el número requerido de evaluaciones aumenta exponencialmente con el número de hiperparámetros para un número de valores de hiper-parámetros fijo. Esto también parece ser cierto para RS a primera vista, y ciertamente necesitamos un número exponencial de puntos para cubrir bien el espacio. Pero en la práctica, los problemas de HPO a menudo tienen una dimensionalidad efectiva baja: el conjunto de hiperparámetros que influyen en el rendimiento suele ser un pequeño subconjunto de todos los hiperparámetros disponibles. Otra ventaja de RS es que se puede ampliar fácilmente con más muestras; por el contrario, el número de puntos en una cuadrícula debe especificarse de antemano y refinar la resolución de GS posteriormente es más complicado. Todo esto hace que RS sea preferible a GS y una base sorprendentemente sólida para HPO en muchos entornos prácticos. Tanto GS como RS se utilizan e implementan ampliamente en casi todos los marcos de software de ML.
 
 \subsubsection{Optimización Bayesiana}
 
@@ -361,24 +156,36 @@ RS a menudo tiene un rendimiento mucho mejor que GS en entornos de HPO de mayor 
 	\end{itemize}
 \end{itemize}
 
-La optimización bayesiana (del inglés \textit{Bayesian Optimization}) (BO) se ha vuelto cada vez más popular como técnica de optimización global para funciones costosas de caja negra, y específicamente para HPO.  
+La optimización bayesiana (en inglés \textit{Bayesian Optimization}) (BO) se ha vuelto cada vez más popular como técnica de optimización global para funciones costosas de caja negra, y específicamente para HPO.  
 
-BO es un algoritmo iterativo, cuya idea clave es modelar el mapeo $\lambda \longmapsto    c(\lambda)$ basado en
+BO es un algoritmo iterativo, cuya idea clave es modelar el mapeo entre un conjunto de hiperparámetros $\lambda$ y da como resultado una estimación de su rendimiento $\hat{c}(\lambda)$ ($\lambda \rightarrow \hat{c}(\lambda)$) basado en
 valores de rendimiento observados encontrados en un archivo $A$ mediante regresión (no lineal). Este modelo aproximado se denomina modelo sustituto, o modelo probabilístico, para el cual es normalmente utilizado un proceso gaussiano o un bosque aleatorio. BO comienza en un archivo $A$ lleno de configuraciones evaluadas. Este archivo es normalmente generado a partir de una configuración de diseño inicial, típicamente muestreada al azar. BO luego usa el archivo para ajustar el modelo sustituto, que para cada $\lambda$ produce una estimación del rendimiento $\hat{c}(\lambda)$, así como una estimación de la incertidumbre del modelo $\hat{\sigma}(\lambda)$. Sobre la base de estas predicciones, BO establece un función de adquisición $u(\lambda)$ fácil de evaluar, cuyo resultado codifica una compensación entre explotación (el modelo sustituto predice que el candidato $\lambda$ tiene un valor $c$ bueno y bajo) y exploración (el modelo sustituto es muy incierto acerca de la $c(\lambda)$, probablemente porque el área circundante no ha sido exploradam minuciosamente).
+
+\quad
+
+\textbf{Modelos sustituos}
+
+\quad
 
 La elección del modelo sustituto tiene una gran influencia en el rendimiento de BO y a menudo está relacionado con las propiedades del espacio de búsqueda $\hat{\varLambda}$. 
 
-Si $\hat{\varLambda}$ es puramente numérico, los procesos guasianos (GP), son los usados más a menudo. Extensiones para los espacios jerárquicos mezclados que son basados en kernels especiales existen, y el uso de embeddings aleatorios ha sido sugerido para los espacios de grandes dimensiones. Más importante, GPs tiene una complejidad de tiempo de ejecución que es cúbica en el numero de ejemplos, lo que puede resultar en una sobrecarga significativa cuando el archivo $A$ se vuelve grande.
+Si $\hat{\varLambda}$ es puramente numérico, los procesos guasianos (GPs), son los usados más a menudo. Extensiones para los espacios jerárquicos mezclados que son basados en kernels especiales existen, y el uso de \emph{embeddings} aleatorios ha sido sugerido para los espacios de grandes dimensiones. Más importante, GPs tiene una complejidad de tiempo de ejecución que es cúbica en el número de ejemplos, lo que puede resultar en una sobrecarga significativa cuando el archivo $A$ se vuelve grande.
 
-Los bosques aleatorios, son más notablemente utilizados en SMAC (Hutter et al., 2011), también han mostrado buenos rendimientos como modelos sustitutos para BO. Su ventaja es su habilidad nativa para manejar HP discretos y, con modificaciones menores, incluso los HP dependientes sin la necesidad de preprocesamiento. Las implementaciones estándar de bosque aleatorio todavía pueden manejar HP dependientes al tratar los valores de HP no factibles como faltantes y realizar la imputación. Los bosques aleatorios tienden a funcionar bien con archivos más grandes e introducen menos gastos generales que los GPs. SMAC usa la desviación estándar de las predicciones de los árboles como una estimación de incertidumbre heurística $\hat{\sigma}(\lambda)$,  sin embargo existen alternativas más sofisticadas para proporcionar estimaciones no sesgadas. Dado que los árboles no son modelos espaciales basados en la distancia, el estimador de incertidumbre no aumenta cuanto más extrapolamos de los puntos de entrenamiento observados. Este podría ser una explicación de por qué GP supera a los sustitutos basados en árboles en la búsqueda puramente numérica espacios.
+Los bosques aleatorios (\emph{random forests}), utilizados más notablemente en SMAC (\emph{Sequential Model-based Algorithm Configuration}), también han mostrado buenos rendimientos como modelos sustitutos para BO. Su ventaja es su habilidad nativa para manejar hiperparámetros discretos y, con modificaciones menores, incluso los hiperparámetros dependientes sin la necesidad de preprocesamiento. Las implementaciones estándar de bosque aleatorio todavía pueden manejar hiperparámetros dependientes al tratar los valores no factibles como faltantes y realizar la imputación. Los bosques aleatorios tienden a funcionar bien con archivos más grandes e introducen menos gastos generales que los GPs. SMAC usa la desviación estándar de las predicciones de los árboles como una estimación de incertidumbre heurística $\hat{\sigma}(\lambda)$,  sin embargo, existen alternativas más sofisticadas para proporcionar estimaciones no sesgadas. Dado que los árboles no son modelos espaciales basados en la distancia, el estimador de incertidumbre no aumenta cuanto más extrapolamos de los puntos de entrenamiento observados. Este podría ser una explicación de por qué GP supera a los sustitutos basados en árboles en la búsqueda en espacios puramente numéricos.
 
-Las redes neuronales han mostrado un buen rendimiento en particular con espacios de entrada no triviales, por lo que se consideran cada vez más como modelos sustitutos de BO. Los NN ofrecen eficientes y versátiles implementaciones que permiten el uso de gradientes para una optimización más eficiente de la función de adquisición. Los límites de incertidumbre en las predicciones se pueden obtener, por ejemplo, utilizando Redes Neuronales Bayesianas (BNN) que combinan NNs con un modelo probabilístico de los pesos de la red o regresión de base adaptativa donde solo se agrega un regresor lineal bayesiano a la última capa de la NN.
+Las redes neuronales o \emph{Neural Networks} (NN), han mostrado un buen rendimiento en particular con espacios de entrada no triviales, por lo que se consideran cada vez más como modelos sustitutos de BO. Los NN ofrecen eficientes y versátiles implementaciones que permiten el uso de gradientes para una optimización más eficiente de la función de adquisición. Los límites de incertidumbre en las predicciones se pueden obtener, por ejemplo, utilizando Redes Neuronales Bayesianas que combinan Redes Neuronales con un modelo probabilístico de los pesos de la red o regresión de base adaptativa donde solo se agrega un regresor lineal bayesiano a la última capa de la NN.
+
+\quad
+
+\textbf{Función de adquisición}
+
+\quad
 
 La función de adquisición equilibra la predicción del modelo sustituto $\hat{c}(\lambda)$ y su incertidumbre posterior $\hat{\sigma}(\lambda)$ para asegurar tanto la exploración de las regiones inexploradas de $\hat{\varLambda}$, así como la explotación de las regiones que han tenido un buen rendimiento en las evaluaciones previas.
 
-Diferentes funciones de adquisición han sido diseñadas para la optimización bayesiana: \textit{probability of improvement} (probabilidad de mejora), \textit{entropy search}, \textit{upper confidence bound}, \textit{lower confidence bound}, \textit{expected improvement} (mejora esperada), siendo esta última una de las más populares.
+Diferentes funciones de adquisición han sido diseñadas para la optimización bayesiana: \textit{probability of improvement} (probabilidad de mejora), \textit{entropy search} (búsqueda de entropía), \textit{upper confidence bound} (límite de confianza superior), \textit{lower confidence bound} (límite de confianza inferior), \textit{expected improvement} (mejora esperada), siendo esta última una de las más populares.
 
-Basada en teoría de probabilidades básica, esta puede ser calculada relativa a la estimación actual del rendimiento óptimo. Suponiendo que nuestra métrica de rendimiento debería ser maximizada (por ejemplo, accuracy, precission, recobrado, etc), que para cualquier ajuste de combinación de hiperparámetro $\lambda$ tenemos la media predicha y el error estándar de esa métrica ($\mu(\lambda)$ y $\sigma(\lambda)$ respectivamente) y de los datos anteriores el mejor valor (medio) de rendimiento fue $m_{opt}$. \textit{Expected improvement} es determinado usando:
+Basada en teoría de probabilidades básica, esta puede ser calculada relativa a la estimación actual del rendimiento óptimo. Suponiendo que nuestra métrica de rendimiento debería ser maximizada (por ejemplo, \textit{accuracy}, \textit{precission}, recobrado, etc), que para cualquier ajuste de combinación de hiperparámetros $\lambda$ tenemos la media predicha y el error estándar de esa métrica ($\mu(\lambda)$ y $\sigma(\lambda)$ respectivamente) y de los datos anteriores el mejor valor (medio) de rendimiento fue $m_{opt}$ \textit{expected improvement} es determinado usando:
 
 $$
  EI(\lambda, m_{opt}) = \delta(\lambda)\Phi\left(\frac{\delta(\lambda)}{\sigma(\lambda)}\right) + \sigma(\lambda)\phi\left(\frac{\delta(\lambda)}{\sigma(\lambda)} \right)
@@ -387,6 +194,20 @@ $$
 Donde $\delta(\lambda) = m_{opt} - \mu(\lambda)$, la función  $\Phi(\cdot)$ es la función de distribución acumulativa y $\phi(\cdot)$ es la densidad normal estándar.
 
 El valor de $\delta(\lambda)$ mide cuán cerca estamos (en promedio) al mejor valor actual de rendimiento. Cuando se necesitan nuevos parámetros de ajuste candidatos, el espacio de $\theta$ es buscado por el valor que maximiza la mejora esperada.
+
+\subsubsection{Multifidelity Optimization}
+
+
+\begin{itemize}
+	\item[$\checkmark$] Introducir este concepto mediante su necesidad de uso para las redes neuronales.
+	\item[$\checkmark$] Explicar de forma concreta en que consiste el método de optimización.
+	\item Hablar de AutoPytorch como ejemplo de sistema de AutoML (usa mtl sin meta-features)
+\end{itemize}
+
+La optimización bayesiana es popular para optimizar los objetivos de caja negra que consumen mucho tiempo. No obstante, para el ajuste de hiperparámetros en redes neuronales profundas, el tiempo necesario para evaluar el error de validación incluso para unos pocos ajustes de hiperparámetros sigue siendo muy costosa. La optimización de multifidelity promete alivio al usar \emph{proxies} más baratos para tales objetivos, por ejemplo, error de validación para una red entrenada usando un subconjunto de puntos de entrenamiento o menos iteraciones de las requeridas para la convergencia. (poner referencia del paper de \textit{multifidelity optimization})
+
+El concepto de \textit{Multifidelity} en HPO se refiere a todos los enfoques de ajuste que pueden manejar de manera eficiente a un learner $I(D, \lambda)$ con un hiperparámetro de presupuesto $\lambda_{budget}$ como un componente de $\lambda$ que influye en el costo computacional del procedimiento de ajuste de una manera monótonamente creciente. Los valores de $\lambda_{budget}$ más altos implican un tiempo de ejecución más largo del ajuste. Suponemos conocer las restricciones de $\lambda_{budget}$ en forma de límite inferior y superior. Por lo general, asumimos que más presupuesto es mejor en términos de rendimiento predictivo (pero, naturalmente, más caro), pero el \textit{overfitting} puede ocurrir en algún momento. Además, suponemos que la relación entre el presupuesto y el rendimiento de la predicción cambia de forma algo suave, por lo que al evaluar múltiples configuraciones de hiperparámetros con un presupuesto $\lambda$ pequeño, esto proporciona al menos una indicación con respecto a su clasificación cuando se evalúa en el presupuesto completo. Normalmente, esto implica un procedimiento de ajuste secuencial, donde $\lambda_{budget}$ es, por ejemplo,  el número de pasos de descenso de gradiente (estocásticos) o el número de miembros del conjunto agregados (de refuerzo) secuencialmente. Otra opción, de aplicación general, es realizar una submuestra de los datos de formación del 0\% al 100\% antes de la formación y tratar esto como control de presupuesto. Los algoritmos HPO que explotan dicho parámetro $\lambda_{budget}$, generalmente gastando el presupuesto en configuraciones de hiperparámetros baratos antes para la exploración y luego concentrándose en los más prometedores más tarde, se denominan métodos de multifidelity.
+
 
 \subsubsection{Algoritmos Evolutivos}
 
@@ -410,24 +231,11 @@ En un algoritmo evolutivo, una \textit{población} de soluciones candidatas (lla
 
 La evolución generalmente comienza a partir de una población de individuos generados aleatoriamente y es un proceso iterativo, con la población en cada iteración llamada \textit{generación}. En cada generación, se evalúa la aptitud de cada individuo de la población; la aptitud suele ser el valor de la función objetivo en el problema de optimización que se resuelve. Los individuos más aptos se seleccionan estocásticamente de la población actual, y el genoma de cada individuo se modifica (recombina y posiblemente muta al azar) para formar una nueva generación. La nueva generación de soluciones candidatas se utiliza luego en la siguiente iteración del algoritmo. Por lo general, el algoritmo termina cuando se ha producido un número máximo de generaciones o se ha alcanzado un nivel de aptitud satisfactorio para la población.
 
-En la terminología de la optimización de hiperparámetros un \textit{individuo} es un HPC único, la \textit{población} es un conjunto de HPC actualmente mantenido y la \textit{aptitud} de un individuo es su error de generalización (invertido) $c(\lambda)$. La mutación es el cambio (aleatorio) de uno o unos pocos valores de hiperparámetros en una configuración. El cruce crea un nuevo HPC mezclando (aleatoriamente) los valores de otras dos configuraciones.
+En la terminología de la optimización de hiperparámetros un \textit{individuo} es una configuración de hiperparámetros única, la \textit{población} es un conjunto de configuraciones de hiperparámetros actualmente mantenido y la \textit{aptitud} de un individuo es su error de generalización $c(\lambda)$. La mutación es el cambio (aleatorio) de uno o unos pocos valores de hiperparámetros en una configuración. El cruce crea una nueva configuración de hiperparámetros mezclando (aleatoriamente) los valores de otras dos configuraciones.
 
-Los EA estaban limitados a espacios numéricos en su formulación original, pero pueden extenderse fácilmente para manejar espacios mixtos tratando componentes de diferentes tipos de forma independiente, por ejemplo, agregando un valor aleatorio normalmente distribuido a HP de valor real mientras se agrega la diferencia de dos geométricamente valores distribuidos a HP con valores enteros (R. Li et al., 2013). Al definir operaciones de mutación y cruce que operan en estructuras de árbol o gráficos, incluso es posible realizar la optimización de tuberías de preprocesamiento (Olson et al., 2016; Escalante et al., 2009) o arquitecturas de redes neuronales (Real et al., 2019) utilizando algoritmos evolutivos.
+Los EA estaban limitados a espacios numéricos en su formulación original, pero pueden extenderse fácilmente para manejar espacios mixtos tratando componentes de diferentes tipos de forma independiente, por ejemplo, agregando un valor aleatorio normalmente distribuido a hiperparámetros de valor real mientras se agrega la diferencia de dos geométricamente valores distribuidos a hiperparámetros con valores enteros. Al definir operaciones de mutación y cruce que operan en estructuras de árbol o gráficos, incluso es posible realizar la optimización de \emph{pipelines} de preprocesamiento o arquitecturas de redes neuronales utilizando algoritmos evolutivos.
 
-Los algoritmos evolutivos a menudo funcionan bien al aproximar soluciones a todo tipo de problemas porque, idealmente, no hacen ninguna suposición sobre la función de aptitud subyacente. En la mayoría de las aplicaciones reales de EA, la complejidad computacional es un factor prohibitivo. De hecho, esta complejidad computacional se debe a la evaluación de la función de aptitud. La aproximación al fitness es una de las soluciones para superar esta dificultad.
-
-\subsubsection{Multifidelity Optimization}
-
-
-\begin{itemize}
-	\item[$\checkmark$] Introducir este concepto mediante su necesidad de uso para las redes neuronales.
-	\item[$\checkmark$] Explicar de forma concreta en que consiste el método de optimización.
-	\item Hablar de AutoPytorch como ejemplo de sistema de AutoML (usa mtl sin meta-features)
-\end{itemize}
-
-La optimización bayesiana es popular para optimizar los objetivos de caja negra que consumen mucho tiempo. No obstante, para el ajuste de hiperparámetros en redes neuronales profundas, el tiempo necesario para evaluar el error de validación incluso para unos pocos ajustes de hiperparámetros sigue siendo muy costosa. La optimización de multifidelity promete alivio al usar proxies más baratos para tales objetivos, por ejemplo, error de validación para una red entrenada usando un subconjunto de puntos de entrenamiento o menos iteraciones de las requeridas para la convergencia. (poner referencia del paper de \textit{multifidelity optimization})
-
-El concepto de \textit{Multifidelity} en HPO se refiere a todos los enfoques de ajuste que pueden manejar de manera eficiente a un learner $I(D, \lambda)$ con un hiperparámetro de presupuesto $\lambda_{budget}$ como un componente de $\lambda$ que influye en el costo computacional del procedimiento de ajuste de una manera monótonamente creciente. Los valores de $\lambda_{budget}$ más altos implican un tiempo de ejecución más largo del ajuste. Suponemos conocer las restricciones de $\lambda_{budget}$ en forma de límite inferior y superior. Por lo general, asumimos que más presupuesto es mejor en términos de rendimiento predictivo (pero, naturalmente, más caro), pero el \textit{overfitting} puede ocurrir en algún momento. Además, suponemos que la relación entre el presupuesto y el rendimiento de la predicción cambia de forma algo suave, por lo que al evaluar múltiples HPC con un presupuesto $\lambda$ pequeño, esto proporciona al menos una indicación con respecto a su clasificación cuando se evalúa en el presupuesto completo. Normalmente, esto implica un procedimiento de ajuste secuencial, donde $\lambda_{budget}$ es, por ejemplo,  el número de pasos de descenso de gradiente (estocásticos) o el número de miembros del conjunto agregados (de refuerzo) secuencialmente. Otra opción, de aplicación general, es realizar una submuestra de los datos de formación del 0\% al 100\% antes de la formación y tratar esto como control de presupuesto. Los algoritmos HPO que explotan dicho parámetro $\lambda_{budget}$, generalmente gastando el presupuesto en HPC baratos antes para la exploración y luego concentrándose en los más prometedores más tarde, se denominan métodos de multifidelity.
+Los algoritmos evolutivos a menudo funcionan bien al aproximar soluciones a todo tipo de problemas porque, idealmente, no hacen ninguna suposición sobre la función de aptitud subyacente. % En la mayoría de las aplicaciones reales de EA, la complejidad computacional es un factor prohibitivo. De hecho, esta complejidad computacional se debe a la evaluación de la función de aptitud. La aproximación al fitness es una de las soluciones para superar esta dificultad.
 
 \subsubsection{Reinforcement Learning}
 
@@ -472,7 +280,7 @@ Dado un conjunto de acciones $a \in A$ y un presupuesto de tiempo $T$, en cada r
 
 Dado las distribuciones de recompensa $D$ que son desconocidas e independientes, encontrar el algoritmo que mejor aproxima la solución con la menor pérdida de recompensa.
 
-En el contexto de HPO, cada brazo $a_t$ es asociado con un conjunto de hiperparámetros $\lambda_t$ y la recompensa (estocástica) por seleccionar (alar) un conjunto de hiperparámetro previo está definido en términos de error en las predicciones.
+En el contexto de HPO, cada brazo $a_t$ es asociado con una configuración de hiperparámetros $\lambda$ y la recompensa (estocástica) por seleccionar (alar) un conjunto de hiperparámetro previo está definido en términos de error en las predicciones.
 
 
 \subsubsection{Monte Carlo Tree Search (MCTS)}
@@ -519,7 +327,7 @@ Un ejemplo de adaptación del procedimiento estándar de MCTS al problema de HPO
 	\item Hablar de HyperGD, y poner el ejemplo de Oracle, que es un sistema que usa este método de optimización. Usa meta-learning
 \end{itemize}
 
-Los problemas de HPO suelen ser complejos ya que en general el objetivo no suele ser diferenciable o incluso continuo. Cada HP que está definido por un conjunto discreto introduce superficies no suaves. Además en general el problema de HPO no es convexo. Toda la teoría de convergencia de Gradient Descent  (GD) asume, que el problema subyacente es convexo. Por lo tanto, el descenso por gradientes no es tan popular como los métodos anteriores. Sin embargo, centrándose en alguna función de pérdida diferenciable, por ejemplo, \textit{square loss} y \textit{logistic loss}, los hiperparámetros continuos se pueden optimizar mediante el descenso de gradiente.
+Los problemas de HPO suelen ser complejos ya que en general el objetivo no suele ser diferenciable o incluso continuo. Cada hiperparámetro que está definido por un conjunto discreto introduce superficies no suaves. Además en general el problema de HPO no es convexo. Toda la teoría de convergencia de Gradient Descent  (GD) asume, que el problema subyacente es convexo. Por lo tanto, el descenso por gradientes no es tan popular como los métodos anteriores. Sin embargo, centrándose en alguna función de pérdida diferenciable, por ejemplo, \textit{square loss} y \textit{logistic loss}, los hiperparámetros continuos se pueden optimizar mediante el descenso de gradiente.
 
 En comparación con los métodos anteriores, los gradientes ofrecen la información más precisa donde se ubican las mejores configuraciones. A diferencia de los problemas de optimización tradicionales cuyos gradientes se pueden derivar explícitamente a partir del objetivo, en los problemas de AutoML, los gradientes deben calcularse numéricamente.
 
@@ -553,11 +361,291 @@ Para la calificación colaborativa, \textit{Maximum Margin Matrix Factorization}
 
 Dado que solo se presentarán al usuario los elementos mejor clasificados, es mucho más importante clasificar correctamente los primeros elementos que los últimos. En otras palabras, es más importante predecir qué al usuario le gusta de lo que no le gusta. En términos más técnicos, el valor del error para la estimación no es uniforme entre las calificaciones.
 
-\subsection{Conclusión} 
 
-Concluir
+\section{Meta-Learning para AutoML}\label{sec:metalearning-automl}
 
-\section{Conclusión}
+
+La principal área de investigación de meta-learning estudiada en este trabajo es la selección de algoritmos, la cual ha recibido una considerable cantidad de investigación. En este caso especial de meta-learning, el aspecto de interés es la relación entre las características de los datos y el rendimiento del algoritmo, con el objetivo final de predecir un algoritmo o un conjunto de algoritmos adecuado para un problema específico. Como motivación está el hecho de que es inviable examinar todas las posibles alternativas de algoritmos en un procedimiento de prueba y error. La aplicación de meta-learning en este campo puede por lo tanto ser útil tanto para proveer una recomendación para un usuario final como de paso preliminar para recomendar algoritmos a soluciones más costosas computacionalmente, como los algoritmos de optimización usados en herramientas de AutoML. 
+
+
+El desafío en meta-learning para la selección de modelos es aprender de experiencia pasada de una forma sistemática e impulsada por los datos. Primero, es necesario coleccionar los meta-datos que describen las tareas de aprendizaje anteriores y los modelos previamente aprendidos. Ellos comprenden las configuraciones exactas de los algoritmos usados para entrenar los modelos, incluyendo:
+
+\begin{itemize}
+	\item Las configuraciones de los hiperparámetros, composiciones de los pipelines y/o arquitecturas de redes neuronales.
+	\item Las evaluaciones del modelo resultante, tales como la precisión y el tiempo de entrenamiento.
+	\item Los parámetros del modelo aprendidos, tales como los pesos entrenados de una red neuronal.
+	\item Propiedades medibles de la tarea en sí, también conocidas como meta-features.
+\end{itemize}
+
+Luego necesitamos aprender de estos meta-datos previos, para extraer y transferir conocimiento de la búsqueda de los modelos óptimos para nuevas tareas. El resto de esta sección presenta una visión general de diferentes enfoques de meta-learning para hacer esto efectivamente. Además, se muestran ejemplos de cómo estos enfoques han sido utilizados como paso preliminar en varias herramientas de AutoML.
+
+En la sección las técnicas de meta-learning basadas en el tipo de meta-datos que ellas aprovechan son categorizadas. Primero, se discute cómo caracterizar las tareas para expresar más explícitamente la similitud entre ellas y cómo construir meta-modelos para aprender las relaciones entre las características de los datos y el rendimiento de las distintas evaluaciones de los modelos [\ref{subsec:mtl_automl_proprerties}], y luego se describe como se aprende solamente de evaluaciones de los modelos [\ref{subsec:mtl_automl_evaluations}].
+
+\subsection{Aprendiendo de las propiedades de las tareas}\label{subsec:mtl_automl_proprerties}
+
+Una rica fuente de meta-datos son las caracterizaciones (meta-features) de la tarea en cuestión. Cada tarea $t_j \in T$ es descrita por un vector $m(t_j) = (m_{j,1}, …, m_{j,K})$ de $K$ meta-features, $m_{j,k}$ es el conjunto de todas las meta-features conocidas. Esto puede ser usado para definir la medida de la similitud de las tareas, por ejemplo, la distancia euclidiana entre $m(t_i)$ y $m(t_j)$, así podemos transferir información de las tareas más similares a la nueva tarea $t_{new}$. Además, junto con las evaluaciones anteriores $P$, podemos entrenar un \emph{meta-learner} $L$ para predecir el rendimiento $P_{i, new}$ de las configuraciones $\theta_i$ en la nueva tarea $t_{new}$. 
+
+\subsubsection{Meta-Features}
+
+\begin{itemize}
+	\item[$\checkmark$] Poner algunos ejemplos de meta-features dividido por el tipo de meta-feature qué es.
+	\item Hablar de varios papers que definen los distintos tipos de meta-features, puedo además mencionar varios survey de meta-features.
+	\item \textit{Meta-Learning and the Full Model Selection Problem}
+	\item \textit{Pairwise meta rules for better meta learning based algorithm ranking}
+	\item \textit{Selection Classification Algorithms with Active Testing}
+\end{itemize}
+
+Las meta-features caracterizan un dataset y generalmente en la literatura se encuentran divididos en 5 grupos:
+
+\begin{description}
+	\item[Simple:] son características que son fácilmente extraídas de los datos, son conocidas comúnmente y no requieren recursos computacionales significativos. Representan información básica sobre el dataset. Hasta un determinado punto son concebidas para medir la complejidad del problema subyacente. Algunas de las caracterizaciones incluidas en este grupo son: el número de instancias, el número de atributos, la dimensionalidad del dataset, el radio de valores faltantes, etc. También son llamadas medidas \textit{generales}.
+	
+	\item[Estadísticas:] son características que capturan las propiedades estadísticas de los datos. Estas métricas capturan los indicadores de distribución de datos, tales como la media, la desviación estándar, la correlación y curtosis. Solo caracterizan los atributos numéricos. Las caracterizaciones estadísticas son deterministas y algunas de ellas requieren la definición de valores de hiperparámetros. %, mientras otras pueden generar excepciones, por ejemplo, de división por cero.
+	
+	\item[Teóricas de la información:] son características del campo de teoría de la información. Estas medidas están basadas en la entropía, la cual captura la cantidad de información en los datos y su complejidad. Ellos pueden ser usados para caracterizar los atributos discretos. Además, son computadas directamente, libres de hiperparámetros, determinísticas y robustas. Semánticamente, describen la variedad y la redundancia de los atributos usados para representar las clases.
+	
+	\item[Basados en modelos:] son características extraídas de un modelo inducido de los datos de entrenamiento. Las características en este grupo están caracterizadas por la extracción de información de un modelo de aprendizaje de predicción, generalmente, un árbol de decisión. Las medidas caracterizan la complejidad de los problemas basados en las hojas, los nodos y la forma del árbol. Están diseñadas para caracterizar problemas supervisados, todas las medidas son determinísticas, robustas y requieren la definición de los hiperparámetros que hay en el algoritmo de árboles de decisión para inducir el modelo.
+	
+	\item[\textit{Landmarking}:] son características que usan el rendimiento de algoritmos de aprendizaje simples y rápidos para caracterizar los datasets. Los algoritmos deben tener diferentes sesgos y capturar información importante con un costo computacional bajo. Las medidas caracterizan problemas supervisados y son indirectamente extraídas. Requieren la definición de hiperparámetros: el algoritmo de aprendizaje, la medida de evaluación usada para comprobar el rendimiento del modelo y el procedimiento usado para calcularla (por ejemplo, validación cruzada).
+\end{description}
+
+Los primeros tres grupos representan los enfoques más comunes y tradicionales de las caracterizaciones de los datos. Los últimos dos requieren el uso de algoritmos de aprendizaje de máquinas, porque extraen la complejidad del modelo o medidas de rendimiento del mismo. 
+
+\subsubsection{Selección Automática de Meta-Features}
+
+\begin{itemize}
+	\item[$\checkmark$] Introducir la idea de aprender una representación automáticamente de un grupo de tareas
+	\item Ejemplos
+	\item \textit{Automatic classifier selection for non-experts}
+	\item \textit{Towards Automatic Generation of Meta-Features}
+	\item \textit{On the predictive power of meta-features in OpenML}
+	\item \textit{Towards Reproducible Empirical Research in Meta-Learning}
+	\item \textit{A Framework to decompose and develop metafeatures}
+\end{itemize}
+
+En vez de definir manualmente los meta-features, uno puede además aprender una representación conjunta para un grupo de tareas. 
+
+\subsubsection{Meta-modelos}
+
+\begin{itemize}
+	\item[$\checkmark$] Explicar en qué consiste
+\end{itemize}
+
+Además, podemos aprender las relaciones complejas entre los meta-features de una tarea y la utilidad de una configuración específica construyendo un meta-modelo o \textit{meta-learner} $L$ que recomienda la configuración más útil $\Theta_{new}^*$ dados los meta-features $M$ de la nueva tarea $t_{new}$. Existe un gran grupo de trabajo previo construyendo modelos para la selección de algoritmos y recomendación de hiperparámetros.
+
+\quad
+
+\textbf{Ranking}
+
+\begin{itemize}
+	\item[$\checkmark$] Explicar en qué consiste
+	\item Poner ejemplos de papers
+	\begin{itemize}
+		\item \textit{KNN} 	
+		\begin{itemize}
+			\item \textit{Selection of Time Series Forecasting Models based on Performance Information}
+			\item \textit{Ranking Learning Algorithms: Using IBL and Meta-Learning on Accuracy and Time Results. (its somewhat old)}
+			\item \textit{Approximate Ranking Tree Forests (ART Forests)}
+			\item \textit{Pairwise meta rules for better meta learning based algorithm ranking}	
+		\end{itemize}
+		\item \textit{Clustering Trees:}
+		\begin{itemize}
+			\item \textit{Ranking with Predictive Clustering Trees}
+		\end{itemize}
+		\item \textit{XGBoost}
+		\begin{itemize}
+			\item \textit{RankML: Meta Learning-Based Approach for Pre-Ranking Machine Learning Pipelines}
+		\end{itemize}
+	\end{itemize}
+	\item AutoML (todos siguen un enfoque de \textit{nearest neighbors}) \begin{itemize}
+		\item Auto-Sklearn
+		\item Alpine Meadow
+		\item MOSAIC
+		\item ATOMIC
+		\item SmartML
+	\end{itemize}
+\end{itemize}
+
+\quad
+
+Los meta-modelos también pueden generar un $ranking$ de las $K$ configuraciones más prometedoras. 
+
+\quad
+
+\textbf{Clustering}
+
+\begin{itemize}
+	\item AutoML \begin{itemize}
+		\item AutoSSL
+	\end{itemize}
+\end{itemize}
+
+\quad
+
+\textbf{Predicción de Rendimiento}
+
+\begin{itemize}
+	\item[$\checkmark$] Explicar en qué consiste
+	\item Poner ejemplos de papers
+	\item \textit{Predicting the Performance of Learning Algorithms Using Support Vector Machines as Meta-regressors}
+	\item \textit{Selection Classification Algorithms with Active Testing}
+	\item \textit{Automatic classifier selection for non-experts}
+\end{itemize}
+
+\quad
+
+Además, los meta-modelos pueden predecir directamente el rendimiento, es decir, la predicción o el tiempo de entrenamiento de una configuración en una tarea dada, dada sus meta-features. Esto nos permite estimar si una configuración será lo suficientemente interesante para evaluar cualquier procedimiento de optimización.
+
+\quad
+
+\textbf{Sintesis de \textit{Pipelines}}
+
+\begin{itemize}
+	\item[$\checkmark$] Explicar en qué consiste
+	\item Poner ejemplos de papers
+	\item \textit{Towards Automatic Machine Learning Pipeline Design}
+	\item \textit{AlphaD3M}
+	\item \textit{RankML: Meta Learning-Based Approach for Pre-Ranking Machine Learning Pipelines}
+\end{itemize}
+
+\quad
+
+Cuando se crean pipelines enteros de machine learning, el número de opciones de configuración crece dinámicamente, haciendolo incluso más importante para aprovechar la experiencia previa. Uno puede controlar el espacio de búsqueda imponiendo una estructura fija en el pipeline, completamente descrita por sus hiperparámetros. Luego uno puede usar los pipelines más prometedores para inicializar otros procesos de optimización.
+
+\subsubsection{Ajustar o no ajustar?}
+
+\begin{itemize}
+	\item[$\checkmark$] Introducir este tema
+	\item Poner ejemplos de papers
+	\item \textit{Using Metalearning to Predict When Parameter Optimization Is Likely to Improve Classification Accuracy}
+	\item \textit{Informing the Use of Hyperparameter Optimization Through Metalearning}
+\end{itemize}
+
+Para reducir el número de configuraciones de parámetros a ser optimizados, y para salvar valioso tiempo de optimización en las configuraciones con restricciones de tiempo. Los meta-modelos también han sido propuestos para predecir si un algoritmo dado vale la pena ser ajustado dados las meta-features de la tarea en cuestión y cuánta mejora puede ser esperada del ajuste de un algoritmo específico contra la inversión de tiempo adicional.
+
+%\subsubsection{Otras técnicas}
+%
+%\begin{itemize}
+%	\item Introducir otras técnicas y poner ejemplos de papers
+%	\item Collaborative Filtering
+%	\item \textit{Recommending Learning Algorithms and Their Associated Hyperparameters}
+%	\item Los ejemplos de sistemas de AutoML que usan CF
+%\end{itemize}
+
+\subsection{Aprendiendo de las evaluaciones de modelos}\label{subsec:mtl_automl_evaluations}
+
+\begin{itemize}
+	\item Falta un poco de introducción...
+	\item[$\checkmark$] Explicar en qué consiste
+\end{itemize}
+
+Consideremos que tenemos acceso a:
+
+\begin{itemize}
+	\item Tareas anteriores $t_j \in T$, siendo esto último el conjunto de todas las tareas conocidas.
+	\item Un conjunto de algoritmos de aprendizaje, completamente definidos por sus configuraciones $\theta_i \in \Theta$; aquí $\Theta$ representa un espacio de configuración discreto, continuo o mixto que puede cubrir configuraciones de hiperparámetros, componentes de pipeline y/o componentes de una arquitectura de redes.
+	\item $P$ el conjunto de todas las evaluaciones escalares anteriores $P_{i,j} = P(\theta_i, t_j)$ de una configuración $\theta_i$ en una tarea $t_j$, de acuerdo a una medida de evaluación predefinida, por ejemplo accuracy, y una técnica de evaluación de modelos, por ejemplo validación cruzada. 
+	\item $P_{new}$, el conjunto de todas las evaluaciones conocidas $P_{i, new}$ en una nueva tarea $t_{new}$ 
+\end{itemize}
+
+Ahora queremos entrenar un \emph{meta-learner} $L$ que predice las configuraciones recomendadas $\Theta^*_{new}$ para una nueva tarea $t_{new}$. El meta-learner es entrenado en meta-data $P\cup P_{new}$ donde:
+
+\begin{itemize}
+	\item $P$ usualmente es recogido de antemano, o extraído de repositorios de meta-data.
+	\item $P_{new}$ es aprendido por la técnica de meta-lerning en sí de una forma iterativa, algunas veces inicializado con un $P'_{new}$ inicial generado por otro método.
+\end{itemize}
+
+Estas técnicas son usadas generalmente para recomendar configuraciones y espacios de búsqueda útiles, así como transferir conocimiento de tareas \textit{empíricamente} similares. Algunas de estas técnicas son explicadas a continuación. 
+
+\subsubsection{Recomendaciones independientes de la tarea}
+
+\begin{itemize}
+	\item[$\checkmark$] Explicar en qué consiste
+	\item Poner ejemplos
+	\begin{itemize}
+		\item \textit{Selecting Classification Algorithms with Active Testing}
+		\item \textit{Ranking Learning Algorithms: Using IBL and Meta-Learning on Accuracy and Time Results}
+		\item \textit{Speeding up algorithm selection using average ranking and active testing by introducing runtime}
+		\item \textit{Learning hyperparameter optimization initializations}
+		\item AutoML: \begin{itemize}
+			\item Auto-Pytorch
+			\item Auto-Sklearn 2.0
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+Supongamos que $P_{new} = 0$, por lo que no tenemos acceso a ninguna evaluación de $t_{new}$. Aún así se puede aprender una función $f: \Theta \times T \rightarrow \{\theta^*_k\}, k=1..K$, resultando en un conjunto de evaluaciones recomendadas \textit{independientes} de $t_{new}$. Estos $\theta^*_k$ pueden ser evaluados en $t_{new}$ para seleccionar el mejor, o para inicializar otros enfoques de optimización.
+
+Tales enfoques a menudo producen un ranking, es decir, un conjunto ordenado $\theta^*_k$. Esto es típicamente hecho discreteando $\theta$ en un conjunto de configuraciones candidatas $\theta_i$, también llamada \textit{portafolio}, evaluado en un gran número de tareas $t_j$. Luego podemos construir un ranking por clase, por ejemplo usando \textit{success rates}, \textit{AUC}, o \textit{significant wins}. % Sin embargo, a menudo es deseable que algortimos igualmente buenos pero más rápidos estén rankeados mejor, y múltiples métodos han sido propuestos para compensar tiempo de entrenamiento y precisión. Luego podemos agregar estos rankings de una sola tarea en rankings globales, por ejemplo calculando el rank promedio a través de todas las tareas. Cuando hay insuficientes datos para construir un ranking global, uno puede recomendar un subconjunto de configuraciones basados en la configuración mejor conocida para cada tarea anterior, o retornar quasi-lineal rankings.
+
+Para encontrar el mejor $\theta^*$ para una tarea $t_{new}$ nunca vista antes, un método simple es seleccionar las $k$ mejores configuraciones, bajando en la lista y evaluando cada configuración en $t_{new}$. Esta evaluación puede ser terminada después de un valor predefinido para $k$, un presupuesto de tiempo, o cuando un modelo lo suficientemente preciso es encontrado. 
+
+\subsubsection{Diseño del espacio de configuración}
+
+\begin{itemize}
+	\item[$\checkmark$] Explicar en qué consiste
+	\item Poner ejemplos
+	\item Functional ANOVA
+	\item \textit{Hyperparameter Importance Across Datasets}
+	\item \textit{Hyperparameter Search Space Pruning - A New Component for Sequential Model-Based Hyperparameter Optimization}
+	\item AutoML \begin{itemize}
+		\item ATM
+	\end{itemize}
+\end{itemize}
+
+
+Las evaluaciones previas también pueden ser usadas para aprender mejores \textit{espacios de configuración} $\Theta^*$. Incluso siendo independientes de $t_{new}$, esto puede radicalmente acelerar la búsqueda para modelos óptimos, ya que solo las regiones más relevantes de los espacios de configuración son explorados. Esto es crítico cuando los recursos computacionales están limitados. 
+
+\subsubsection{Transferencia de la configuración}
+
+Si se quiere dar recomendaciones para una tarea específica $t_{new}$, necesitamos información sobre que tan similar $t_{new}$ es a las tareas anteriores $t_j$. Una manera de hacer esto es evaluando un número de configuraciones recomendadas (o parcialmente aleatorias) en $t_{new}$, dando lugar a nueva evidencia $P_{new}$. Si luego observamos que las evaluaciones de $P_{i,new}$ son similares a $P_{i,j}$, entonces $t_j$ y $t_{new}$ pueden ser consideradas similares, basadas en evidencia empírica. Se puede incluir este conocimiento para entrenar un meta-learner que predice un conjunto de configuraciones recomendadas $\Theta_{new}^*$ para $t_{new}$. Además, cada $\theta^*_{new}$ seleccionado puede ser evaluado y luego incluido en $P_{new}$, repitiendo el ciclo y coleccionando más evidencia empírica para aprender cuales tareas son similares entre sí.
+
+\quad 
+
+\textbf{Landmarks relativos}
+
+\begin{itemize}
+	\item[$\checkmark$] Explicar en qué consiste
+	\item Hablar de Active Testing
+	\item Poner ejemplos
+	\item \textit{Pairwise meta rules for better meta learning based algorithm ranking}
+	\item \textit{Toward Automatic Generation of Meta-features}
+	\item Automl \begin{itemize}
+		\item ActivMetaL
+	\end{itemize}
+\end{itemize}
+
+\quad
+
+Una primera medida para la similaridad de las tareas considera las diferencias en el rendimiento relativas (pairwise), también llamadas \textit{relative landmarks}, $RL_{a,b,j} = P_{a,j} - P_{b,j}$ entre dos configuraciones $\theta_a$ y $\theta_b$ en una tarea particular $t_j$. (hablar de los papers que tratan de esto) 
+
+\quad
+
+\textbf{Modelos sustitutos}
+
+\begin{itemize}
+	\item[$\checkmark$] Explicar en qué consiste
+	\item Me falta explicar qué es un modelo sustituto
+	\item Poner ejemplos
+	\item \textit{Collaborative hyperparameter tuning}
+	\item \textit{Efficient Transfer Learning Method for Automatic Hyperparameter Tuning}
+	\item \textit{Hyperparameter Optimization with Factorized Multilayer Perceptrons}
+	\item \textit{Scalable Gaussian process-based transfer surrogates for hyperparameter optimization.}
+	\item AutoML \begin{itemize}
+		\item OBOE
+		\item PMF
+		\item TensorOBOE
+		\item Oracle AutoML
+	\end{itemize}
+\end{itemize}
+
+\quad
+
+Una forma más flexible de transferir información es construir un \textit{modelo sustituto} $s_j(\theta_i) = P_{i,j}$ para todas las tareas anteriores $t_j$, entrenadas usando todo el conjunto $P$ disponible. Uno puede definir la similitud entre tareas en términos de error entre $s_j(\theta)$ y $P_{i, new}$: si el modelo sustituto para $t_j$ puede generar predicciones precisas para $t_{new}$, entonces esas tareas son intrínsicamente similares. Esto es realizado usualmente en combinación con la optimización Bayesiana para determinar el siguiente $\theta_i$. 
+
+
+
+\section{Conclusión}\label{sec:conclusion}
 
 Concluir el capítulo
 

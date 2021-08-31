@@ -58,7 +58,7 @@ Aquí posicionamos meta-learning contra áreas relacionadas cuya relación con m
 	\item[AutoML:] AutoML es más bien una sombrilla amplia para los enfoques con el objetivo de automatizar partes del proceso de aprendizaje de máquinas que son típicamente manuales, tales como la preparación de los datos, la selección de algoritmos, ajuste de hiperparámetros, y búsqueda de arquitecturas. AutoML a menudo hace uso de numerosas heurísticas afuera del alcance de meta-learning tal y como está definido aquí, y se centra en tareas como limpieza de datos, que son menos centrales a meta-learning. Sin embargo, AutoML a veces hace uso de optimizaciones de extremo a extremo de un meta-objetivo, así que meta-learning puede ser visto como una especialización de AutoML.
 \end{description}
 
-\subsection{Estructura de un sistema de Meta-Learning}
+\subsection{Estructura de un Sistema de Meta-Learning}
 
 Un sistema de meta-learning está compuesto esencialmente por dos partes. Una parte tiene la tarea de adquirir meta-conocimiento de sistemas de aprendizaje automático. La otra parte tiene el objetivo de aplicar este meta-conocimiento a nuevos problemas con el objetivo de identificar un algoritmo o técnica de aprendizaje óptimo.
 
@@ -74,7 +74,7 @@ Para la automatización de la adquisición de conocimiento es necesario un conju
 
 En un sistema de meta-learning la aplicación de meta-conocimiento puede ser usado para ayudar a seleccionar o adaptar algoritmos de aprendizaje de máquinas. Por ejemplo, podemos considerar nuestro problema de la selección de algoritmos de aprendizaje automático dado un determinado conjunto. El problema puede ser visto como un problema de búsqueda, donde el espacio de búsqueda incluye los algoritmos de aprendizaje de máquinas individuales y el objetivo es identificar el mejor algoritmo. Este proceso puede ser dividido en dos fases separadas. 
 
-En la primera fase el objetivo es identificar un subconjunto de algoritmos de aprendizaje de máquinas adecuados basados en un dataset de entrada. El método de selección usado en ese proceso se basa en el meta-conocimiento. Por lo general el resultado de esta fase es representado en la forma de un subconjunto rankeado de algortimos de aprendizaje de máquinas.
+En la primera fase el objetivo es identificar un subconjunto adecuado de algoritmos de aprendizaje automático basados en un dataset de entrada. El método de selección usado en ese proceso se basa en el meta-conocimiento. Por lo general, el resultado de esta fase es representado en la forma de un subconjunto rankeado de algortimos de aprendizaje de máquinas.
 
 La segunda fase es usada para buscar a través del espacio reducido. Cada opción es evaluada usando una métrica de rendimiento determinado (por ejemplo, \textit{accuracy}). Usualmente, la validación cruzada es usada para identificar el mejor algoritmo de aprendizaje. Es necesario notar que el meta-conocimiento no elimina completamente la necesidad del proceso de búsqueda, sino que proporciona una búsqueda más efectiva. La efectividad de la búsqueda depende de la calidad del meta-conocimiento.
 
@@ -95,24 +95,99 @@ Meta-learning constituye una solución factible para los problemas donde una def
 
 
 \begin{itemize}
-	\item Definición de AutoML, quizá desde distintas perspectivas usando diferentes definiciones
-	\item Explicar además varias de las subtareas de AutoML
-	\item \textit{Automated feature enginineering}
-	\item \textit{Automated model selection}
-	\item \textit{Neural architecture search}
+	\item[$\checkmark$] Definición de AutoML, quizá desde distintas perspectivas usando diferentes definiciones
+	\item[$\checkmark$] Explicar además varias de las subtareas de AutoML \begin{itemize}
+		\item[$\checkmark$] \textit{Automated feature enginineering}
+		\item[$\checkmark$] \textit{Automated model selection}
+		\item[$\checkmark$] \textit{Neural architecture search}
+	\end{itemize}
 \end{itemize}
+
+\textit{Automated Machine Learning} (AutoML) o Aprendizaje de Máquinas Automático es el campo que se enfoca en los métodos que tienen el objetivo de automatizar diferentes etapas del proceso de aprendizaje de máquinas. Como su nombre indica, AutoML es la intersección de dos campos: automatización y aprendizaje de máquinas. Las soluciones de AutoML están recibiendo incrementalmente más atención tanto por la comunidad de ML como por los usuarios por (1) las grandes cantidades de datos disponibles en todas partes y (2) la falta de expertos de ML que puedan supervisar/asesorar el desarrollo de sistemas basados en ML.
+
+La diferencia entre el aprendizaje de máquinas clásico y AutoML es que en el primero, los humanos están grandemente involucrados en la configuración de las herramientas de aprendizaje realizando ingeniería de características, selección de modelos y evaluación de modelos. Como resultado, los humanos realizan la mayor parte del trabajo en las practicas del aprendizaje de máquinas. Sin embargo, en AutoML, todo esto puede ser hecho con programas de forma automática.
+
+La comunidad de AutoML se ha centrado en resolver varias partes de un flujo de trabajo de aprendizaje automático estándar. Algunos ejemplos de estas partes o subtareas que son aplicadads en AutoML son:
+
+\begin{description}
+	\item[\textit{Automated Feature Engineering} o Ingeniería de Características Automático:] el objetivo de ingeniería de características es construir más características para mejorar el rendimiento de aprendizaje cuando las características no son lo suficientemente informativas. Para esto se construye un modelo que aprende de las características de entrada para construir nuevas características con las cuales el algoritmo de aprendizaje automático obtiene un mejor rendimiento. Con la automatización de esta tarea se elimina parte de la asistencia humana para construir automáticamente nuevas características basadas en la interacción entre las características de entrada.
+	
+	\item[\textit{Automated Model Selection} o Selección Automática de Modelos:] el objetivo de la selección de modelos es encontrar un algoritmo de aprendizaje de máquinas adecuado para un dataset determinado. Hay muchos aspectos por los cuales un científico de datos se preocupa en la selección de algoritmos, tales como la complejidad computacional, diferencias en el tiempo de entrenamiento y si el algoritmo permite una entrada no lineal, y es útil considerar estos aspectos en la automatización. Para realizar esta tarea un sistema AutoML realiza una búsqueda sobre un conjunto de algoritmos disponibles, con el objetivo de determinar cuáles pertenecen al flujo óptimo dado un problema determinado.
+	
+	\item [\textit{Neural Architecture Search} (NAS) o Búsqueda de Arquitecturas Neuronales:] el objetivo de NAS es encontrar una arquitectura de redes neuronales profundas con buen rendimiento en un dataset determinado. NAS ha sido usado para diseñar redes que están a la par o tienen mejores resultados que arquitecturas diseñados a mano [poner ref de wiki]. Aunque es una práctica común optimizar la arquitectura y las configuraciones de los hiperparámetros en secuencia, existe evidencia reciente de que deberían ser optimizadas en conjunto [hpo fundations].
+\end{description}
 
 \subsection{Definición del problema}\label{subsec:automl_problem_definition}
 
 \begin{itemize}
-	\item Definir el problema de automl
-	\item Definir el problema de optimización de hiperparámetros (HPO) 
-	\item Definir el problema de \textit{Combined Algorithm Selection and Hyperparameter tuning} (CASH)
-	\item Definir el workflow de un sistema de AutoML, 
-	\item Su entrada es un conjunto de datos, una métrica de optimización (poner ejemplos de métricas de optimización) y (generalmente) restricciones de tiempo 
-	\item Su salida es un modelo (pipeline?) de machine learning con sus hiperpárametros 
-	\item El sistema de AutoML está fundamentalmente definida por la técnica de optimización usada y la definición del espacio de búsqueda.
+	\item[$\checkmark$] Definir el problema de automl en términos de CASH
+	\item[$\checkmark$] Definir el problema de optimización de hiperparámetros (HPO) 
+	\item[$\checkmark$] Definir el problema de \textit{Combined Algorithm Selection and Hyperparameter tuning} (CASH)
+%	\item Definir el workflow de un sistema de AutoML \begin{itemize}
+%		\item Su entrada es un conjunto de datos, una métrica de optimización (poner ejemplos de métricas de optimización) y (generalmente) restricciones de tiempo.
+%		\item Su salida es un modelo (pipeline?) de machine learning con sus hiperpárametros.
+%		\item El sistema de AutoML está fundamentalmente definida por la técnica de optimización usada y la definición del espacio de búsqueda.  
+%	\end{itemize}
 \end{itemize}
+
+Dos problemas importantes en AutoML son (1) que ningún algoritmo de ML obtiene los mejores resultados en todos los datasets (también conocido como \textit{No Free Lunch Problem}, poner link) y (2) algunos métodos de aprendizaje de máquinas (por ejemplo, los SVMs no lineales) dependen crucialmente de la optimización de hiperparámetros. Para la resolución de estos problemas AutoML se apoya de dos áreas o subtareas que consituyen su base: la selección de modelos (\textit{Model Selection}, MS) y la optimización de hiperparámetros (\textit{Hyperparameter Optimization}, HPO). La combinación de estas áreas se refiere al problema de AutoML como un problema de selección combinada de modelos y optimización de hiperparámetros (\textit{Combined Algorithm Selection and Hyperparameter Optimization}, CASH), que se describe en la presente sección.
+
+\subsubsection{Selección de Modelos}
+
+El objetivo de la selección de modelos es encontrar un algoritmo de aprendizaje de máquinas adecuado para un dataset determinado. Hay muchos aspectos por los cuales un científico de datos se preocupa en la selección de algoritmos, tales como la complejidad computacional, diferencias en el tiempo de entrenamiento y si el algoritmo permite una entrada no lineal, y es útil considerar estos aspectos en la automatización. Para realizar esta tarea un sistema AutoML realiza una búsqueda sobre un conjunto de algoritmos disponibles, con el objetivo de determinar cuáles pertenecen al flujo óptimo dado un problema determinado.
+
+\begin{definition}
+	Dado un conjunto A de algortimos de aprendizaje de máquinas y una cantidad limitada de datos $D = \{(x_i, y_1),..., (x_n, y_n)\}$, el objetivo de la selección de modelos es determinar el $a^* \in A$ con un rendimiento óptimo general. Para una evaluación general se divide el conjuto de datos $D$ en $D_{train}$ y $D_{valid}$ disjuntos para entrenamiento y validación respectivamente, se aprenden funciones $f_i$ al aplicar $a^*$ a $D_{train}$, y se evalúa el rendimiento de las funciones en $D_{valid}$. Más formalmente, el problema de selección de modelos consiste en encontrar
+
+	\begin{equation}
+		a^* = argmin_{a \in A}\dfrac{1}{k}\sum_{i=1}^K \textbf{L}(a, D_{train}, D_{valid})
+	\end{equation}
+	
+	donde $L(a, D_{train}, D_{valid})$ es la pérdida de $a$ al ser evaluado en $D_{valid}$ y entrenado con $D_{train}$.
+	
+%	 El protocolo de validación puede tomar distintas formas; una de las más populares opciones es el cálculo del error de validación cruzada con una función de pérdida definida por el usuario.
+
+\end{definition}
+
+\subsubsection{Optimazión de parámetros}
+
+Los algoritmos de aprendizaje de máquinas son altamente configurables por sus hiperparámetros (HP). A menudo influencian substancialmente el comportamineto y la velocidad del algoritmo y tienen que ser seleccionados con cuidado con el objetivo de alcanzar un rendimiento óptimo. Este proceso a menudo es bastante constoso y propenso a errores, especialmente cuando son seleccionados en un proceso de prueba y error. Los algoritmos de optimización de hiperparámetros (HPO) identifican automáticamente una configuración de hiperparámetros (HPC) buena para un algoritmo de ML, reduciendo así el esfuerzo humano. Por lo tanto, una de las tareas fundamentales de AutoML es ajustarlos para optimizar el rendimiento de los algoritmos de ML. 
+
+\begin{definition}
+	Sean A el conjunto de algoritmos de aprendizaje de máquinas y $a \in A$ un algoritmo con $N$ parámetros. Denotamos el dominio del n-ésimo parámetro como $\Lambda_n$ y el espacio de configuraciones como $\Lambda = \Lambda_1 \times \Lambda_2 \times ... \times \Lambda_x$. Un vector de hiperparámetros es denotado por $\lambda \in \Lambda$, y $a$, con sus hiperparámetros instanciados en $\lambda$, por $a_\lambda$.
+\end{definition}
+
+Un hiperparámetro $\Lambda_i$ puede tener un dominio de valores continuos, discretos, booleanos o catergóricos. [poner ejemplos]. 
+
+Este espacio ya mixto puede desafortunadamente contener \textit{hiperparámetros dependientes}, lo que conlleva a un espacio de búsqueda jerárquico: 
+
+\begin{definition}
+	Un HP $\lambda_i$ se considera \textit{condicional} con $\lambda_j$ si $\lambda_i$ solo es activo cuando $\lambda_j$ es un elemento de un subconjunto dado de $\Lambda_j$ y está inactivo, es decir, no afecta al algoritmo resultante [poner link].  
+\end{definition} 
+
+Poner ejemplos
+
+Entonces según la definición de [sklearn], dado un conjunto de datos $D$, el problema de HPO general está definido como:
+
+\begin{equation}
+	\lambda^* = argmin_{\lambda \in \Lambda}         \textbf{E}_{(D_{train}, D_{valid})}\textbf{V}(L, a_\lambda, D_{train}, D_{valid})
+\end{equation},
+
+donde $\textbf{V}(L, a_\lambda, D_{train}, D_{valid})$ mide la pérdida de un modelo generado por $a_\lambda$ en el conjunto de entrenamiento $D_{train}$ y evaluado sobre el conjunto $D_{valid}$. Al igual que en la selección de modelos, hay distintos métodos de validación que pueden ser usados para comprobar los resultados, uno de los más populares es la validación cruzada.
+
+\subsubsection{AutoML como problema de CASH} 
+
+El problema de resolver MS y HPO de forma independiente es que ningún algoritmo rinde mejor en todos los conjuntos de datos y existen algoritmos que dependen decisivamente de sus parámetros. Afortunadamente, estos dos problemas pueden ser abordados como un problema de optimización simple, estructurado y conjunto:
+
+\begin{definition}
+	Sea $A = \{a^1, a^2, ..., a^k\}$ un conjunto de algoritmos con espacios de configuraciones asociados $\Lambda_1, ... \Lambda_k$. Sea D un conjunto de datos que se divide en $\{D_{train}^{(1)}, ..., D_{train}^{(k)}\}$ y $\{D_{valid}^{(1)}, ..., D_{valid}^{(k)}\}$ tal que $D^{(i)}_{train} = D_{train}\backslash D_{valid}^{(i)}$, para $i=1,...,K$. Finalmente sea $L(a_\lambda^{(j)}, D_{train}^{(i)}, D_{valid}^{(i)})$ denotan la pérdida del algoritmo $a^{(j)}$ en el dataset $D_{valid}$ cuando es entrenado en el dataset $D_{train}$. Luego, el problema de la \textsl{Selección Combinada de Modelos y Optimización de Hiperparámetros (CASH)} consiste en encontrar el algoritmo y la configuración de hiperparámetros que minimice la pérdida:
+	
+	\begin{equation}
+	 a^*_{\lambda^*} \in argmin_{a^{(j) \in A, \lambda \in \Lambda^{(j)}}} \dfrac{1}{k} \sum_{i=1}^{k} L\left(a_\lambda^{(j)}, D_{train}^{(i)}, D_{valid}^{(i)}\right)
+	\end{equation}
+\end{definition}   
+
+%En la práctica, una de las restricciones de las técnicas de optimización de CASH es el \textit{presupuesto de tiempo}. En particular, el objetivo del algoritmo de optimización es seleccionar y ajustar un algoritmo de aprendizaje de máquinas que puede lograr rendimiento casi óptimo en términos de métricas de evaluaciones definidas por el usuario (por ejemplo, accuracy, sensitivity, specificity, F1-score) dentro del \textit{presupuesto de tiempo} definido por el usuario.
 
 \subsection{Métodos de Optimización}\label{subsec:automl_methods}
 
@@ -377,7 +452,7 @@ El desafío en meta-learning para la selección de modelos es aprender de experi
 	\item Propiedades medibles de la tarea en sí, también conocidas como meta-features.
 \end{itemize}
 
-Luego necesitamos aprender de estos meta-datos previos, para extraer y transferir conocimiento de la búsqueda de los modelos óptimos para nuevas tareas. El resto de esta sección presenta una visión general de diferentes enfoques de meta-learning para hacer esto efectivamente. Además, se muestran ejemplos de cómo estos enfoques han sido utilizados como paso preliminar en varias herramientas de AutoML.
+Luego necesitamos aprender de estos meta-datos previos, para extraer y transferir conocimiento de la búsqueda de los modelos óptimos para nuevas tareas. El resto de esta sección presenta una visión general de diferentes enfoques de meta-learning para hacer esto efectivamente. Además, se muestran ejemplos de cpmo estos enfoques han sido utilizados como paso preliminar en varias herramientas de AutoML.
 
 En la sección las técnicas de meta-learning basadas en el tipo de meta-datos que ellas aprovechan son categorizadas. Primero, se discute cómo caracterizar las tareas para expresar más explícitamente la similitud entre ellas y cómo construir meta-modelos para aprender las relaciones entre las características de los datos y el rendimiento de las distintas evaluaciones de los modelos [\ref{subsec:mtl_automl_proprerties}], y luego se describe como se aprende solamente de evaluaciones de los modelos [\ref{subsec:mtl_automl_evaluations}].
 

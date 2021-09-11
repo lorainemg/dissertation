@@ -105,14 +105,18 @@ Meta-learning constituye una solución factible para los problemas donde una def
 
 \textit{Automated Machine Learning} (AutoML) o Aprendizaje de Máquinas Automático es el campo que se enfoca en los métodos que tienen el objetivo de automatizar diferentes etapas del proceso de aprendizaje de máquinas. Como su nombre indica, AutoML es la intersección de dos campos: automatización y aprendizaje de máquinas. Las soluciones de AutoML están recibiendo incrementalmente más atención tanto por la comunidad de ML como por los usuarios por (1) las grandes cantidades de datos disponibles en todas partes y (2) la falta de expertos de ML que puedan supervisar/asesorar el desarrollo de sistemas basados en ML.
 
-La diferencia entre el aprendizaje de máquinas clásico y AutoML es que en el primero, los humanos están grandemente involucrados en la configuración de las herramientas de aprendizaje realizando ingeniería de características, selección de modelos y evaluación de modelos. Como resultado, los humanos realizan la mayor parte del trabajo en las practicas del aprendizaje de máquinas. Sin embargo, en AutoML, todo esto puede ser hecho con programas de forma automática.
+La diferencia entre el aprendizaje de máquinas clásico y AutoML es que en el primero, los humanos están grandemente involucrados en la configuración de las herramientas de aprendizaje realizando ingeniería de características, selección de modelos y evaluación de modelos. Como resultado, los humanos realizan la mayor parte del trabajo en las prácticas del aprendizaje de máquinas. Sin embargo, en AutoML, todo esto puede ser hecho con programas de forma automática.
 
 La comunidad de AutoML se ha centrado en resolver varias partes de un flujo de trabajo de aprendizaje automático estándar. Algunos ejemplos de estas partes o subtareas que son aplicadads en AutoML son:
 
 \begin{description}
+	\item[\textit{Automated Data Preparation} o Preparación de Datos Automático:] el flujo de trabajo de la preparación de datos está compuesto por 3 componentes: colección de datos, limpieza de datos e incremento de datos. La colección de datos es un paso necesario para construir un nuevo dataset o extender el dataset existente. El proceso de limpieza de datos es usado para filtrar los datos con ruido para que el entrenamiento del modelo no sea comprometido. El incremento de datos tiene un rol importante en mejorar la robustez del modelo y mejorando el rendimiento del modelo. Esta paso es uno de los que más dificilmente son automatizados
+	
 	\item[\textit{Automated Feature Engineering} o Ingeniería de Características Automático:] el objetivo de ingeniería de características es construir más características para mejorar el rendimiento de aprendizaje cuando las características no son lo suficientemente informativas. Para esto se construye un modelo que aprende de las características de entrada para construir nuevas características con las cuales el algoritmo de aprendizaje automático obtiene un mejor rendimiento. Con la automatización de esta tarea se elimina parte de la asistencia humana para construir automáticamente nuevas características basadas en la interacción entre las características de entrada.
 	
-	\item[\textit{Automated Model Selection} o Selección Automática de Modelos:] el objetivo de la selección de modelos es encontrar un algoritmo de aprendizaje de máquinas adecuado para un dataset determinado. Hay muchos aspectos por los cuales un científico de datos se preocupa en la selección de algoritmos, tales como la complejidad computacional, diferencias en el tiempo de entrenamiento y si el algoritmo permite una entrada no lineal, y es útil considerar estos aspectos en la automatización. Para realizar esta tarea un sistema AutoML realiza una búsqueda sobre un conjunto de algoritmos disponibles, con el objetivo de determinar cuáles pertenecen al flujo óptimo dado un problema determinado.
+%	\item[\textit{Automated Model Selection} o Selección Automática de Modelos:] el objetivo de la selección de modelos es encontrar un algoritmo de aprendizaje de máquinas adecuado para un dataset determinado. Hay muchos aspectos por los cuales un científico de datos se preocupa en la selección de algoritmos, tales como la complejidad computacional, diferencias en el tiempo de entrenamiento y si el algoritmo permite una entrada no lineal, y es útil considerar estos aspectos en la automatización. Para realizar esta tarea un sistema AutoML realiza una búsqueda sobre un conjunto de algoritmos disponibles, con el objetivo de determinar cuáles pertenecen al flujo óptimo dado un problema determinado.
+
+	item[\textit{Model Evaluation} o Evaluación del Modelo:] Una vez que el modelo ha sido generado, su rendimiento debe ser evaluado. Un método intuitivo consiste en entrenar el modelo hasta que converja y entonces evaluar su rendimiento. Sin embargo, este método requiere un tiempo y unos recursos computacionales extensivos. Por lo tanto, existen varios métodos para acelerar el proceso de evaluación de modelos. Algunos ejemplos de estos métodos son \textit{early stopping} (explicar). El uso de \textit{Low fidelity} y de \textit{surrogate models} o modelos sustitutos son otras técnicas de evaluación que serán explicadas más adelante (poner link)
 	
 	\item [\textit{Neural Architecture Search} (NAS) o Búsqueda de Arquitecturas Neuronales:] el objetivo de NAS es encontrar una arquitectura de redes neuronales profundas con buen rendimiento en un dataset determinado. NAS ha sido usado para diseñar redes que están a la par o tienen mejores resultados que arquitecturas diseñados a mano [poner ref de wiki]. Aunque es una práctica común optimizar la arquitectura y las configuraciones de los hiperparámetros en secuencia, existe evidencia reciente de que deberían ser optimizadas en conjunto [hpo fundations].
 \end{description}
@@ -130,7 +134,7 @@ La comunidad de AutoML se ha centrado en resolver varias partes de un flujo de t
 %	\end{itemize}
 \end{itemize}
 
-Dos problemas importantes en AutoML son (1) que ningún algoritmo de ML obtiene los mejores resultados en todos los datasets (también conocido como \textit{No Free Lunch Problem}, poner link) y (2) algunos métodos de aprendizaje de máquinas (por ejemplo, los SVMs no lineales) dependen crucialmente de la optimización de hiperparámetros. Para la resolución de estos problemas AutoML se apoya de dos áreas o subtareas que consituyen su base: la selección de modelos (\textit{Model Selection}, MS) y la optimización de hiperparámetros (\textit{Hyperparameter Optimization}, HPO). La combinación de estas áreas se refiere al problema de AutoML como un problema de selección combinada de modelos y optimización de hiperparámetros (\textit{Combined Algorithm Selection and Hyperparameter Optimization}, CASH), que se describe en la presente sección.
+Dos problemas importantes en AutoML son (1) que ningún algoritmo de ML obtiene los mejores resultados en todos los datasets (también conocido como \textit{No Free Lunch Problem}, poner link) y (2) que algunos métodos de aprendizaje de máquinas dependen crucialmente de la optimización de hiperparámetros. Para la resolución de estos problemas AutoML se apoya de dos áreas o subtareas que consituyen su base: la selección de modelos (\textit{Model Selection}, MS) y la optimización de hiperparámetros (\textit{Hyperparameter Optimization}, HPO). La combinación de estas áreas se refiere al problema de AutoML como un problema de selección combinada de modelos y optimización de hiperparámetros (\textit{Combined Algorithm Selection and Hyperparameter Optimization}, CASH), que se describe en la presente sección.
 
 \subsubsection{Selección de Modelos}
 
@@ -149,7 +153,7 @@ El objetivo de la selección de modelos es encontrar un algoritmo de aprendizaje
 
 \end{definition}
 
-\subsubsection{Optimazión de parámetros}
+\subsubsection{Optimazión de hiperparámetros}
 
 Los algoritmos de aprendizaje de máquinas son altamente configurables por sus hiperparámetros (HP). A menudo influencian substancialmente el comportamineto y la velocidad del algoritmo y tienen que ser seleccionados con cuidado con el objetivo de alcanzar un rendimiento óptimo. Este proceso a menudo es bastante constoso y propenso a errores, especialmente cuando son seleccionados en un proceso de prueba y error. Los algoritmos de optimización de hiperparámetros (HPO) identifican automáticamente una configuración de hiperparámetros (HPC) buena para un algoritmo de ML, reduciendo así el esfuerzo humano. Por lo tanto, una de las tareas fundamentales de AutoML es ajustarlos para optimizar el rendimiento de los algoritmos de ML. 
 
@@ -182,21 +186,33 @@ El problema de resolver MS y HPO de forma independiente es que ningún algoritmo
 \begin{definition}
 	Sea $A = \{a^1, a^2, ..., a^k\}$ un conjunto de algoritmos con espacios de configuraciones asociados $\Lambda_1, ... \Lambda_k$. Sea D un conjunto de datos que se divide en $\{D_{train}^{(1)}, ..., D_{train}^{(k)}\}$ y $\{D_{valid}^{(1)}, ..., D_{valid}^{(k)}\}$ tal que $D^{(i)}_{train} = D_{train}\backslash D_{valid}^{(i)}$, para $i=1,...,K$. Finalmente sea $L(a_\lambda^{(j)}, D_{train}^{(i)}, D_{valid}^{(i)})$ denotan la pérdida del algoritmo $a^{(j)}$ en el dataset $D_{valid}$ cuando es entrenado en el dataset $D_{train}$. Luego, el problema de la \textsl{Selección Combinada de Modelos y Optimización de Hiperparámetros (CASH)} consiste en encontrar el algoritmo y la configuración de hiperparámetros que minimice la pérdida:
 	
-	\begin{equation}
+	\begin{equation}\label{cash}
 	 a^*_{\lambda^*} \in argmin_{a^{(j) \in A, \lambda \in \Lambda^{(j)}}} \dfrac{1}{k} \sum_{i=1}^{k} L\left(a_\lambda^{(j)}, D_{train}^{(i)}, D_{valid}^{(i)}\right)
 	\end{equation}
 \end{definition}   
 
 %En la práctica, una de las restricciones de las técnicas de optimización de CASH es el \textit{presupuesto de tiempo}. En particular, el objetivo del algoritmo de optimización es seleccionar y ajustar un algoritmo de aprendizaje de máquinas que puede lograr rendimiento casi óptimo en términos de métricas de evaluaciones definidas por el usuario (por ejemplo, accuracy, sensitivity, specificity, F1-score) dentro del \textit{presupuesto de tiempo} definido por el usuario.
 
+En la práctica, el problema de CASH es reformulado como un solo problema de optimización de hiperparámetros jerárquico con el espacio de parámetros $\Lambda^{(1)}\cup ... \cup \Lambda^{(k)} \cup\{\lambda_r\}$, donde $\lambda_r$ es un nuevo hiperparámetro que selecciona entre los algoritmos $Aˆ{(1)}, ..., Aˆ{(k)}$. Todos los parámetros de cada subespacio $\Lambda^{(i)}$ se vuelven condicionales de $\lambda_r$ al ser inicializado como uno de los algoritmos $A_i$.
+ 
 \subsection{Métodos de Optimización}\label{subsec:automl_methods}
 
 \begin{itemize}
-	\item Introducir esta sección
+	\item[$\checkmark$] Introducir esta sección
 	\item A lo largo de esta sección, mi idea es explicar los algoritmos que usan cada una de estas técnicas de optimización a medida que las describo, pero quizá sería un poco más organizado si hago otra subsección poniendo ejemplos de los sistemas de AutoML aparte para además no darle tanta importancia a los algoritmos de optimización (hmmm...)
 \end{itemize}
 
-A diferencia de los parámetros del modelo que se aprenden durante el entrenamiento, el científico de datos establece los hiperparámetros del modelo antes de los aspectos de implementación de control y entrenamiento del modelo. Los hiperparámetros se pueden considerar como configuraciones de modelo. Estos deben ajustarse porque los hiperparámetros ideales para un conjunto de datos no serán los mismos en todos los conjuntos de datos.
+Con el objetivo de abordar el problema \ref{cash} el proceso de AutoML consta de tres componentes que definen el proceso de optimización:
+
+\begin{description}
+	\item[Espacio de Búsqueda:] precisa los algoritmos y todos los rangos válidos para sus hiperparámetros que son posibles soluciones para un problema de AutoML concreto. Además se pueden optimizar combinaciones complejas de algoritmos, en cuyo caso las restricciones de compatibilidad entre algoritmos también son modeladas.
+	\item[Estrategia de Búsqueda:] detalla como se explora el espacio de búsqueda, que puede ser de tamaño exponencial o ilimitado. Se ve afectado por el clásico problema de Exploración vs Explotación, ya que se quieren encontrar soluciones de alto rendimiento rápidamente pero se debe evitar converger prematuramente a regiones sub-óptimas de búsqueda.
+	\item[Estrategias de Estimación de Rendimiento:] son mecanismos para estimar la capacidad de las soluciones encontradas por los sistemas de AutoML para predecir en datos nuevos.
+\end{description}
+
+La estrategia de búsqueda es el proceso que sustituye la búsqueda de los hiperparámetros realizada por los humanos. Este precedimiento requiere tiempo y recursos considerables debido a los métodos de prueba y error que son necesitados para buscar el mejor modelo y su configuración de hiperparámetros. Por lo tanto, muchos métodos de optimización han surgido con el objetivo de acelerar esta búsqueda para liberar a los humanos de este tedioso proceso y para explorar el espacio de búsqueda definido de forma automática. Este proceso de optimización es el que pretende imitar el rol de los expertos y es el núcleo fundamental para resolver el problema de CASH. Por lo tanto, a continuación se realiza un estudio de los métodos de optimización más usados, ejemplificando su uso en distintos sistemas de AutoML.
+
+% A diferencia de los parámetros del modelo que se aprenden durante el entrenamiento, el científico de datos establece los hiperparámetros del modelo antes de los aspectos de implementación de control y entrenamiento del modelo. Los hiperparámetros se pueden considerar como configuraciones de modelo. Estos deben ajustarse porque los hiperparámetros ideales para un conjunto de datos no serán los mismos en todos los conjuntos de datos.
 
 \subsubsection{Grid Search y Random Search}
 
@@ -233,8 +249,7 @@ RS a menudo tiene un rendimiento mucho mejor que GS en entornos de HPO de mayor 
 
 La optimización bayesiana (en inglés \textit{Bayesian Optimization}) (BO) se ha vuelto cada vez más popular como técnica de optimización global para funciones costosas de caja negra, y específicamente para HPO.  
 
-BO es un algoritmo iterativo, cuya idea clave es modelar el mapeo entre un conjunto de hiperparámetros $\lambda$ y da como resultado una estimación de su rendimiento $\hat{c}(\lambda)$ ($\lambda \rightarrow \hat{c}(\lambda)$) basado en
-valores de rendimiento observados encontrados en un archivo $A$ mediante regresión (no lineal). Este modelo aproximado se denomina modelo sustituto, o modelo probabilístico, para el cual es normalmente utilizado un proceso gaussiano o un bosque aleatorio. BO comienza en un archivo $A$ lleno de configuraciones evaluadas. Este archivo es normalmente generado a partir de una configuración de diseño inicial, típicamente muestreada al azar. BO luego usa el archivo para ajustar el modelo sustituto, que para cada $\lambda$ produce una estimación del rendimiento $\hat{c}(\lambda)$, así como una estimación de la incertidumbre del modelo $\hat{\sigma}(\lambda)$. Sobre la base de estas predicciones, BO establece un función de adquisición $u(\lambda)$ fácil de evaluar, cuyo resultado codifica una compensación entre explotación (el modelo sustituto predice que el candidato $\lambda$ tiene un valor $c$ bueno y bajo) y exploración (el modelo sustituto es muy incierto acerca de la $c(\lambda)$, probablemente porque el área circundante no ha sido exploradam minuciosamente).
+BO es un algoritmo iterativo, cuya idea clave es modelar el mapeo entre un conjunto de hiperparámetros $\lambda$ y da como resultado una estimación de su rendimiento $\hat{c}(\lambda)$ ($\lambda \rightarrow \hat{c}(\lambda)$) basado en valores de rendimiento observados encontrados en un archivo $A$ mediante regresión (no lineal). Este modelo aproximado se denomina modelo sustituto, o modelo probabilístico, para el cual es normalmente utilizado un proceso gaussiano o un bosque aleatorio. BO comienza en un archivo $A$ lleno de configuraciones evaluadas. Este archivo es normalmente generado a partir de una configuración de diseño inicial, típicamente muestreada al azar. BO luego usa el archivo para ajustar el modelo sustituto, que para cada $\lambda$ produce una estimación del rendimiento $\hat{c}(\lambda)$, así como una estimación de la incertidumbre del modelo $\hat{\sigma}(\lambda)$. Sobre la base de estas predicciones, BO establece un función de adquisición $u(\lambda)$ fácil de evaluar, cuyo resultado codifica una compensación entre explotación (el modelo sustituto predice que el candidato $\lambda$ tiene un valor $c$ bueno y bajo) y exploración (el modelo sustituto es muy incierto acerca de la $c(\lambda)$, probablemente porque el área circundante no ha sido exploradam minuciosamente).
 
 \quad
 
@@ -312,7 +327,7 @@ Los EA estaban limitados a espacios numéricos en su formulación original, pero
 
 Los algoritmos evolutivos a menudo funcionan bien al aproximar soluciones a todo tipo de problemas porque, idealmente, no hacen ninguna suposición sobre la función de aptitud subyacente. % En la mayoría de las aplicaciones reales de EA, la complejidad computacional es un factor prohibitivo. De hecho, esta complejidad computacional se debe a la evaluación de la función de aptitud. La aproximación al fitness es una de las soluciones para superar esta dificultad.
 
-\subsubsection{Reinforcement Learning}
+\subsubsection{Aprendizaje de refuerzo}
 
 \begin{itemize}
 	\item[$\checkmark$] Introducir este método como algoritmo de optimización
@@ -326,7 +341,6 @@ El aprendizaje por refuerzo (RL) es un marco de optimización muy general y sól
 Sin embargo, el rendimiento de una arquitectura solo se puede evaluar después de que se componga toda su estructura, lo que implica una recompensa retrasada. Por lo tanto, la generación de arquitectura iterativa sigue naturalmente la propiedad de RL. 
 
 Debido a las retroalimentaciones retrasadas, AutoML con aprendizaje por refuerzo consume una gran cantidad de datos y es necesario explorar métodos más eficientes. Algunos esfuerzos actuales para abordar estos problemas son el aprendizaje de arquitecturas transferibles a partir de conjuntos de datos más pequeños y la reducción del espacio de búsqueda compartiendo parámetros.
-
 
 
 \subsubsection{Multi-Armed Bandit (MAB)}

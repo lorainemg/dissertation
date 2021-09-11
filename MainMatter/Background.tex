@@ -155,13 +155,14 @@ El objetivo de la selección de modelos es encontrar un algoritmo de aprendizaje
 
 \subsubsection{Optimazión de hiperparámetros}
 
-Los algoritmos de aprendizaje de máquinas son altamente configurables por sus hiperparámetros (HP). A menudo influencian substancialmente el comportamineto y la velocidad del algoritmo y tienen que ser seleccionados con cuidado con el objetivo de alcanzar un rendimiento óptimo. Este proceso a menudo es bastante constoso y propenso a errores, especialmente cuando son seleccionados en un proceso de prueba y error. Los algoritmos de optimización de hiperparámetros (HPO) identifican automáticamente una configuración de hiperparámetros (HPC) buena para un algoritmo de ML, reduciendo así el esfuerzo humano. Por lo tanto, una de las tareas fundamentales de AutoML es ajustarlos para optimizar el rendimiento de los algoritmos de ML. 
+Los algoritmos de aprendizaje de máquinas son altamente configurables por sus hiperparámetros (HP). A menudo influencian substancialmente el comportamineto y la velocidad del algoritmo y tienen que ser seleccionados con cuidado con el objetivo de alcanzar un rendimiento óptimo. Tanto para expertos como para no expertos, ajustar los hiperparámetros para optimizar el rendimiento del modelo de extremo a extremo puede ser una tarea difícil y tediosa, a menudo es bastante constosa y propensa a errores, especialmente cuando son seleccionados en un proceso de prueba y error. Los algoritmos de optimización de hiperparámetros (HPO) identifican automáticamente una configuración de hiperparámetros (HPC) buena para un algoritmo de ML, reduciendo así el esfuerzo humano. Por lo tanto, una de las tareas fundamentales de AutoML es ajustarlos para optimizar el rendimiento de los algoritmos de ML. 
 
 \begin{definition}
 	Sean A el conjunto de algoritmos de aprendizaje de máquinas y $a \in A$ un algoritmo con $N$ parámetros. Denotamos el dominio del n-ésimo parámetro como $\Lambda_n$ y el espacio de configuraciones como $\Lambda = \Lambda_1 \times \Lambda_2 \times ... \times \Lambda_x$. Un vector de hiperparámetros es denotado por $\lambda \in \Lambda$, y $a$, con sus hiperparámetros instanciados en $\lambda$, por $a_\lambda$.
 \end{definition}
 
-Un hiperparámetro $\Lambda_i$ puede tener un dominio de valores continuos, discretos, booleanos o catergóricos. [poner ejemplos]. 
+
+Existe gran variedad de dominios en los hiperparámetros, pueden tener valores continuos, discretos, booleanos o categóricos. [poner ejemplos]. 
 
 Este espacio ya mixto puede desafortunadamente contener \textit{hiperparámetros dependientes}, lo que conlleva a un espacio de búsqueda jerárquico: 
 
@@ -170,6 +171,8 @@ Este espacio ya mixto puede desafortunadamente contener \textit{hiperparámetros
 \end{definition} 
 
 Poner ejemplos
+
+A causa de esta variedad en los espacios de hiperparámetros, los algortimos de optimización convecionales, o no se aplican directamente, u operan sin aprovechar la estructura valiosa en el espacio de configuración.
 
 Entonces según la definición de [sklearn], dado un conjunto de datos $D$, el problema de HPO general está definido como:
 
@@ -195,7 +198,7 @@ El problema de resolver MS y HPO de forma independiente es que ningún algoritmo
 
 En la práctica, el problema de CASH es reformulado como un solo problema de optimización de hiperparámetros jerárquico con el espacio de parámetros $\Lambda^{(1)}\cup ... \cup \Lambda^{(k)} \cup\{\lambda_r\}$, donde $\lambda_r$ es un nuevo hiperparámetro que selecciona entre los algoritmos $Aˆ{(1)}, ..., Aˆ{(k)}$. Todos los parámetros de cada subespacio $\Lambda^{(i)}$ se vuelven condicionales de $\lambda_r$ al ser inicializado como uno de los algoritmos $A_i$.
  
-\subsection{Métodos de Optimización}\label{subsec:automl_methods}
+\subsection{Estrategias de Búsqueda}\label{subsec:automl_methods}
 
 \begin{itemize}
 	\item[$\checkmark$] Introducir esta sección
@@ -228,9 +231,17 @@ Al ajustar los hiperparámetros de un algoritmo, \textit{grid search} y \textit{
 
 \textit{Grid Search} (GS) es el proceso de discretizar cada hiperparámetro y evaluar exhaustivamente cada combinación de valores. Los valores numéricos de los hiperparámetros suelen estar espaciados equidistantemente en sus restricciones de cuadro. Para los hiperparámetros categóricos, se consideran un subconjunto o todos los valores posibles. Es la manera más tradicional de ajustar hiper-parámetros. Para obtener la configuración de hiper-parámetros óptima, \textit{grid search} tiene que enumerar cada configuración posible en el espacio de búsqueda, lo que lo hace muy ineficiente. Por ejemplo, la búsqueda de 20 valores de parámetros diferentes para cada uno de los 4 parámetros requerirá 160.000 ensayos de validación cruzada. Esto equivale a 1.600.000 ajustes de modelo y 1.600.000 predicciones si se utiliza una validación cruzada de 10 veces. Es extremadamente costosa tanto en potencia como en tiempo. Además, la discretización es necesaria cuando el espacio de búsqueda es continuo.
 
-Por otro lado, \textit{random search} (RS) configura una cuadrícula de valores de hiperparámetros y selecciona combinaciones aleatorias para entrenar el modelo. Esto permite controlar explícitamente el número de combinaciones de parámetros que se intentan. El número de iteraciones de búsqueda se pueden establecer en función del tiempo o los recursos.
+Por otro lado, \textit{random search} (RS) o búsqueda aleatoria configura una cuadrícula de valores de hiperparámetros y selecciona combinaciones aleatorias para entrenar el modelo. Esto permite controlar explícitamente el número de combinaciones de parámetros que se intentan. El número de iteraciones de búsqueda se pueden establecer en función del tiempo o los recursos.
 
 RS a menudo tiene un rendimiento mucho mejor que GS en entornos de HPO de mayor dimensión. GS sufre directamente de la maldición de la dimensionalidad, ya que el número requerido de evaluaciones aumenta exponencialmente con el número de hiperparámetros para un número de valores de hiper-parámetros fijo. Esto también parece ser cierto para RS a primera vista, y ciertamente necesitamos un número exponencial de puntos para cubrir bien el espacio. Pero en la práctica, los problemas de HPO a menudo tienen una dimensionalidad efectiva baja: el conjunto de hiperparámetros que influyen en el rendimiento suele ser un pequeño subconjunto de todos los hiperparámetros disponibles. Otra ventaja de RS es que se puede ampliar fácilmente con más muestras; por el contrario, el número de puntos en una cuadrícula debe especificarse de antemano y refinar la resolución de GS posteriormente es más complicado. Todo esto hace que RS sea preferible a GS y una base sorprendentemente sólida para HPO en muchos entornos prácticos. Tanto GS como RS se utilizan e implementan ampliamente en casi todos los marcos de software de ML.
+
+GS y RS son métodos de fácil implementación y unos de los más comunes. Ambos se encuentran implementados en una de las bibliotecas más populares de Python para el aprendizaje de máquinas: \emph{scikit-learn}. Ambas técnicas evaluan los modelos dado un vector de hiperparámetros determinado usando validación cruzada. Requieren dos argumentos: una instancia del modelo que se quiere optimizar y un espacio de búsqueda definido como un diccionario donde los nombres son los argumentos de los hiperparámetros del modelo y los valores son los valores discretos o en el caso de RS la distribución de valores para muestrear.
+
+Uno de los primeros sistemas de AutoML, Hyperopt, ya usaba RS entre sus estrategias de búsquedas como \textit{baseline}, comparando este método con la Optimmización Bayesiana. En Hyperopt el espacio de búsqueda es una expresión estocástica que siempre evalua a una entrada válida para la función objetivo. Un espacio de búsqueda consiste en expresiones anidadas de funciones, listas o diccionarios. Las expresiones estocásticas son los hiperparámetros. RS está implementada muestrando simplemente estas expresiones estocásticas.
+
+Rafiki es otro de los sistemas de AutoML que usa RS como un método de optimización de hiperpaŕametros. Rafiki ha sido introducido como un \textit{framework} distribuido que está basado en la idea de que usar modelos previos que logran un buen rendimiento en las mismas tareas. Para la implementación de RS, Rafiki usa un umbral $\alpha$ que representa la probabilidad de elegir una inicialización aleatoria y $1 - \alpha$ representa la probabilidad de usar parámetros pre-entrenados, $\alpha$ se disminuye gradualmente para disminuir la posibilidad de inicialización aleatoria.
+
+Por otro lado, FLAML usa otra versión de RS que ha sido propuesta recientemente, el método de búsqueda directa aleatoria [poner link, está en FLAML], que puede realizar una optimización rentable para la hiperparámetros. El algoritmo utiliza una configuración de bajo costo como punto de partida. En cada iteración, toma muestras de un dirección en una esfera unitaria y luego decide si pasar a una nueva configuración a lo largo de la dirección muestreada (o la dirección opuesta) dependiendo del signo observando el cambio de error de validación. El tamaño del paso del movimiento se ajusta de forma adaptativa (es grande al principio para acercarse rápidamente a la complejidad requerida) y se reinicia la búsqueda (desde puntos iniciales aleatorizados) ocasionalmente para escapar de los óptimos locales.
 
 \subsubsection{Optimización Bayesiana}
 

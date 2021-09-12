@@ -250,7 +250,7 @@ Por otro lado, FLAML usa otra versión de RS que ha sido propuesta recientemente
 	\item[$\checkmark$] Introducir quizá diciendo su popularidad como técnica de optimización
 	\item[$\checkmark$] Hablar de manera general en qué consiste el algoritmo de optimización, hablar de las funciones de adquisición y los modelos sustitutos, especialmente de su forma de equilibrar exploración (la evaluación de tantos conjuntos de hiperparámetros como sea posible) y explotación (asignar más recursos a los hiperparámetros más prometedores)
 	\item[$\checkmark$] Hablar de distintos tipos de modelos sustitutos y funciones de adquisicion.
-	\item Hablar de los sistemas: \begin{itemize}
+	\item[$\checkmark$] Hablar de los sistemas: \begin{itemize}
 		\item Sin meta-learning: AutoWeka, HyperOpt, (\textit{maybe} AutoNet)
 		\item Con Meta-learning: 
 		\item Meta-features: Auto-Sklearn, SmartML 
@@ -318,13 +318,14 @@ Otro sistema que usa BO para abordar el problema de NAS es Auto-Keras. En esta h
 \begin{itemize}
 	\item[$\checkmark$] Introducir este concepto mediante su necesidad de uso para las redes neuronales.
 	\item[$\checkmark$] Explicar de forma concreta en que consiste el método de optimización.
-	\item Hablar de AutoPytorch como ejemplo de sistema de AutoML (usa mtl sin meta-features)
+	\item[$\checkmark$] Hablar de AutoPytorch como ejemplo de sistema de AutoML (usa mtl sin meta-features)
 \end{itemize}
 
 La optimización bayesiana es popular para optimizar los objetivos de caja negra que consumen mucho tiempo. No obstante, para el ajuste de hiperparámetros en redes neuronales profundas, el tiempo necesario para evaluar el error de validación incluso para unos pocos ajustes de hiperparámetros sigue siendo muy costosa. La optimización de multifidelity promete alivio al usar \emph{proxies} más baratos para tales objetivos, por ejemplo, error de validación para una red entrenada usando un subconjunto de puntos de entrenamiento o menos iteraciones de las requeridas para la convergencia. (poner referencia del paper de \textit{multifidelity optimization})
 
 El concepto de \textit{Multifidelity} en HPO se refiere a todos los enfoques de ajuste que pueden manejar de manera eficiente a un learner $I(D, \lambda)$ con un hiperparámetro de presupuesto $\lambda_{budget}$ como un componente de $\lambda$ que influye en el costo computacional del procedimiento de ajuste de una manera monótonamente creciente. Los valores de $\lambda_{budget}$ más altos implican un tiempo de ejecución más largo del ajuste. Suponemos conocer las restricciones de $\lambda_{budget}$ en forma de límite inferior y superior. Por lo general, asumimos que más presupuesto es mejor en términos de rendimiento predictivo (pero, naturalmente, más caro), pero el \textit{overfitting} puede ocurrir en algún momento. Además, suponemos que la relación entre el presupuesto y el rendimiento de la predicción cambia de forma algo suave, por lo que al evaluar múltiples configuraciones de hiperparámetros con un presupuesto $\lambda$ pequeño, esto proporciona al menos una indicación con respecto a su clasificación cuando se evalúa en el presupuesto completo. Normalmente, esto implica un procedimiento de ajuste secuencial, donde $\lambda_{budget}$ es, por ejemplo,  el número de pasos de descenso de gradiente (estocásticos) o el número de miembros del conjunto agregados (de refuerzo) secuencialmente. Otra opción, de aplicación general, es realizar una submuestra de los datos de formación del 0\% al 100\% antes de la formación y tratar esto como control de presupuesto. Los algoritmos HPO que explotan dicho parámetro $\lambda_{budget}$, generalmente gastando el presupuesto en configuraciones de hiperparámetros baratos antes para la exploración y luego concentrándose en los más prometedores más tarde, se denominan métodos de multifidelity.
 
+El ejemplo más notable del uso de esta estrategia es Auto-PyTorch. \textit{Auto-PyTorch Tabular} es un sistema de AutoML dirigido a los datos tabulares que realizan optimización  multifidelity en un espacio conjunto de parámetros de arquitectura y hiperparámetros de entrenamiento para redes neuronales. Auto-PyTorch Tabular es el sucesor de Auto-Net y combina varios enfoques del estado del arte, desde optimización multifidelity a \textit{ensemble learning} y meta-learning para una selección impulsada por los datos para la selección de configuraciones iniciales para inicializar la optimización.
 
 \subsubsection{Algoritmos Evolutivos}
 

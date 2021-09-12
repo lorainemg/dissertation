@@ -235,13 +235,13 @@ Por otro lado, \textit{random search} (RS) o búsqueda aleatoria configura una c
 
 RS a menudo tiene un rendimiento mucho mejor que GS en entornos de HPO de mayor dimensión. GS sufre directamente de la maldición de la dimensionalidad, ya que el número requerido de evaluaciones aumenta exponencialmente con el número de hiperparámetros para un número de valores de hiper-parámetros fijo. Esto también parece ser cierto para RS a primera vista, y ciertamente necesitamos un número exponencial de puntos para cubrir bien el espacio. Pero en la práctica, los problemas de HPO a menudo tienen una dimensionalidad efectiva baja: el conjunto de hiperparámetros que influyen en el rendimiento suele ser un pequeño subconjunto de todos los hiperparámetros disponibles. Otra ventaja de RS es que se puede ampliar fácilmente con más muestras; por el contrario, el número de puntos en una cuadrícula debe especificarse de antemano y refinar la resolución de GS posteriormente es más complicado. Todo esto hace que RS sea preferible a GS y una base sorprendentemente sólida para HPO en muchos entornos prácticos. Tanto GS como RS se utilizan e implementan ampliamente en casi todos los marcos de software de ML.
 
-GS y RS son métodos de fácil implementación y unos de los más comunes. Ambos se encuentran implementados en una de las bibliotecas más populares de Python para el aprendizaje de máquinas: \emph{scikit-learn}. Ambas técnicas evaluan los modelos dado un vector de hiperparámetros determinado usando validación cruzada. Requieren dos argumentos: una instancia del modelo que se quiere optimizar y un espacio de búsqueda definido como un diccionario donde los nombres son los argumentos de los hiperparámetros del modelo y los valores son los valores discretos o en el caso de RS la distribución de valores para muestrear.
+GS y RS son métodos de fácil implementación y unos de los más comunes. Ambos se encuentran implementados en una de las bibliotecas más populares de Python para el aprendizaje de máquinas: \texttt{scikit-learn}. Ambas técnicas evaluan los modelos dado un vector de hiperparámetros determinado usando validación cruzada. Requieren dos argumentos: una instancia del modelo que se quiere optimizar y un espacio de búsqueda definido como un diccionario donde los nombres son los argumentos de los hiperparámetros del modelo y los valores son los valores discretos o en el caso de RS la distribución de valores para muestrear.
 
 Uno de los primeros sistemas de AutoML, Hyperopt, ya usaba RS entre sus estrategias de búsquedas como \textit{baseline}, comparando este método con la Optimmización Bayesiana. En Hyperopt el espacio de búsqueda es una expresión estocástica que siempre evalua a una entrada válida para la función objetivo. Un espacio de búsqueda consiste en expresiones anidadas de funciones, listas o diccionarios. Las expresiones estocásticas son los hiperparámetros. RS está implementada muestrando simplemente estas expresiones estocásticas.
 
-Rafiki es otro de los sistemas de AutoML que usa RS como un método de optimización de hiperpaŕametros. Rafiki ha sido introducido como un \textit{framework} distribuido que está basado en la idea de que usar modelos previos que logran un buen rendimiento en las mismas tareas. Para la implementación de RS, Rafiki usa un umbral $\alpha$ que representa la probabilidad de elegir una inicialización aleatoria y $1 - \alpha$ representa la probabilidad de usar parámetros pre-entrenados, $\alpha$ se disminuye gradualmente para disminuir la posibilidad de inicialización aleatoria.
+Rafiki es otro de los sistemas de AutoML que usa RS como un método de optimización de hiperparámetros. Rafiki ha sido introducido como un \textit{framework} distribuido que está basado en la idea de que usar modelos previos que logran un buen rendimiento en las mismas tareas. Para la implementación de RS, Rafiki usa un umbral $\alpha$ que representa la probabilidad de elegir una inicialización aleatoria y $1 - \alpha$ representa la probabilidad de usar parámetros pre-entrenados, $\alpha$ se disminuye gradualmente para disminuir la posibilidad de inicialización aleatoria.
 
-Por otro lado, FLAML usa otra versión de RS que ha sido propuesta recientemente, el método de búsqueda directa aleatoria [poner link, está en FLAML], que puede realizar una optimización rentable para la hiperparámetros. El algoritmo utiliza una configuración de bajo costo como punto de partida. En cada iteración, toma muestras de un dirección en una esfera unitaria y luego decide si pasar a una nueva configuración a lo largo de la dirección muestreada (o la dirección opuesta) dependiendo del signo observando el cambio de error de validación. El tamaño del paso del movimiento se ajusta de forma adaptativa (es grande al principio para acercarse rápidamente a la complejidad requerida) y se reinicia la búsqueda (desde puntos iniciales aleatorizados) ocasionalmente para escapar de los óptimos locales.
+Por otro lado, FLAML usa otra versión de RS que ha sido propuesta recientemente, el método de búsqueda directa aleatoria [poner link, está en FLAML], que puede realizar una optimización rentable para la hiperparámetros. El algoritmo utiliza una configuración de bajo costo como punto de partida. En cada iteración, toma muestras de un dirección en una esfera unitaria y luego decide si pasar a una nueva configuración a lo largo de la dirección muestreada (o la dirección opuesta) dependiendo del signo observado en el cambio de error de validación. El tamaño del paso del movimiento se ajusta de forma adaptativa (es grande al principio para acercarse rápidamente a la complejidad requerida) y se reinicia la búsqueda (desde puntos iniciales aleatorizados) ocasionalmente para escapar de los óptimos locales.
 
 \subsubsection{Optimización Bayesiana}
 
@@ -296,6 +296,22 @@ Donde $\delta(\lambda) = m_{opt} - \mu(\lambda)$, la función  $\Phi(\cdot)$ es 
 
 El valor de $\delta(\lambda)$ mide cuán cerca estamos (en promedio) al mejor valor actual de rendimiento. Cuando se necesitan nuevos parámetros de ajuste candidatos, el espacio de $\theta$ es buscado por el valor que maximiza la mejora esperada.
 
+\quad
+
+\textbf{Ejemplos}
+
+\quad
+
+
+Esta estrategia de búsqueda ha sido ampliamente usada en diversos sistemas de AutoML. Auto-WEKA, es uno de los primeros sistemas de AutoML, introduciendo el problema de CASH. Esta herramienta utiliza el enfoque de optimización bayesiana para la optimización de los hiperparámetros. En particular, usa \textit{Sequential Model-Based Optimization} (SMBO) o la Optimización Secuencial Basada en Modelos, un sistema versátil de optimización estocástica que puede trabajar explícitamente con hiperparámetros categóricos y continuos, y que pueden explotar la estructura jerárquica derivados de los hiperparámetros condicionales. Auto-WEKA implementa dos algoritmos de SMBO que son adecuados para la tarea de la selección combinada de modelos y optimización de hiperparámetros: \textit{Sequential Model-based Algorithm Configuration} (SMAC) y \textit{Tree-structured Parzen Estimator} (TPE). Empíricamente compararon estos dos optimizadores para buscar en el espacio de hiperparámetros de 786 dimensiones de Auto-WEKA y terminaron recomendando la variente basada en el método de optimización bayesiana SMAC.
+
+Hyperopt y Auto-Sklearn fueron dos sistemas posteriores de AutoML que también utilizan dos optimizadores bayesianos: SMAC y TPE respectivamente. Además de abordar el problema de CASH con SMAC, Auto-Sklearn además emplea meta-learning para empezar la optimización bayesiana con buenas configuraciones [link del paper de Auto-Sklearn de meta-learning] evaluada en datasets similares. Auto-Sklearn además constuye \textit{ensembles} de los modelos evaluados con SMAC con la técnica de la selección de \textit{ensemble} de [poner link] para reducir el riesgo de hacer \textit{overfitting}. 
+
+La optimización bayesiana ha sido también utilizada para incluir redes neuronales modernas. Uno de las primeras herramientas en llenar este vacío fue Auto-Net, un sistema que automáticamente configura redes neuronales con SMAC siguiendo el mismo enfoque de AutoML que Auto-WEKA y Auto-Sklearn. Para la primera version de Auto-Net este sistema está implmentado dentro de Auto-Sklearn añadiendo un nuevo componente de clasificación y regresión. Auto-Net está limitado a las redes neuronales complementamente conectadas y hace uso de la biblioteca de Python \textit{Lasagne}, la cual está construida sobre Theano.
+
+
+Otro sistema que usa BO para abordar el problema de NAS es Auto-Keras. En esta herramienta se usa la optimización bayesiana para guiar el morfismo de la red para una búsqueda efectiva de arquitecturas neuronales. Como modelos sustitutos usan procesos gausianos (GPs) y como funciones de adquisición \textit{Upper Confidence Bound} (límite de confianza superior).
+
 \subsubsection{Multifidelity Optimization}
 
 
@@ -338,7 +354,7 @@ Los EA estaban limitados a espacios numéricos en su formulación original, pero
 
 Los algoritmos evolutivos a menudo funcionan bien al aproximar soluciones a todo tipo de problemas porque, idealmente, no hacen ninguna suposición sobre la función de aptitud subyacente. % En la mayoría de las aplicaciones reales de EA, la complejidad computacional es un factor prohibitivo. De hecho, esta complejidad computacional se debe a la evaluación de la función de aptitud. La aproximación al fitness es una de las soluciones para superar esta dificultad.
 
-\subsubsection{Aprendizaje de refuerzo}
+\subsubsection{Aprendizaje por refuerzo}
 
 \begin{itemize}
 	\item[$\checkmark$] Introducir este método como algoritmo de optimización

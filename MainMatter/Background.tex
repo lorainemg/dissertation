@@ -364,12 +364,15 @@ Los algoritmos evolutivos a menudo funcionan bien al aproximar soluciones a todo
 	\item Hablar de los sistemas que usan Reinforcement Learning: AlphaD3M (mtl con meta-features)
 \end{itemize}
 
-El aprendizaje por refuerzo (RL) es un marco de optimización muy general y sólido, que puede resolver problemas con retroalimentación retardada. A diferencia de los métodos anteriores, las retroalimentaciones (es decir, la recompensa y el estado) no necesitan ser devueltos inmediatamente una vez que se toma una acción. Se pueden devolver después de realizar una secuencia de acciones. 
+El aprendizaje por refuerzo (RL), como estrategia de búsqueda, consiste en entrenar un agente que realiza modificaciones sobre una solución con el objetivo de maximizar una recompensa que depende del rendimiento de dicha solución. Es un marco de optimización muy general y sólido, que puede resolver problemas con retroalimentación retardada. A diferencia de los métodos anteriores, las retroalimentaciones (es decir, la recompensa y el estado) no necesitan ser devueltos inmediatamente una vez que se toma una acción. Se pueden devolver después de realizar una secuencia de acciones. 
 
 Sin embargo, el rendimiento de una arquitectura solo se puede evaluar después de que se componga toda su estructura, lo que implica una recompensa retrasada. Por lo tanto, la generación de arquitectura iterativa sigue naturalmente la propiedad de RL. 
 
 Debido a las retroalimentaciones retrasadas, AutoML con aprendizaje por refuerzo consume una gran cantidad de datos y es necesario explorar métodos más eficientes. Algunos esfuerzos actuales para abordar estos problemas son el aprendizaje de arquitecturas transferibles a partir de conjuntos de datos más pequeños y la reducción del espacio de búsqueda compartiendo parámetros.
 
+Esta estrategia es usual en la búsqueda de arquitecturas de redes neuronales (NAS), donde el agente puede realizar acciones como añadir, quitar o modificar una capa, o sus hiperparámetros. Las propuestas difieren en cómo representan la política del agente, y como la optimizan.
+
+Un ejemplo del uso de esta estrategia se encuentra en Alpha3DM. Alpha3DM es un sistema de aprendizaje automático basado en \textit{meta reinforcement learning} usando secuencia de modelos con \textit{self play}. Inspirado en AlphaZero, el jugador iterativamente construye un pipeline seleccionando entre un conjunto de acciones entre las cuales se encuentran inserción, eliminación y reemplazo de partes del pipeline. Una ventaja inherente de este enfoque es que al final del proceso, una vez haya un pipeline completo, es completamente explicable, incluidas todas las acciones y decisiones que llevaron a esa síntesis. Alpha3DM usa una red neuronal (específicamente, un LSTM)  para predecir el rendimiento de un pipeline y las probabilidades de acción, junto con un Monte-Carlo Tree Search (MCTS), el cuál toma decisiones fuertes basados en la red.
 
 \subsubsection{Multi-Armed Bandit (MAB)}
 

@@ -334,12 +334,12 @@ El ejemplo más notable del uso de esta estrategia es Auto-PyTorch. \textit{Auto
 	\item[$\checkmark$] Introducción de los algoritmos evolutivos
 	\item[$\checkmark$] Definir conceptos importantes como \textit{individuos}, \textit{población} y sus principales operaciones \textit{mutation} y \textit{crossover}. Explicarlos en la terminología de HPO
 	\item[$\checkmark$] Hablar un poco de sus desventajas y propiedades.
-	\item Mencionar los distintos paradigmas de los algoritmos evolutivos, para hacer incapié en varios usados en los sistemas de AutoML: GGA, GA, PGE
+	\item[$\checkmark$] Mencionar los distintos paradigmas de los algoritmos evolutivos, para hacer incapié en varios usados en los sistemas de AutoML: GGA, GA, PGE
 	\begin{itemize}
-	\item Al explicar estos algoritmos concretos, hablar de los distintos sistemas de AutoML
-	\item EA: Autostacker 
-	\item GP: TPOT. No tiene mtl, pero hay trabajos incorporándolo, explicarlos.
-	\item GGA: Auto-MEKA\_GPP, RECIPE (sin mtl)
+	\item[$\checkmark$] Al explicar estos algoritmos concretos, hablar de los distintos sistemas de AutoML
+	\item[$\checkmark$] EA: Autostacker 
+	\item[$\checkmark$] GP: TPOT. No tiene mtl, pero hay trabajos incorporándolo, explicarlos.
+	\item[$\checkmark$] GGA: Auto-MEKA\_GPP, RECIPE (sin mtl)
 	\item PGE: Auto-GOAL sin mtl
 	\end{itemize}
 \end{itemize}
@@ -387,7 +387,7 @@ Esta estrategia es usual en la búsqueda de arquitecturas de redes neuronales (N
 
 Un ejemplo del uso de esta estrategia se encuentra en Alpha3DM. Alpha3DM es un sistema de aprendizaje automático basado en \textit{meta reinforcement learning} usando secuencia de modelos con \textit{self play}. Inspirado en AlphaZero, el jugador iterativamente construye un pipeline seleccionando entre un conjunto de acciones entre las cuales se encuentran inserción, eliminación y reemplazo de partes del pipeline. Una ventaja inherente de este enfoque es que al final del proceso, una vez haya un pipeline completo, es completamente explicable, incluidas todas las acciones y decisiones que llevaron a esa síntesis. Alpha3DM usa una red neuronal (específicamente, un LSTM)  para predecir el rendimiento de un pipeline y las probabilidades de acción, junto con un Monte-Carlo Tree Search (MCTS), el cuál toma decisiones fuertes basados en la red.
 
-\subsubsection{Multi-Armed Bandit (MAB)}
+\subsubsection{Multi-Armed Bandit}
 
 
 \begin{itemize}
@@ -400,21 +400,36 @@ Un ejemplo del uso de esta estrategia se encuentra en Alpha3DM. Alpha3DM es un s
 	\end{itemize}
 \end{itemize}
 
-El problema de los \textit{Multi-Armed Bandit} es un problema en el que se debe asignar un conjunto limitado fijo de recursos entre opciones en competencia (alternativas) de una manera que maximice su ganancia esperada, cuando las propiedades de cada opción se conocen solo parcialmente en el momento de la asignación, y pueden entenderse mejor a medida que pasa el tiempo o mediante la asignación de recursos a la elección. Este es un problema clásico de aprendizaje por refuerzo que ejemplifica el dilema de compensación de exploración-explotación.
+\textit{Multi-Armed Bandit} (MAB) es un problema en el que se debe asignar un conjunto limitado fijo de recursos entre opciones en competencia (alternativas) de una manera que maximice su ganancia esperada, cuando las propiedades de cada opción se conocen solo parcialmente en el momento de la asignación, y pueden entenderse mejor a medida que pasa el tiempo o mediante la asignación de recursos a la elección. Este es un problema clásico de aprendizaje por refuerzo que ejemplifica el dilema de compensación de exploración-explotación.
 
-El problema de MAB puede definirse de la siguiente forma:
+El problema de MAB puede definirse de la siguiente forma en el contexto de HPO:
 
-Dado un conjunto de acciones $a \in A$ y un presupuesto de tiempo $T$, en cada ronda $t \in [T]$:
+\begin{definition}
+
+Dado un conjunto de acciones $a \in A$, un presupuesto de tiempo $T$ y las distribuciones de recompensa $D$ que son desconocidas e independientes, en cada ronda $t \in [T]$:
 
 \begin{enumerate}
 	\item Un algoritmo elige un brazo $a \in A$
 	\item Los algoritmos observan una recompensa del brazo elegido $a_t$
 \end{enumerate}
 
-Dado las distribuciones de recompensa $D$ que son desconocidas e independientes, encontrar el algoritmo que mejor aproxima la solución con la menor pérdida de recompensa.
+Encontrar el algoritmo que mejor aproxima la solución con la menor pérdida de recompensa.
 
-En el contexto de HPO, cada brazo $a_t$ es asociado con una configuración de hiperparámetros $\lambda$ y la recompensa (estocástica) por seleccionar (alar) un conjunto de hiperparámetro previo está definido en términos de error en las predicciones.
+\end{definition}
 
+Específicamente, cada brazo $a_t$ es asociado con una configuración de hiperparámetros $\lambda$ y la recompensa (estocástica) por seleccionar (alar) un conjunto de hiperparámetros previo está definido en términos de error en las predicciones.
+
+ATM constituye en ejemplo de esta estrategia. ATM es un servicio de AutoML multi-usario que puede ser hosteado en cualquier infraestructura, ya sea la nube o un \textit{cluster}. En ATM un usuario puede decidir entre dos métodos de optimización: 1) un sistema de optimización híbrida bayesiana y \textit{multi-armed bandit} y 2) un sistema de recomendación de modelos que funciona explotando las técnicas de modelación de los rendimientos anteriores en una gran variedad de dataset. El aprendizaje \textit{bandit} empleado en este sistema modela cada hiperpartición, el cual define un conjunto ajustable de hiperparámetros condicionales, como un brazo $a$. Dado que cada brazo, cuando es elegido, proporciona una recompensa aleatoria elegida de la distribución subyacente, el propósito del problema MAB es decidir cuál brazo alar para maximizar la recompensa a largo plazo, reevaluando la decisión después de que cada recompensa es observada. En el contexto de ATM, cada hiperpartición es tratada como un brazo con su propia distribución de recompensas. A medida que pasa el tiempo, aprende más sobre la distribución, y balancea exploración y explotación eligiendo las hiperparticiones más prometedoras para formar los clasificadores. Además, existen estrategias de memoria para cambiar la formulación del problema cuando las redistribuciones de las recompensas son no-estacionarias. El algoritmo de ATM asume que las distribuciones subyacentes de cada brazo es estacionario. En el contexto de ATM, durante la optimización del modelo, a medida que el modelo sustituto de BO continua aprendiendo sobre las hiperparticiones y es capaz de descubrir parametrizaciones que continuan teniendo una recompensa cada vez mejor, esencialmente cambia la percepción de la distribución de recompensa. La optimización bayesiana es usada dentro de cada hiperpartición, usando una técnica de meta-modelado basado en Procesos Gausianos (GPs) para identificar los mejores hiperparámetros dado el rendimiento de los clasificadores ya construidos para esa hiperpartición. ATM soporta 2 funciones de adquisición: \textit{Expected Improvement} y \textit{Expected Improvement per Time}[esto lleva link que está en el paper].
+
+\textit{Alpine Meadow} ha sido recientemente introducido como una herramienta \emph{interactiva} de AutoML. Además de su interoactividad se destaca por su enfoque de diseño combinadamente sistemático y algorítmico. Por un lado se aprovechan de ideas de \textit{optimización de consultas} y por otro lado muestran estrategias nuevas y de poda combinando \textit{Multi-Armed Bandits} basado en costo y Optimización Bayesiana. En particular, usa un mecanismo de meta-learning para proveer al usario con una recomendación de un modelo inicial, usándolo además como retroalimentación. \textit{Multi-Armed Bandits} es usado para modelar el proceso de selección de un flujo de trabajo general basado en la historia. La idea principal es la siguiente: 
+\begin{itemize}
+	\item Inicialización: tiene un brazo para cada pipeline general relacionados (basado en la tarea y el dataset) ejecutados en el pasado y presentan una puntuación para cada brazo basado en la experiencia pasada.
+	\item Selección: Seleccionamos un brazo (es decir, pipeline) para ejecutar aleatoriamente pero de forma proporcional a la puntuación. Cuando la ejecución se haya terminado,
+	\item Guardar Historia: Guardar el resultado en el registro de la historia.
+	\item Ajustar Puntuaciones: Ajustamos las puntuaciones consecuentemente, y el proceso se repite en 1
+\end{itemize}
+
+ % Toma prestado de la optimización de consultas la creación de espacios de búsqueda basado en reglas
 
 \subsubsection{Monte Carlo Tree Search (MCTS)}
 

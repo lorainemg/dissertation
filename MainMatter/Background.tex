@@ -361,7 +361,7 @@ Los algoritmos evolutivos a menudo funcionan bien al aproximar soluciones a todo
 	\item[$\checkmark$] Introducir este método como algoritmo de optimización
 	\item[$\checkmark$] Hablar de la retroalimentación retardada: las retroalimentaciones (la recompensa y el estado) no necesitan ser devueltos inmediantamente una vez que se toma una acción pero una arquitectura solo se puede evaluar después de que se componga toda su estructura
 	\item[$\checkmark$] Explicar su desventaja de que consume gran cantidad de datos
-	\item Hablar de los sistemas que usan Reinforcement Learning: AlphaD3M (mtl con meta-features)
+	\item[$\checkmark$] Hablar de los sistemas que usan Reinforcement Learning: AlphaD3M (mtl con meta-features)
 \end{itemize}
 
 El aprendizaje por refuerzo (RL), como estrategia de búsqueda, consiste en entrenar un agente que realiza modificaciones sobre una solución con el objetivo de maximizar una recompensa que depende del rendimiento de dicha solución. Es un marco de optimización muy general y sólido, que puede resolver problemas con retroalimentación retardada. A diferencia de los métodos anteriores, las retroalimentaciones (es decir, la recompensa y el estado) no necesitan ser devueltos inmediatamente una vez que se toma una acción. Se pueden devolver después de realizar una secuencia de acciones. 
@@ -411,7 +411,7 @@ En el contexto de HPO, cada brazo $a_t$ es asociado con una configuración de hi
 	\item[$\checkmark$] Explicar los pasos en los que consite MCTS: selección, expansión, simulación y backpropagation.
 	\item[$\checkmark$] Mencionar como MCTS extiende el algoritmo de MAB [link de mosaic]
 	\item[$\checkmark$] Ejemplificar la adaptación del procedimiento estándar de MCTS al problema de HPO 
-	\item Poner ejemplos de sistemas
+	\item[$\checkmark$] Poner ejemplos de sistemas
 	\item MOSAIC: usa meta-learning con meta-features
 \end{itemize}
 
@@ -444,7 +444,7 @@ Un ejemplo de adaptación del procedimiento estándar de MCTS al problema de HPO
 \begin{itemize}
 	\item[$\checkmark$] Introducir el método hablando de los problemas de su uso para HPO
 	\item[$\checkmark$] Explicar cómo se usa en la solución del problema
-	\item Hablar de HyperGD, y poner el ejemplo de Oracle, que es un sistema que usa este método de optimización. Usa meta-learning
+	\item[$\checkmark$] Hablar de HyperGD, y poner el ejemplo de Oracle, que es un sistema que usa este método de optimización. Usa meta-learning
 \end{itemize}
 
 Los problemas de HPO suelen ser complejos ya que en general el objetivo no suele ser diferenciable o incluso continuo. Cada hiperparámetro que está definido por un conjunto discreto introduce superficies no suaves. Además en general el problema de HPO no es convexo. Toda la teoría de convergencia de Gradient Descent  (GD) asume, que el problema subyacente es convexo. Por lo tanto, el descenso por gradientes no es tan popular como los métodos anteriores. Sin embargo, centrándose en alguna función de pérdida diferenciable, por ejemplo, \textit{square loss} y \textit{logistic loss}, los hiperparámetros continuos se pueden optimizar mediante el descenso de gradiente.
@@ -455,7 +455,7 @@ Por lo general, esto se puede hacer con métodos de diferenciación finita pero 
 
 Otra forma de calcular gradientes es mediante el aprendizaje reversible [poner link del artículo sobre reverse learning] (también denominado diferenciación automática). Calcula gradientes con la regla de la cadena, que también se utiliza en el proceso de retropropagación del entrenamiento de la red. Se ha aplicado en la búsqueda de hiperparámetros de aprendizaje profundo. 
 
-HyperGD es un optimizador de hiperparámetros basado en gradientes altamente paralelo que realiza una optimización asincrónica en diferentes dimensiones de hiperparámetros en paralelo.
+Oracle AutoML es un ejemplo de esta estrategia de búsqueda. Para la optimización de hiperparámetros usa específicamente HyperGD, que está basado en gradientes altamente paralelos que realizan una optimización asincrónica en diferentes dimensiones de hiperparámetros en paralelo. La característica más destacada de Oracle AutoML es que tiene un pipeline de AutoML libre de iteraciones, diseñado no solo para proveer modelos precisos, sino también en un tiempo de ejecución más pequeño. Para liberar las etapas del aprendizaje automático de iteraciones hacen uso de modelos proxy, que son meta-aprendidos, que predicen el rendimiento relativo de algoritmos y subconjuntos de datos. Además, selecciona una muestra representativa de un dataset, junto con la fila y las dimensiones de las características, optimizadas por un algoritmo seleccionado. La reducción de datos adaptativos acelera la optimización de hiperparámetros con un impacto mínimo en el rendimiento predictivo de los modelos.
 
 \subsubsection{Filtrado Colaborativo}
 

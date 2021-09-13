@@ -337,7 +337,8 @@ El ejemplo más notable del uso de esta estrategia es Auto-PyTorch. \textit{Auto
 	\item Mencionar los distintos paradigmas de los algoritmos evolutivos, para hacer incapié en varios usados en los sistemas de AutoML: GGA, GA, PGE
 	\begin{itemize}
 	\item Al explicar estos algoritmos concretos, hablar de los distintos sistemas de AutoML
-	\item GA: TPOT. No tiene mtl, pero hay trabajos incorporándolo, explicarlos. Autostacker
+	\item EA: Autostacker 
+	\item GP: TPOT. No tiene mtl, pero hay trabajos incorporándolo, explicarlos.
 	\item GGA: Auto-MEKA\_GPP, RECIPE (sin mtl)
 	\item PGE: Auto-GOAL sin mtl
 	\end{itemize}
@@ -354,6 +355,18 @@ En la terminología de la optimización de hiperparámetros un \textit{individuo
 Los EA estaban limitados a espacios numéricos en su formulación original, pero pueden extenderse fácilmente para manejar espacios mixtos tratando componentes de diferentes tipos de forma independiente, por ejemplo, agregando un valor aleatorio normalmente distribuido a hiperparámetros de valor real mientras se agrega la diferencia de dos geométricamente valores distribuidos a hiperparámetros con valores enteros. Al definir operaciones de mutación y cruce que operan en estructuras de árbol o gráficos, incluso es posible realizar la optimización de \emph{pipelines} de preprocesamiento o arquitecturas de redes neuronales utilizando algoritmos evolutivos.
 
 Los algoritmos evolutivos a menudo funcionan bien al aproximar soluciones a todo tipo de problemas porque, idealmente, no hacen ninguna suposición sobre la función de aptitud subyacente. % En la mayoría de las aplicaciones reales de EA, la complejidad computacional es un factor prohibitivo. De hecho, esta complejidad computacional se debe a la evaluación de la función de aptitud. La aproximación al fitness es una de las soluciones para superar esta dificultad.
+
+Un ejemplo de uso de los algoritmos evolutivos se encuentra en Autostacker. Autostacker combina una arquitectura innovadora jerárquica de stacking y EA para realizar la búsqueda de parámetros de forma eficiente. Encuentra combinaciones innovadoras y estructuras de modelos de \textit{machine learning} en vez de seleccionar un solo modelo y optimiza sus hiperparámetros. Para esto está inspirado en el método \textit{stacking} de \textit{ensemble learning}. Por otro lado, EA les permite encontrar buenas soluciones en un espacio grande de variables. Además, explotando la naturaleza paralela de los algoritmos evolutivos, Autostacker encuentra rápidamente buenos candidatos de pipelines.
+
+Por otro lado, TPOT optimiza flujos de algoritmos mediante una versión de programación genética (\textit{genetic programming}), una técnica muy conocida en la programación evolutiva para la construcción automática de programas. En la programación genética las soluciones están en la forma de programas de computadoras, y su aptitud está determinada por su habilidad para resolver un programa computacional. Una diferencia en el espacio de búsqueda de TPOT, en comparación con el resto de los sistemas mencionados, es que permite el uso de muchas copias de un dataset, el cual es procesado en paralelo por diferentes métodos de pre-procesamiento y combinados con posterioridad. Además, TPOT considera una selección Pareto (NSGA-II) para realizar la búsqueda multiobjetivo. Dos objetivos separados son considerados: maximizar la medida de precisión del flujo de trabajo y minimizar la complejidad total del mismo, que está dado por el números de operadores del flujo de trabajo, con el objetivo de evitar \textit{overfitting}.
+
+Otro ejemplo lo constituye RECIPE, el cual supera las debilidades de los otros \textit{frameworks} basados en algoritmos evolutivos anteriores, tales como generación de individuos inválidos, y organiza un gran número de posibles métodos de pre-procesamiento de datos y de clasificación adecuados en una gramática. Para esto hace uso de un enfoque de Programación Genética basada en Gramáticas (GPP). Esta gramática permite dirigir la búsqueda, restringiendo las operaciones de mutación y cruzamiento. La estructura de la gramática permite a RECIPE evitar, a diferencia de TPOT, la generación de flujos inválidos, y puede acelerar la búsqueda.
+
+Otra herramienta de AutoML que usa GPP como estrategia de búsqueda es $Auto-MEKA_{GPP}$. $Auto-MEKA_{GPP}$ está diseñada para resolver el problema de \textit{Multi-Label Classification} (MLC) y se apoya en la herramienta MEKA, la cual ofrece un número de algoritmos de MLC. En MLC, cada ejemplo puede ser asociado con una o más etiquetas de clase, lo que hace los problemas de MLC más difíciles que los problemas de clasificación convencionales, que poseen una sola etiqueta (\textit{Single Label Classification}, SLC). Mediante GPP, $Auto-MEKA_{GPP}$ es capaz de manejar la naturaleza jerárquica compleja del espacio de búsuqeda de MLC mientras evita la generación de soluciones inválidas. Sin embargo, en el trabajo se enfocan en la búsqueda de algoritmos y sus hiperparámetros, no en flujos de trabajo completos. Esto se debe a que el espacio de búsqueda de MLC es mucho más grande que el espacio de búsqueda de SLC.
+
+\begin{itemize}
+	\item AUTOGOAL
+\end{itemize}
 
 \subsubsection{Aprendizaje por refuerzo}
 

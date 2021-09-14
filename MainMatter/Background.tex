@@ -563,10 +563,12 @@ La principal característica de esta técnica es el uso de meta-features para me
 	\item Hablar de varios papers que definen los distintos tipos de meta-features, puedo además mencionar varios survey de meta-features.
 	\item \textit{Meta-Learning and the Full Model Selection Problem}
 	\item \textit{Pairwise meta rules for better meta learning based algorithm ranking}
-	\item \textit{Selection Classification Algorithms with Active Testing}
+	\item \textit{Selecting Classification Algorithms with Active Testing}
+	\item \textit{Towards Reproducible Empirical Research in Meta-Learning}
 \end{itemize}
 
-Las meta-features caracterizan un dataset y generalmente en la literatura se encuentran divididos en 5 grupos:
+Cómo extraer información adecuada para caracterizar tareas específicas es una de las preguntas fundamentales en meta-learning. Investigadores han intentado contestar esta pregunta observando las características de los datasets que afectan el rendimiento de los algoritmos. Estas caracterizaciones son denominadas meta-features y usualmente se encuentran divididos en cinco grupos. Estos grupos son subconjuntos de medidas de caracterización [poner link de Brazdil] que comparten similitudes entre ellos:
+
 
 \begin{description}
 	\item[Simple:] son características que son fácilmente extraídas de los datos, son conocidas comúnmente y no requieren recursos computacionales significativos. Representan información básica sobre el dataset. Hasta un determinado punto son concebidas para medir la complejidad del problema subyacente. Algunas de las caracterizaciones incluidas en este grupo son: el número de instancias, el número de atributos, la dimensionalidad del dataset, el radio de valores faltantes, etc. También son llamadas medidas \textit{generales}.
@@ -580,21 +582,31 @@ Las meta-features caracterizan un dataset y generalmente en la literatura se enc
 	\item[\textit{Landmarking}:] son características que usan el rendimiento de algoritmos de aprendizaje simples y rápidos para caracterizar los datasets. Los algoritmos deben tener diferentes sesgos y capturar información importante con un costo computacional bajo. Las medidas caracterizan problemas supervisados y son indirectamente extraídas. Requieren la definición de hiperparámetros: el algoritmo de aprendizaje, la medida de evaluación usada para comprobar el rendimiento del modelo y el procedimiento usado para calcularla (por ejemplo, validación cruzada).
 \end{description}
 
-Los primeros tres grupos representan los enfoques más comunes y tradicionales de las caracterizaciones de los datos. Los últimos dos requieren el uso de algoritmos de aprendizaje de máquinas, porque extraen la complejidad del modelo o medidas de rendimiento del mismo. 
+Los primeros tres grupos representan los enfoques más comunes y tradicionales de las caracterizaciones de los datos. Los últimos dos requieren el uso de algoritmos de aprendizaje de máquinas, porque extraen la complejidad del modelo o medidas de rendimiento del mismo, haciendolos además más complejos.
 
-\subsubsection{Selección Automática de Meta-Features}
+Además de estas meta-features de propósito general, otros conjuntos de meta-features han sido desarrollados. Un ejemplo de esto son los \textit{Pairwise Meta-Rules} (PMR), un método de generación de meta-features basados en reglas que comparan el rendimiento de algoritmos individuales en un mismo dataset, formando pares y seleccionando el mejor. La principal motivación detrás de PMR viene de la observación de que conjuntos existentes de meta-features han ignorado el potencial de la relación entre cada par de algoritmos a seleccionar. Añadiendo explícitamente esta información al espacio de meta-features puede mejorar el rendimiento de la predicción de un meta-learner. Sin embargo, para un nuevo dataset esta información no está disponible, por lo que se propone usar un nuevo \textit{rule learner} con el objetivo de aprender reglas para predecir si un algoritmo $\theta_a$ tendrá mejor rendimiento que otro algoritmo $\theta_b$ en un nuevo dataset.
 
-\begin{itemize}
-	\item[$\checkmark$] Introducir la idea de aprender una representación automáticamente de un grupo de tareas
-	\item Ejemplos
-	\item \textit{Automatic classifier selection for non-experts}
-	\item \textit{Towards Automatic Generation of Meta-Features}
-	\item \textit{On the predictive power of meta-features in OpenML}
-	\item \textit{Towards Reproducible Empirical Research in Meta-Learning}
-	\item \textit{A Framework to decompose and develop metafeatures}
-\end{itemize}
+Además de definir manualmente los meta-features, uno puede aprender una representación conjunta para un grupo de tareas. 
 
-En vez de definir manualmente los meta-features, uno puede además aprender una representación conjunta para un grupo de tareas. 
+Un ejemplo de solución a la generación automática de meta-features es descomponer los meta-features en tres componentes: \textit{meta-function} (\texttt{meta-función}), \textit{object} (\texttt{objeto}) y \textit{post-processing} (\texttt{post-procesamiento}) [\textit{Towards Automatic Generation of Meta-Features}, A Framework to decompose and develop metafeatures.]. Una \texttt{meta-función} (por ejemplo, entropy) es aplicado a un \texttt{objeto} (por ejemplo, un conjunto de variables independientes) y el resultado es \texttt{post-procesado} (por ejemplo, el promedio), resultando en un meta-feature (por ejemplo, el promedio de la entropía de un atributo) %La generación automática de meta-features está motivada por la selección de una \textit{meta-function} usada para generar sistemáticamente meta-features de todas las posibles combinaciones de alternativas de \texttt{objetos} y \texttt{post-procesamiento} 
+
+\textit{Exploratory Factor Analysis} (EFA)(explicar) es otro método que ha sido utilizado para estudiar el poder predictivo de diferentes \textit{meta-features} usadas en OpenML. OpenML es una plataforma colaborativa de aprendizaje automático que está diseñada para guardar y organizar meta-datos sobre datasets, algoritmos de minería de datos, modelos y sus evaluaciones. EFA es usado para extraer las características latentes, los cuales son conceptos abstractos que agrupan meta-features junto con características comunes. Después, estudian y visualizan la relación de las carcterísticas latentes con 3 diferentes medidas de rendimiento de 4 algoritmos de clasificación en cientos de datasets disponibles en OpenML, y se seleccionan las características con el mayor poder predictivo. Estas características latentes son usadas para realizar meta-learning y se muestra que su método mejora el proceso de meta-learning.
+
+
+MFE (\textit{Meta-Feature Extractor}) es una biblioteca de R usada para extraer meta-features de los datasets e identificar problemas más sútiles en su reproducibilidad en la literatura. Propone \textit{guidelines} para la caracterización de datos que fortalece la investigación empírica reproducible en meta-learning. 
+
+
+%\subsubsection{Selección Automática de Meta-Features}
+%
+%\begin{itemize}
+%	\item[$\checkmark$] Introducir la idea de aprender una representación automáticamente de un grupo de tareas
+%	\item Ejemplos
+%	\item \textit{Automatic classifier selection for non-experts}
+%	\item \textit{Towards Automatic Generation of Meta-Features}
+%	\item \textit{On the predictive power of meta-features in OpenML}
+%	\item \textit{Towards Reproducible Empirical Research in Meta-Learning}
+%	\item \textit{A Framework to decompose and develop metafeatures}
+%\end{itemize}
 
 \subsubsection{Meta-modelos}
 

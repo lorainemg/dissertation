@@ -531,11 +531,30 @@ El desafío en meta-learning para la selección de modelos es aprender de experi
 
 Luego necesitamos aprender de estos meta-datos previos, para extraer y transferir conocimiento de la búsqueda de los modelos óptimos para nuevas tareas. El resto de esta sección presenta una visión general de diferentes enfoques de meta-learning para hacer esto efectivamente. Además, se muestran ejemplos de cpmo estos enfoques han sido utilizados como paso preliminar en varias herramientas de AutoML.
 
-En la sección las técnicas de meta-learning basadas en el tipo de meta-datos que ellas aprovechan son categorizadas. Primero, se discute cómo caracterizar las tareas para expresar más explícitamente la similitud entre ellas y cómo construir meta-modelos para aprender las relaciones entre las características de los datos y el rendimiento de las distintas evaluaciones de los modelos [\ref{subsec:mtl_automl_proprerties}], y luego se describe como se aprende solamente de evaluaciones de los modelos [\ref{subsec:mtl_automl_evaluations}].
+En la sección las técnicas de meta-learning son separadas en grupos de acuerdo al tipo de meta-datos que ellas aprovechan. Primero, se discute cómo caracterizar las tareas para expresar más explícitamente la similitud entre ellas y cómo construir meta-modelos para aprender las relaciones entre las características de los datos y el rendimiento de las distintas evaluaciones de los modelos [\ref{subsec:mtl_automl_proprerties}], y luego se describe como se aprende solamente de evaluaciones de los modelos [\ref{subsec:mtl_automl_evaluations}].
 
 \subsection{Aprendiendo de las propiedades de las tareas}\label{subsec:mtl_automl_proprerties}
 
-Una rica fuente de meta-datos son las caracterizaciones (meta-features) de la tarea en cuestión. Cada tarea $t_j \in T$ es descrita por un vector $m(t_j) = (m_{j,1}, …, m_{j,K})$ de $K$ meta-features, $m_{j,k}$ es el conjunto de todas las meta-features conocidas. Esto puede ser usado para definir la medida de la similitud de las tareas, por ejemplo, la distancia euclidiana entre $m(t_i)$ y $m(t_j)$, así podemos transferir información de las tareas más similares a la nueva tarea $t_{new}$. Además, junto con las evaluaciones anteriores $P$, podemos entrenar un \emph{meta-learner} $L$ para predecir el rendimiento $P_{i, new}$ de las configuraciones $\theta_i$ en la nueva tarea $t_{new}$. 
+
+En esta sección se describen un grupo de técnicas de meta-learning que están basadas en las propiedades de las tareas usando meta-features (meta-características) que caracterizan un dataset particular. En este contexto, el problema de meta-learning puede estar definido de la siguiente manera:
+
+\begin{definition}
+Consideremos que tenemos acceso a:
+
+\begin{itemize}
+	\item Tareas anteriores $t_j \in T$, siendo esto último el conjunto de todas las tareas conocidas.
+	\item Un conjunto de algoritmos de aprendizaje, completamente definidos por sus configuraciones $\theta_i \in \Theta$; aquí $\Theta$ representa un espacio de configuración discreto, continuo o mixto que puede cubrir configuraciones de hiperparámetros, componentes de pipeline y/o componentes de una arquitectura de redes.
+	\item $P$ el conjunto de todas las puntuaciones de las evaluaciones anteriores $P_{i,j} = P(\theta_i, t_j)$ de una configuración $\theta_i$ en una tarea $t_j$, de acuerdo a una medida de evaluación predefinida, por ejemplo precisión, y una técnica de evaluación de modelos, por ejemplo validación cruzada. 
+	\item Un vector $m(t_j) = (m_{j,1}, …, m_{j,K})$ de $K$ caracterizaciones (meta-features) que describe cada tarea $t_j \in T$. $m_{j,k} \in M$ es el conjunto de todas las meta-features conocidas.
+%	\item $P_{new}$, el conjunto de todas las evaluaciones conocidas $P_{i, new}$ en una nueva tarea $t_{new}$ 
+\end{itemize}
+
+Con esta técnica de meta-learning se puede entrenar un \emph{meta-learner} $L$ que predice el rendimiento de las configuraciones recomendadas $\Theta^*_{new}$ en una nueva tarea $t_{new}$. El meta-learner es entrenado con los meta-datos $P\cup M$, donde $P$ y $M$ son usualmente calculados de antemano, o extraídos de repositorios de meta-datos. 
+
+\end{definition}
+
+La principal característica de esta técnica es el uso de meta-features para medir la similitud de las tareas. Así, por ejemplo, podemos usar la distancia euclidiana entre $m(t_{new})$ y $m(t_j), \forall t_j \in T$ para transferir información de las tareas más similares a la nueva tarea $t_{new}$
+
 
 \subsubsection{Meta-Features}
 
@@ -691,12 +710,15 @@ Para reducir el número de configuraciones de parámetros a ser optimizados, y p
 	\item[$\checkmark$] Explicar en qué consiste
 \end{itemize}
 
+Otro grupo de técnicas de meta-learning están basadas 	en aprender de evaluaciones de los modelos. En este contexto, el problema está definido de la siguiente manera:
+
+\begin{definition}
 Consideremos que tenemos acceso a:
 
 \begin{itemize}
-	\item Tareas anteriores $t_j \in T$, siendo esto último el conjunto de todas las tareas conocidas.
-	\item Un conjunto de algoritmos de aprendizaje, completamente definidos por sus configuraciones $\theta_i \in \Theta$; aquí $\Theta$ representa un espacio de configuración discreto, continuo o mixto que puede cubrir configuraciones de hiperparámetros, componentes de pipeline y/o componentes de una arquitectura de redes.
-	\item $P$ el conjunto de todas las evaluaciones escalares anteriores $P_{i,j} = P(\theta_i, t_j)$ de una configuración $\theta_i$ en una tarea $t_j$, de acuerdo a una medida de evaluación predefinida, por ejemplo accuracy, y una técnica de evaluación de modelos, por ejemplo validación cruzada. 
+	\item Tareas anteriores $t_j \in T$.
+	\item Un conjunto de algoritmos de aprendizaje, completamente definidos por sus configuraciones $\theta_i \in \Theta$.
+	\item $P$ el conjunto de todas las evaluaciones escalares anteriores $P_{i,j} = P(\theta_i, t_j)$ de una configuración $\theta_i$ en una tarea $t_j$, de acuerdo a una medida de evaluación predefinida y una técnica de evaluación de modelos. 
 	\item $P_{new}$, el conjunto de todas las evaluaciones conocidas $P_{i, new}$ en una nueva tarea $t_{new}$ 
 \end{itemize}
 
@@ -706,6 +728,7 @@ Ahora queremos entrenar un \emph{meta-learner} $L$ que predice las configuracion
 	\item $P$ usualmente es recogido de antemano, o extraído de repositorios de meta-data.
 	\item $P_{new}$ es aprendido por la técnica de meta-lerning en sí de una forma iterativa, algunas veces inicializado con un $P'_{new}$ inicial generado por otro método.
 \end{itemize}
+\end{definition}
 
 Estas técnicas son usadas generalmente para recomendar configuraciones y espacios de búsqueda útiles, así como transferir conocimiento de tareas \textit{empíricamente} similares. Algunas de estas técnicas son explicadas a continuación. 
 

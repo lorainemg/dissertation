@@ -117,7 +117,7 @@
 }
 
 
-@article{yang@oboe,
+@article{yang2018oboe,
 	author    = {Chengrun Yang and
 	Yuji Akimoto and
 	Dae Won Kim and
@@ -303,4 +303,189 @@
 	pages={8007--8019},
 	year={2020},
 	organization={PMLR}
+}
+
+@article{NSGA-II,
+	author = {Deb, K. and Pratap, A. and Agarwal, S. and Meyarivan, T.},
+	title = {A Fast and Elitist Multiobjective Genetic Algorithm: NSGA-II},
+	year = {2002},
+	issue_date = {April 2002},
+	publisher = {IEEE Press},
+	volume = {6},
+	number = {2},
+	issn = {1089-778X},
+	url = {https://doi.org/10.1109/4235.996017},
+	doi = {10.1109/4235.996017},
+	abstract = {Multi-objective evolutionary algorithms (MOEAs) that use non-dominated sorting and
+	sharing have been criticized mainly for: (1) their O(MN3) computational complexity
+	(where M is the number of objectives and N is the population size); (2) their non-elitism
+	approach; and (3) the need to specify a sharing parameter. In this paper, we suggest
+	a non-dominated sorting-based MOEA, called NSGA-II (Non-dominated Sorting Genetic
+	Algorithm II), which alleviates all of the above three difficulties. Specifically,
+	a fast non-dominated sorting approach with O(MN2) computational complexity is presented.
+	Also, a selection operator is presented that creates a mating pool by combining the
+	parent and offspring populations and selecting the best N solutions (with respect
+	to fitness and spread). Simulation results on difficult test problems show that NSGA-II
+	is able, for most problems, to find a much better spread of solutions and better convergence
+	near the true Pareto-optimal front compared to the Pareto-archived evolution strategy
+	and the strength-Pareto evolutionary algorithm - two other elitist MOEAs that pay
+	special attention to creating a diverse Pareto-optimal front. Moreover, we modify
+	the definition of dominance in order to solve constrained multi-objective problems
+	efficiently. Simulation results of the constrained NSGA-II on a number of test problems,
+	including a five-objective, seven-constraint nonlinear problem, are compared with
+	another constrained multi-objective optimizer, and the much better performance of
+	NSGA-II is observed},
+	journal = {Trans. Evol. Comp},
+	month = apr,
+	pages = {182–197},
+	numpages = {16}
+}
+
+@article{alphazero,
+	author    = {David Silver and
+	Thomas Hubert and
+	Julian Schrittwieser and
+	Ioannis Antonoglou and
+	Matthew Lai and
+	Arthur Guez and
+	Marc Lanctot and
+	Laurent Sifre and
+	Dharshan Kumaran and
+	Thore Graepel and
+	Timothy P. Lillicrap and
+	Karen Simonyan and
+	Demis Hassabis},
+	title     = {Mastering Chess and Shogi by Self-Play with a General Reinforcement
+	Learning Algorithm},
+	journal   = {CoRR},
+	volume    = {abs/1712.01815},
+	year      = {2017},
+	url       = {http://arxiv.org/abs/1712.01815},
+	eprinttype = {arXiv},
+	eprint    = {1712.01815},
+	timestamp = {Mon, 13 Aug 2018 16:46:01 +0200},
+	biburl    = {https://dblp.org/rec/journals/corr/abs-1712-01815.bib},
+	bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{OracleAutoML,
+	author = {Yakovlev, Anatoly and Moghadam, Hesam Fathi and Moharrer, Ali and Cai, Jingxiao and Chavoshi, Nikan and Varadarajan, Venkatanathan and Agrawal, Sandeep R. and Idicula, Sam and Karnagel, Tomas and Jinturkar, Sanjay and Agarwal, Nipun},
+	title = {Oracle AutoML: A Fast and Predictive AutoML Pipeline},
+	year = {2020},
+	issue_date = {August 2020},
+	publisher = {VLDB Endowment},
+	volume = {13},
+	number = {12},
+	issn = {2150-8097},
+	url = {https://doi.org/10.14778/3415478.3415542},
+	doi = {10.14778/3415478.3415542},
+	abstract = {Machine learning (ML) is at the forefront of the rising popularity of data-driven
+	software applications. The resulting rapid proliferation of ML technology, explosive
+	data growth, and shortage of data science expertise have caused the industry to face
+	increasingly challenging demands to keep up with fast-paced develop-and-deploy model
+	lifecycles. Recent academic and industrial research efforts have started to address
+	this problem through automated machine learning (AutoML) pipelines and have focused
+	on model performance as the first-order design objective. We present Oracle AutoML,
+	a novel iteration-free AutoML pipeline designed to not only provide accurate models,
+	but also in a shorter runtime. We are able to achieve these objectives by eliminating
+	the need to continuously iterate over various pipeline configurations. In our feed-forward
+	approach, each pipeline stage makes decisions based on metalearned proxy models that
+	can predict candidate pipeline configuration performances before building the full
+	final model. Our approach, which builds and tunes only the best candidate pipeline,
+	achieves better scores at a fraction of the time compared to state-of-the-art open
+	source AutoML tools, such as H2O and Auto-sklearn. This makes Oracle AutoML a prime
+	candidate for addressing current industry challenges.},
+	journal = {Proc. VLDB Endow.},
+	month = aug,
+	pages = {3166–3180},
+	numpages = {15}
+}
+
+@article{sun2013pairwise,
+	title={Pairwise meta-rules for better meta-learning-based algorithm ranking},
+	author={Sun, Quan and Pfahringer, Bernhard},
+	journal={Machine learning},
+	volume={93},
+	number={1},
+	pages={141--161},
+	year={2013},
+	publisher={Springer}
+}
+
+@inproceedings{Pinto2016TowardsAG,
+	title={Towards Automatic Generation of Metafeatures},
+	author={F{\'a}bio Pinto and C. Soares and Jo{\~a}o Mendes-Moreira},
+	booktitle={PAKDD},
+	year={2016}
+}
+
+@inproceedings{pinto2014framework,
+	author = {Pinto, F\'{a}bio and Soares, Carlos and Mendes-Moreira, Jo\~{a}o},
+	title = {A Framework to Decompose and Develop Metafeatures},
+	year = {2014},
+	isbn = {16130073},
+	publisher = {CEUR-WS.org},
+	address = {Aachen, DEU},
+	abstract = {This paper proposes a framework to decompose and develop metafeatures for Metalearning
+	(MtL) problems. Several metafeatures (also known as data characteristics) are proposed
+	in the literature for a wide range of problems. Since MtL applicability is very general
+	but problem dependent, researchers focus on generating specific and yet informative
+	metafeatures for each problem. This process is carried without any sort of conceptual
+	framework. We believe that such framework would open new horizons on the development
+	of metafeatures and also aid the process of understanding the metafeatures already
+	proposed in the state-of-the-art. We propose a framework with the aim of fill that
+	gap and we show its applicability in a scenario of algorithm recommendation for regression
+	problems.},
+	booktitle = {Proceedings of the 2014 International Conference on Meta-Learning and Algorithm Selection - Volume 1201},
+	pages = {32–36},
+	numpages = {5},
+	location = {Prague, Czech Republic},
+	series = {MLAS'14}
+}
+
+@article{bilalli2017predictive,
+	author = {Bilalli, Besim and Abell\'{o}, Alberto and Aluja-Banet, Tom\'{\i}s},
+	title = {On the Predictive Power of Meta-Features in OpenML},
+	year = {2017},
+	issue_date = {20 12 2017},
+	publisher = {Walter de Gruyter &amp; Co.},
+	address = {USA},
+	volume = {27},
+	number = {4},
+	issn = {1641-876X},
+	url = {https://doi.org/10.1515/amcs-2017-0048},
+	doi = {10.1515/amcs-2017-0048},
+	abstract = {Abstract The demand for performing data analysis is steadily rising. As a consequence,
+	people of different profiles i.e., nonexperienced users have started to analyze their
+	data. However, this is challenging for them. A key step that poses difficulties and
+	determines the success of the analysis is data mining model/algorithm selection problem.
+	Meta-learning is a technique used for assisting non-expert users in this step. The
+	effectiveness of meta-learning is, however, largely dependent on the description/characterization
+	of datasets i.e., meta-features used for meta-learning. There is a need for improving
+	the effectiveness of meta-learning by identifying and designing more predictive meta-features.
+	In this work, we use a method from exploratory factor analysis to study the predictive
+	power of different meta-features collected in OpenML, which is a collaborative machine
+	learning platform that is designed to store and organize meta-data about datasets,
+	data mining algorithms, models and their evaluations. We first use the method to extract
+	latent features, which are abstract concepts that group together meta-features with
+	common characteristics. Then, we study and visualize the relationship of the latent
+	features with three different performance measures of four classification algorithms
+	on hundreds of datasets available in OpenML, and we select the latent features with
+	the highest predictive power. Finally, we use the selected latent features to perform
+	meta-learning and we show that our method improves the meta-learning process. Furthermore,
+	we design an easy to use application for retrieving different meta-data from OpenML
+	as the biggest source of data in this domain.},
+	journal = {Int. J. Appl. Math. Comput. Sci.},
+	month = dec,
+	pages = {697–712},
+	numpages = {16},
+	keywords = {feature extraction, meta-learning, feature selection}
+}
+
+@article{Rivolli2018TowardsRE,
+	title={Towards Reproducible Empirical Research in Meta-Learning},
+	author={Adriano Rivolli and L. P. F. Garcia and Carlos Soares and J. Vanschoren and A. Carvalho},
+	journal={ArXiv},
+	year={2018},
+	volume={abs/1808.10406}
 }

@@ -593,7 +593,7 @@ Un ejemplo de solución a la generación automática de meta-features es descomp
 \textit{Exploratory Factor Analysis} (EFA)(explicar) es otro método que ha sido utilizado para estudiar el poder predictivo de diferentes \textit{meta-features} usadas en OpenML \cite{bilalli2017predictive}. OpenML es una plataforma colaborativa de aprendizaje automático que está diseñada para guardar y organizar meta-datos sobre datasets, algoritmos de minería de datos, modelos y sus evaluaciones. EFA, más específicamente \textit{Principal Component Analysis} (PCA),  es usado para extraer las características latentes, los cuales son conceptos abstractos que agrupan meta-features junto con características comunes. Después, estudian y visualizan la relación de las carcterísticas latentes con 3 diferentes medidas de rendimiento de 4 algoritmos de clasificación en cientos de datasets disponibles en OpenML, y se seleccionan las características con el mayor poder predictivo. Estas características latentes son usadas para realizar meta-learning y se muestra que su método mejora el proceso de meta-learning.
 
 
-MFE (\textit{Meta-Feature Extractor})~\cite{Rivolli2018TowardsRE} es una biblioteca de R usada para extraer meta-features de los datasets e identificar problemas más sútiles en su reproducibilidad en la literatura. Propone \textit{guidelines} para la caracterización de datos que fortalece la investigación empírica reproducible en meta-learning. 
+Varios \textit{frameworks} han sido desarrollados para la selección y extracción automática de metafeatures. Un ejemplo de esto es MFE (\textit{Meta-Feature Extractor})~\cite{Rivolli2018TowardsRE}, una biblioteca de R usada para extraer meta-features de los datasets e identificar problemas más sútiles en su reproducibilidad en la literatura. Propone \textit{guidelines} para la caracterización de datos que fortalece la investigación empírica reproducible en meta-learning. 
 
 
 %\subsubsection{Selección Automática de Meta-Features}
@@ -614,11 +614,12 @@ MFE (\textit{Meta-Feature Extractor})~\cite{Rivolli2018TowardsRE} es una bibliot
 	\item[$\checkmark$] Explicar en qué consiste
 \end{itemize}
 
-Además, podemos aprender las relaciones complejas entre los meta-features de una tarea y la utilidad de una configuración específica construyendo un meta-modelo o \textit{meta-learner} $L$ que recomienda la configuración más útil $\Theta_{new}^*$ dados los meta-features $M$ de la nueva tarea $t_{new}$. Existe un gran grupo de trabajo previo construyendo modelos para la selección de algoritmos y recomendación de hiperparámetros.
+Construyendo un meta-modelo o \textit{meta-learner} $L$ podemos aprender relaciones complejas entre los meta-features de una tarea y la utilidad de una configuración específica. Dados los meta-features $M$ de una nueva tarea $t_{new}$ este \textit{meta-learner} $L$ tiene el objetivo de recomendar la configuración más útil $\Theta_{new}^*$ para esta tarea. Existe un gran grupo de trabajos previos construyendo modelos para la selección de algoritmos y recomendación de hiperparámetros. En esta sección se usan ejemplos de varios meta-modelos de acuerdo al tipo de tarea que resuelven: pueden ser usados para rankear un conjunto determinado de configuraciones o para predecir el rendimiento de una nueva tarea basado en una configuración particular. %, formando \textit{clusters} de tareas similares 
 
 \quad
 
 \textbf{Ranking}
+
 
 \begin{itemize}
 	\item[$\checkmark$] Explicar en qué consiste
@@ -651,7 +652,15 @@ Además, podemos aprender las relaciones complejas entre los meta-features de un
 
 \quad
 
-Los meta-modelos también pueden generar un $ranking$ de las $K$ configuraciones más prometedoras. 
+
+Los meta-modelos pueden ser usados para, dado un conjunto de meta-features $M$ y una nueva tarea $t_{new}$ generar un \textit{ranking} de las mejores $K$ configuraciones. Se obtiene así un conjunto prometedor de modelos con sus hiperparámetros para esta nueva tarea.
+ 
+Uno de los enfoques más populares es construir un meta-modelo de \textit{K-Nearest Neighbor} (kNN) para predecir las tareas que son similares, y luego rankear las mejores configuraciones en estas tareas similares [poner link de selection of time series..., ranking learning algorithms]. En estos trabajos se usan una evaluación multicriterio que toma en cuenta la precisión obtenida y el tiempo de entrenamiento de una configuración: \textit{Adjusted Ratio of Ratios} (ARR) o el Radio Ajustado de Radios (explicar) para formar los rankings. Existen muchas medidas para la evaluación de un ranking determinado, el más utilizado es el coeficiente de correlación de Spearman, el cual mide la distancia del ranking recomendando al ranking ideal. El ranking ideal corresponde al ordenamiento correcto de los modelos candidatos para una tarea determinada.
+ 
+Meta-modelos especificamente destinados para ranking, como \textit{Predictive Clustering Trees} (PCTs) también han sido usados. Los PCTs son una generalización bien establecida de los árboles de decisión estándares, los cuales pueden ser usados para solucionar una variedad de tareas de predicción de modelos, estos permiten la predicción de múltiples variables de destino. Un solo predicting clustering tree tiene la habilidad de predecir el rendimiento de todos los algoritmos de aprendizaje a la vez. Por lo tanto, además de obtener un ranking, obtenemos una explicación para el mismo. Al igual que en otros trabajos, el coeficiente de correlación de Spearman es usado para medir el error entre los rankings.
+ 
+Los \textit{Aproximate Ranking Trees Forest} (\textit{ART Forest}) son \textit{ensembles} de árboles de ranking rápidos que han probado ser especialmente efectivos, ya que ellos tienen `incorporados' la selección de meta-features, funcionan bien incluso si hay pocas tareas disponibles y el \textit{ensembling} hace el método más robusto.
+
 
 \quad
 
@@ -677,7 +686,19 @@ Los meta-modelos también pueden generar un $ranking$ de las $K$ configuraciones
 
 \quad
 
-Además, los meta-modelos pueden predecir directamente el rendimiento, es decir, la predicción o el tiempo de entrenamiento de una configuración en una tarea dada, dada sus meta-features. Esto nos permite estimar si una configuración será lo suficientemente interesante para evaluar cualquier procedimiento de optimización.
+Además, los meta-modelos pueden predecir directamente el rendimiento, es decir, la predicción o el tiempo de entrenamiento de una configuración en una tarea dada, dada sus meta-features. Esto nos permite estimar qué tan bueno o malo una configuración va a ser, y si vale la pena evaluarla mediante cualquier procedimiento de optimización en una nueva tarea.
+
+Uno de los principales enfoques para construir modelos que predicen el rendimiento es el uso de \textit{meta-regresors} o meta-regresores. \textit{Meta-Regression} es un enfoque específico de meta-learning que consiste en el uso de un algoritmo de regresión para predecir el valor de una medida de rendimiento específica (por ejemplo, precisión) de los algoritmos candidatos basándose en las características del problema. 
+
+El objetivo de usar regresión en meta-learning es predecir el rendimiento real de cada clasificador idenpendientemente en vez de predecir el mejor de un par o de todos los algoritmos. Por lo tanto, un modelo separado de regresión es entrenado para cada algoritmo. El conocimiento del meta-modelo es derivado de los datos de entrenamiento, el cual está compuesto por las meta-features de múltiples datasets y una variable a predecir. Los rendimientos reales de los algoritmos sirven como una variable destino cuantitativa en este contexto. Cada dataset resulta en una instancia en los datos de entrenamiento descritos por sus meta-features y el rendimiento calculado del algortimo destino. Usando estas medidas, un modelo de regresión es aprendido que describe las relaciones entre los meta-features y el rendimiento esperado de los datasets.
+
+Si el rendimiento de un algoritmo necesita ser predecido para un nuevo dataset, entonces los meta-features de este dataset son computados primero. Entonces, el modelo de regresión aprendido con anterioridad es aplicado para esos valores de características. El resultado final entonces es el rendimiento del clasificador para este nuevo dataset.
+
+Una las principales desventajas de este enfoque de regresión, es que para cada algoritmo destino es entrenado un modelo diferente de regresión. Esto puede consumir gran cantidad de tiempo, especialmente cuando una optimización de hiperparámetros exhaustiva para los meta-modelos es realizada. Sin embargo, modelos separados simplifican el proceso de añadir y eliminar algoritmos destinos. Además, esto permite que se fácil el entrenamiento de diferentes variantes de un mismo algoritmo. 
+
+Los SVM han sido entrenados como meta-regresores de algoritmos de clasificación para predecir su precisión. En una versión de esto se usan las configuraciones por defecto de los algoritmos, y para una nueva tarea $t_{new}$ dada sus meta-features se predice el resultado  [poner link de SVm como meta-regressors]. En este trabajo los experimentos fueron llevados a cabo prediciendo el rendimiento de distintas redes de \textit{Multi-Layer Perceptron} (MLP). Los SVMs fueron aplicados con diferentes funciones kernel para predecir el valor del \textit{Normalized Mean of Squared Errors} (NMSE) o Error Cuadrático Medio Normalizado de los MLPs
+
+Posteriormente, se entrenó un meta-regresor similar [poner link de automatic classifier selection...] para predecir el rendimiento \textit{optimizado} de un mayor número de algoritmos de clasificación. En este trabajo el parámetro más importante de cada algoritmo fue optimizado en orden de obtener un rendimiento más realista y por lo tanto una mejor evaluación. Para una evaluación más exhaustiva, el \textit{root mean squared error} (RMSE) y el coeficiente de correlación de Pearson \textit{Pearson product-moment correlation coeficient} (PMCC) fue usado como medida de rendimiento. RMSE tiene la ventaja de proveer un intervalo de confianza junto con la predicción, mientras PMCC también puede medir derivaciones relativas Además se realiza una selección automática de características que es aplicada dos veces de acuerdo a ambas las medidas de rendimiento e independientemente para cada clasificador. Los resultados son comparados para cada de los distintos grupos de meta-features así como el conjunto completo de meta-features.
 
 \quad
 

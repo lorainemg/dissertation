@@ -722,10 +722,22 @@ Cuando se crean pipelines enteros de machine learning, el número de opciones de
 	\item[$\checkmark$] Introducir este tema
 	\item Poner ejemplos de papers
 	\item \textit{Using Metalearning to Predict When Parameter Optimization Is Likely to Improve Classification Accuracy}
+	\item \textit{Hyperparameter Importance Across Datasets}
 	\item \textit{Informing the Use of Hyperparameter Optimization Through Metalearning}
 \end{itemize}
 
-Para reducir el número de configuraciones de parámetros a ser optimizados, y para salvar valioso tiempo de optimización en las configuraciones con restricciones de tiempo. Los meta-modelos también han sido propuestos para predecir si un algoritmo dado vale la pena ser ajustado dados las meta-features de la tarea en cuestión y cuánta mejora puede ser esperada del ajuste de un algoritmo específico contra la inversión de tiempo adicional.
+Uno de los defectos de los métodos realizados para AutoML es que los investigadores y expertos dependen exclusivamente en los métodos automatizados para encontrar configuraciones para optimizar el rendimiento de los algoritmos [poner link de Hyperparameter Importance Across Datasets]. Esto hace que ellos no obtengan ninguna intuición o información más allá de la configuración simple elegida. Con el objetivo de proveer tal intuición en la era de la automatización, se aboga por el desarrollo de los métodos automatizados que proveen observaciones de alto nivel en los hiperparámetros de un algoritmo. Un enfoque para abordar este problema es el desarrollo de meta-modelos para predecir si vale la pena ajustar o no los hiperparámetros de un algoritmo.
+
+Los meta-modelos se usan para determinar si es necesario ajustar los hiperparámetros de un algoritmo con el objetivo de reducir el número de configuraciones de parámetros que necesitan ser optimizados, y para salvar tiempo valioso de optimización en las configuraciones con restricciones de tiempo. Dados los meta-features de una tarea en cuestión, estos meta-modelos predicen si vale la pena ajustar los hiperparámetros de una configuración existente [2 primeros links]. Este tipo de trabajo intentan constestar las preguntas: 
+\begin{enumerate}
+	\item \textquestiondown Cuáles de los hiperparámetros de los algoritmos importan más para el rendimiento empírico?
+	\item \textquestiondown Qué valores de estos hiperparámetros pueden producir un buen rendimiento?
+\end{enumerate}
+
+Después de un análisis de 100 datasets, en uno de estos trabajos [poner link del primero] se demuestra que generalmente los mismos hiperparámetros son importantes para la mayoría de los datasets. Este experimento se llevó a cabo con 3 clasificadores: SVMs, Adaboost y \textit{random forests} aplicando ANOVA.
+
+Además, existen otros trabajos que no solo predicen si es necesario el ajuste de los hiperparámetros, sino cuánta mejora puede ser esperada en el ejuste de un algoritmo específico basada en la mejora del rendimiento y el costo computacional estimados [úlitmo link]. Para realizar este experimento, realizaron una experimentación comparando para cada combinación de algoritmos y datasets el rendimiento alcanzado usando una versión del algoritmo optimizado y otro con los hiperparámetros por defecto de \texttt{scikit-learn}. Como método de optimización de hiperparámetros para obtener los algoritmos optimizados usaron algoritmos genéticos. Además experimentan construyendo un meta-modelo para predecir cuanta mejora es esperada. Usan un \textit{Muti-Layer Perceptron} (MLP) como el meta-modelo y un conjunto de 68 meta-features; usan PCA para preprocesar las meta-features. Para predecir el presupuesto de tiempo aplican metalearning de nuevo, esta vez con un modelo de regresión lineal, para predecir el tiempo de ejecución medio de cada algoritmo de aprendizaje.
+
 
 %\subsubsection{Otras técnicas}
 %

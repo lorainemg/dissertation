@@ -775,18 +775,18 @@ Estas técnicas son usadas generalmente para recomendar configuraciones y espaci
 \subsubsection{Recomendaciones independientes de la tarea}
 
 \begin{itemize}
-	\item[$\checkmark$] Explicar en qué consiste
+%	\item[$\checkmark$] Explicar en qué consiste
 	\item Poner ejemplos
-	\begin{itemize}
-		\item \textit{Selecting Classification Algorithms with Active Testing}
-%		\item \textit{Ranking Learning Algorithms: Using IBL and Meta-Learning on Accuracy and Time Results}
-		\item \textit{Speeding up algorithm selection using average ranking and active testing by introducing runtime}
-		\item \textit{Learning hyperparameter optimization initializations}
+%	\begin{itemize}
+%		\item \textit{Selecting Classification Algorithms with Active Testing}
+%%		\item \textit{Ranking Learning Algorithms: Using IBL and Meta-Learning on Accuracy and Time Results}
+%		\item \textit{Speeding up algorithm selection using average ranking and active testing by introducing runtime}
+%		\item \textit{Learning hyperparameter optimization initializations}
 		\item AutoML: \begin{itemize}
 			\item Auto-Pytorch
 			\item Auto-Sklearn 2.0
 		\end{itemize}
-	\end{itemize}
+%	\end{itemize}
 \end{itemize}
 
 Supongamos que $P_{new} = 0$, por lo que no tenemos acceso a ninguna evaluación de $t_{new}$. Aún así se puede aprender una función $f: \Theta \times T \rightarrow \{\theta^*_k\}, k=1..K$, resultando en un conjunto de evaluaciones recomendadas \textit{independientes} de $t_{new}$. Estos $\theta^*_k$ pueden ser evaluados en $t_{new}$ para seleccionar el mejor, o para inicializar otros enfoques de optimización.
@@ -802,19 +802,23 @@ Una de las ventajas que tiene esta técnica es que no necesita del uso de meta-f
 
 \subsubsection{Diseño del espacio de configuración}
 
-\begin{itemize}
-	\item[$\checkmark$] Explicar en qué consiste
-	\item Poner ejemplos
-	\item Functional ANOVA
-	\item \textit{Hyperparameter Importance Across Datasets}
-	\item \textit{Hyperparameter Search Space Pruning - A New Component for Sequential Model-Based Hyperparameter Optimization}
-	\item AutoML \begin{itemize}
-		\item ATM
-	\end{itemize}
-\end{itemize}
+%\begin{itemize}
+%	\item[$\checkmark$] Explicar en qué consiste
+%	\item Poner ejemplos
+%	\item Functional ANOVA
+%	\item \textit{Hyperparameter Importance Across Datasets}
+%	\item \textit{Hyperparameter Search Space Pruning - A New Component for Sequential Model-Based Hyperparameter Optimization}
+%	\item AutoML \begin{itemize}
+%		\item ATM
+%	\end{itemize}
+%\end{itemize}
 
 
 Las evaluaciones previas también pueden ser usadas para aprender mejores \textit{espacios de configuración} $\Theta^*$. Incluso siendo independientes de $t_{new}$, esto puede radicalmente acelerar la búsqueda para modelos óptimos, ya que solo las regiones más relevantes de los espacios de configuración son explorados. Esto es crítico cuando los recursos computacionales están limitados. 
+
+Uno de los enfoques es usando ANOVA funcional, para seleccionar y optimizar solo los hiperparámetros que son considerados importantes [poner referencia Hyperparameter Importance Across Datasets]. En este trabajo usan un \textit{framework} de ANOVA funcional para analizar la importancia de los hiperparámetros, basado en un modelo de regresión que da predicciones para el rendimiento de configuraciones arbitrarias de hierperparámetros.
+
+Otra propuesta consiste en descartar las regiones del espacio de búsqueda que no son probables de contener mejores configuraciones de hiperparámetros transfiriendo conocimiento de experimentos pasados en otros datasets, así como tomando en cuenta las evaluaciones que ya están hechas en el dataset actual [Hyperparameter Search Space Pruning - A New Component for Sequential Model-Based Hyperparameter Optimization]. El objetivo de esa investigación es añadir un nuevo componente a SMBO, una manera de podar la búsqueda de hiperparámetros, la cual es una manera común de acelerar la búsqueda en muchos dominios, pero no ha sido aplicado aún a la optimización de hiperparámetros. La idea principal de su enfoque es que datasets similares a los nuevos datasets tienen regiones similares, o incluso iguales, que no son interesantes y por lo tanto no valen la pena investigar.
 
 \subsubsection{Transferencia de la configuración}
 

@@ -766,7 +766,7 @@ Ahora queremos entrenar un \emph{meta-learner} $L$ que predice las configuracion
 
 \begin{itemize}
 	\item $P$ usualmente es recogido de antemano, o extraído de repositorios de meta-data.
-	\item $P_{new}$ es aprendido por la técnica de meta-lerning en sí de una forma iterativa, algunas veces inicializado con un $P'_{new}$ inicial generado por otro método.
+	\item $P_{new}$ es aprendido por la técnica de meta-learning en sí de una forma iterativa, algunas veces inicializado con un $P'_{new}$ inicial generado por otro método.
 \end{itemize}
 \end{definition}
 
@@ -779,7 +779,7 @@ Estas técnicas son usadas generalmente para recomendar configuraciones y espaci
 	\item Poner ejemplos
 	\begin{itemize}
 		\item \textit{Selecting Classification Algorithms with Active Testing}
-		\item \textit{Ranking Learning Algorithms: Using IBL and Meta-Learning on Accuracy and Time Results}
+%		\item \textit{Ranking Learning Algorithms: Using IBL and Meta-Learning on Accuracy and Time Results}
 		\item \textit{Speeding up algorithm selection using average ranking and active testing by introducing runtime}
 		\item \textit{Learning hyperparameter optimization initializations}
 		\item AutoML: \begin{itemize}
@@ -791,9 +791,14 @@ Estas técnicas son usadas generalmente para recomendar configuraciones y espaci
 
 Supongamos que $P_{new} = 0$, por lo que no tenemos acceso a ninguna evaluación de $t_{new}$. Aún así se puede aprender una función $f: \Theta \times T \rightarrow \{\theta^*_k\}, k=1..K$, resultando en un conjunto de evaluaciones recomendadas \textit{independientes} de $t_{new}$. Estos $\theta^*_k$ pueden ser evaluados en $t_{new}$ para seleccionar el mejor, o para inicializar otros enfoques de optimización.
 
-Tales enfoques a menudo producen un ranking, es decir, un conjunto ordenado $\theta^*_k$. Esto es típicamente hecho discreteando $\theta$ en un conjunto de configuraciones candidatas $\theta_i$, también llamada \textit{portafolio}, evaluado en un gran número de tareas $t_j$. Luego podemos construir un ranking por clase, por ejemplo usando \textit{success rates}, \textit{AUC}, o \textit{significant wins}. % Sin embargo, a menudo es deseable que algortimos igualmente buenos pero más rápidos estén rankeados mejor, y múltiples métodos han sido propuestos para compensar tiempo de entrenamiento y precisión. Luego podemos agregar estos rankings de una sola tarea en rankings globales, por ejemplo calculando el rank promedio a través de todas las tareas. Cuando hay insuficientes datos para construir un ranking global, uno puede recomendar un subconjunto de configuraciones basados en la configuración mejor conocida para cada tarea anterior, o retornar quasi-lineal rankings.
+Uno de los enfoques para la solución de este problema es mediante el uso de \textit{Active Testing}[poner el link de selecting classification algorithms with active testing...]. \textit{Active Testing} selecciona algoritmos iterativamente para ser probados en un nuevo dataset, aprendiendo de cada nueva evaluación para seleccionar inteligentemente el siguiente mejor candidato. Tiene como objetivo estimar la probabilidad relativa de que un algoritmo particular superará al mejor candidato actual. En uno de estos trabajos [Speeding up algorithm selection using average ranking and active testing by introducing runtime] se extiende el uso de \textit{active testing}, introduciendo una nueva medida multi-objetivo que le da preferencia no solo a algoritmos prometedores, sino a aquellos que sean fáciles de evaluar, A3R. Esta medida tiene como objetivo arreglar algunas deficiencias de \textit{Adjusted Ratio of Ratios} (ARR) [Measures for combining accuracy and time for meta-learning]. Además \textit{Active Testing} es combinado usando otra técniva de selección de algoritmos: \textit{Average Ranking}. \textit{Average Ranking} combina el ranking de algoritmos observados en datasets anteriores para identificar los mejores algoritmos para un nuevo dataset.
 
-Para encontrar el mejor $\theta^*$ para una tarea $t_{new}$ nunca vista antes, un método simple es seleccionar las $k$ mejores configuraciones, bajando en la lista y evaluando cada configuración en $t_{new}$. Esta evaluación puede ser terminada después de un valor predefinido para $k$, un presupuesto de tiempo, o cuando un modelo lo suficientemente preciso es encontrado. 
+Una de las ventajas que tiene esta técnica es que no necesita del uso de meta-features, que pueden resultar caras de calcular y difíciles de elegir, lo que lo hace ideal para inicializar procesos costosos de optimización. En uno de estos trabajos usan este enfoque para transferir conocimiento mediante una estrategia de inicialización para la optimización de hiperparámetros [Learning hyperparameter optimization initializations]. Las configuraciones inciales de hiperparámetros son obtenidas optimizando por una función de \textit{meta-pérdida} mediante técnicas de optimización basadas en gradientes.
+
+
+%Tales enfoques a menudo producen un ranking, es decir, un conjunto ordenado $\theta^*_k$. Esto es típicamente hecho discreteando $\theta$ en un conjunto de configuraciones candidatas $\theta_i$, también llamada \textit{portafolio}, evaluado en un gran número de tareas $t_j$. Luego podemos construir un ranking por clase, por ejemplo usando \textit{success rates}, \textit{AUC}, o \textit{significant wins}. % Sin embargo, a menudo es deseable que algortimos igualmente buenos pero más rápidos estén rankeados mejor, y múltiples métodos han sido propuestos para compensar tiempo de entrenamiento y precisión. Luego podemos agregar estos rankings de una sola tarea en rankings globales, por ejemplo calculando el rank promedio a través de todas las tareas. Cuando hay insuficientes datos para construir un ranking global, uno puede recomendar un subconjunto de configuraciones basados en la configuración mejor conocida para cada tarea anterior, o retornar quasi-lineal rankings.
+%
+%Para encontrar el mejor $\theta^*$ para una tarea $t_{new}$ nunca vista antes, un método simple es seleccionar las $k$ mejores configuraciones, bajando en la lista y evaluando cada configuración en $t_{new}$. Esta evaluación puede ser terminada después de un valor predefinido para $k$, un presupuesto de tiempo, o cuando un modelo lo suficientemente preciso es encontrado. 
 
 \subsubsection{Diseño del espacio de configuración}
 
@@ -833,6 +838,8 @@ Si se quiere dar recomendaciones para una tarea específica $t_{new}$, necesitam
 \quad
 
 Una primera medida para la similaridad de las tareas considera las diferencias en el rendimiento relativas (pairwise), también llamadas \textit{relative landmarks}, $RL_{a,b,j} = P_{a,j} - P_{b,j}$ entre dos configuraciones $\theta_a$ y $\theta_b$ en una tarea particular $t_j$. (hablar de los papers que tratan de esto) 
+
+Uno de los enfoques para la solución de este problema es mediante el uso de \textit{Active Testing}[poner el link de selecting classification algorithms with active testing...]. \textit{Active Testing} procede de una forma tipo torneo, en cada ronda se selecciona y se prueba el algoritmo que más probablemente superará el mejor algoritmo de la ronda previa en un dataset nuevo. Este competidor `más prometedor' es elegido basado en una historia de duelos previos entre ambos algoritmos en datasets similares. En este trabajo [volver a poner el link de active testing] caracterizan un dataset basado en las diferencias del rendimiento de los algoritmos ejecutados en ellos por pares. Estas caracterizaciones son llamadas \textit{relative landmark} sin embargo, se extiende la noción de los \textit{relative landmarks} a todos los algoritmos, inlcuidos los no simples.
 
 \quad
 

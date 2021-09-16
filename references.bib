@@ -558,3 +558,237 @@
 	journal = {Pattern Analysis and Applications},
 	doi = {10.1007/s10044-012-0280-z}
 }
+
+@inproceedings{ridd2014using,
+	author = {Ridd, Parker and Giraud-Carrier, Christophe},
+	title = {Using Metalearning to Predict When Parameter Optimization is Likely to Improve Classification Accuracy},
+	year = {2014},
+	isbn = {16130073},
+	publisher = {CEUR-WS.org},
+	address = {Aachen, DEU},
+	abstract = {Work on metalearning for algorithm selection has often been criticized because it
+	mostly considers only the default parameter settings of the candidate base learning
+	algorithms. Many have indeed argued that the choice of parameter values can have a
+	significant impact on accuracy. Yet little empirical evidence exists to provide definitive
+	support for that argument. Recent experiments do suggest that parameter optimization
+	may indeed have an impact. However, the distribution of performance differences has
+	a long tail, suggesting that in most cases parameter optimization has little effect
+	on accuracy. In this paper, we revisit some of these results and use metalearning
+	to characterize the situations when parameter optimization is likely to cause a significant
+	increase in accuracy. In so doing, we show that 1) a relatively simple and efficient
+	landmarker carries significant predictive power, and 2) metalearning for algorithm
+	selection should be effected in two phases, the first in which one determines whether
+	parameter optimization is likely to increase accuracy, and the second in which algorithm
+	selection actually takes place.},
+	booktitle = {Proceedings of the 2014 International Conference on Meta-Learning and Algorithm Selection - Volume 1201},
+	pages = {18–23},
+	numpages = {6},
+	location = {Prague, Czech Republic},
+	series = {MLAS'14}
+}
+
+@inproceedings{sanders2017informing,
+	author = {Sanders, Samantha and Giraud-Carrier, Christophe},
+	year = {2017},
+	month = {11},
+	pages = {1051-1056},
+	title = {Informing the Use of Hyperparameter Optimization Through Metalearning},
+	doi = {10.1109/ICDM.2017.137}
+}
+
+@inproceedings{leite2017selecting,
+	author = {Leite, Rui and Brazdil, Pavel and Vanschoren, Joaquin},
+	year = {2012},
+	month = {07},
+	pages = {117-131},
+	title = {Selecting Classification Algorithms with Active Testing},
+	volume = {7376},
+	isbn = {978-3-642-31536-7},
+	journal = {Lecture Notes in Computer Science},
+	doi = {10.1007/978-3-642-31537-4_10}
+}
+
+
+@article{abdulrahman2018speeding,
+	author = {Abdulrahman, Salisu Mamman and Brazdil, Pavel and Rijn, Jan N. and Vanschoren, Joaquin},
+	title = {Speeding up Algorithm Selection Using Average Ranking and Active Testing by Introducing Runtime},
+	year = {2018},
+	issue_date = {January   2018},
+	publisher = {Kluwer Academic Publishers},
+	address = {USA},
+	volume = {107},
+	number = {1},
+	issn = {0885-6125},
+	url = {https://doi.org/10.1007/s10994-017-5687-8},
+	doi = {10.1007/s10994-017-5687-8},
+	abstract = {Algorithm selection methods can be speeded-up substantially by incorporating multi-objective
+	measures that give preference to algorithms that are both promising and fast to evaluate.
+	In this paper, we introduce such a measure, A3R, and incorporate it into two algorithm
+	selection techniques: average ranking and active testing. Average ranking combines
+	algorithm rankings observed on prior datasets to identify the best algorithms for
+	a new dataset. The aim of the second method is to iteratively select algorithms to
+	be tested on the new dataset, learning from each new evaluation to intelligently select
+	the next best candidate. We show how both methods can be upgraded to incorporate a
+	multi-objective measure A3R that combines accuracy and runtime. It is necessary to
+	establish the correct balance between accuracy and runtime, as otherwise time will
+	be wasted by conducting less informative tests. The correct balance can be set by
+	an appropriate parameter setting within function A3R that trades off accuracy and
+	runtime. Our results demonstrate that the upgraded versions of Average Ranking and
+	Active Testing lead to much better mean interval loss values than their accuracy-based
+	counterparts.},
+	journal = {Mach. Learn.},
+	month = jan,
+	pages = {79–108},
+	numpages = {30},
+	keywords = {Loss curves, Meta-learning, Average ranking, Algorithm selection, Mean interval loss, Ranking of algorithms, Active testing}
+}
+
+@inproceedings{witsuba2015learning,
+	author={Wistuba, Martin and Schilling, Nicolas and Schmidt-Thieme, Lars},
+	booktitle={2015 IEEE International Conference on Data Science and Advanced Analytics (DSAA)}, 
+	title={Learning hyperparameter optimization initializations}, 
+	year={2015},
+	volume={},
+	number={},
+	pages={1-10},
+	doi={10.1109/DSAA.2015.7344817}
+}
+
+
+@article{abdulrahman2014measures,
+	author = {Abdulrahman, Salisu and Brazdil, Pavel},
+	year = {2014},
+	month = {01},
+	pages = {49-50},
+	title = {Measures for combining accuracy and time for meta-learning},
+	volume = {1201},
+	journal = {CEUR Workshop Proceedings}
+}
+
+@inproceedings{rijn2018hyp,
+	author = {van Rijn, Jan N. and Hutter, Frank},
+	title = {Hyperparameter Importance Across Datasets},
+	year = {2018},
+	isbn = {9781450355520},
+	publisher = {Association for Computing Machinery},
+	address = {New York, NY, USA},
+	url = {https://doi.org/10.1145/3219819.3220058},
+	doi = {10.1145/3219819.3220058},
+	abstract = {With the advent of automated machine learning, automated hyperparameter optimization
+	methods are by now routinely used in data mining. However, this progress is not yet
+	matched by equal progress on automatic analyses that yield information beyond performance-optimizing
+	hyperparameter settings. In this work, we aim to answer the following two questions:
+	Given an algorithm, what are generally its most important hyperparameters, and what
+	are typically good values for these? We present methodology and a framework to answer
+	these questions based on meta-learning across many datasets. We apply this methodology
+	using the experimental meta-data available on OpenML to determine the most important
+	hyperparameters of support vector machines, random forests and Adaboost, and to infer
+	priors for all their hyperparameters. The results, obtained fully automatically, provide
+	a quantitative basis to focus efforts in both manual algorithm design and in automated
+	hyperparameter optimization. The conducted experiments confirm that the hyperparameters
+	selected by the proposed method are indeed the most important ones and that the obtained
+	priors also lead to statistically significant improvements in hyperparameter optimization.},
+	booktitle = {Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery},
+	pages = {2367–2376},
+	numpages = {10},
+	keywords = {meta-learning, hyperparameter importance, hyperparameter optimization},
+	location = {London, United Kingdom},
+	series = {KDD '18}
+}
+
+
+@inproceedings{witsuba2015hyper,
+	author = {Wistuba, Martin and Schilling, Nicolas and Schmidt-Thieme, Lars},
+	year = {2015},
+	month = {09},
+	pages = {104-119},
+	title = {Hyperparameter Search Space Pruning - A New Component for Sequential Model-Based Hyperparameter Optimization},
+	doi = {10.1007/978-3-319-23525-7_7}
+}
+
+@inproceedings{pinto2016towards,
+	author = {F{\'a}bio Pinto and C. Soares and Jo{\~a}o Mendes-Moreira},
+	year = {2016},
+	month = {04},
+	pages = {215-226},
+	title = {Towards Automatic Generation of Metafeatures},
+	volume = {9651},
+	isbn = {978-3-319-31752-6},
+	doi = {10.1007/978-3-319-31753-3_18}
+}
+
+@inproceedings{bardenet2013hyper,
+	author = {Bardenet, R\'{e}mi and Brendel, M\'{a}ty\'{a}s and K\'{e}gl, Bal\'{a}zs and Sebag, Mich\`{e}le},
+	title = {Collaborative Hyperparameter Tuning},
+	year = {2013},
+	publisher = {JMLR.org},
+	abstract = {Hyperparameter learning has traditionally been a manual task because of the limited
+	number of trials. Today's computing infrastructures allow bigger evaluation budgets,
+	thus opening the way for algorithmic approaches. Recently, surrogate-based optimization
+	was successfully applied to hyperparameter learning for deep belief networks and to
+	WEKA classifiers. The methods combined brute force computational power with model
+	building about the behavior of the error function in the hyperparameter space, and
+	they could significantly improve on manual hyperparameter tuning. What may make experienced
+	practitioners even better at hyperparameter optimization is their ability to generalize
+	across similar learning problems. In this paper, we propose a generic method to incorporate
+	knowledge from previous experiments when simultaneously tuning a learning algorithm
+	on new problems at hand. To this end, we combine surrogate-based ranking and optimization
+	techniques for surrogate-based collaborative tuning (SCoT). We demonstrate SCoT in
+	two experiments where it outperforms standard tuning techniques and single-problem
+	surrogate-based optimization.},
+	booktitle = {Proceedings of the 30th International Conference on International Conference on Machine Learning - Volume 28},
+	pages = {II–199–II–207},
+	location = {Atlanta, GA, USA},
+	series = {ICML'13}
+}
+
+
+@InProceedings{yogatama2014efficient,
+	title = 	 {{Efficient Transfer Learning Method for Automatic Hyperparameter Tuning}},
+	author = 	 {Yogatama, Dani and Mann, Gideon},
+	booktitle = 	 {Proceedings of the Seventeenth International Conference on Artificial Intelligence and Statistics},
+	pages = 	 {1077--1085},
+	year = 	 {2014},
+	editor = 	 {Kaski, Samuel and Corander, Jukka},
+	volume = 	 {33},
+	series = 	 {Proceedings of Machine Learning Research},
+	address = 	 {Reykjavik, Iceland},
+	month = 	 {22--25 Apr},
+	publisher =    {PMLR},
+	pdf = 	 {http://proceedings.mlr.press/v33/yogatama14.pdf},
+	url = 	 {https://proceedings.mlr.press/v33/yogatama14.html},
+	abstract = 	 {We propose a fast and effective algorithm for automatic hyperparameter tuning that can generalize across datasets. Our method is an instance of sequential model-based optimization (SMBO) that transfers information by constructing a common response surface for all datasets, similar to Bardenet et al. (2013). The time complexity of reconstructing the response surface at every SMBO iteration in our method is linear in the number of trials (significantly less than previous work with comparable performance), allowing the method to realistically scale to many more datasets. Specifically, we use deviations from the per-dataset mean as the response values. We empirically show the superiority of our method on a large number of synthetic and real-world datasets for tuning hyperparameters of logistic regression and ensembles of classifiers.}
+}
+
+@inproceedings{schilling2015hyp,
+	title={Hyperparameter optimization with factorized multilayer perceptrons},
+	author={Schilling, Nicolas and Wistuba, Martin and Drumond, Lucas and Schmidt-Thieme, Lars},
+	booktitle={Joint European Conference on Machine Learning and Knowledge Discovery in Databases},
+	pages={87--103},
+	year={2015},
+	organization={Springer}
+}
+
+@article{witsuba2018scalable,
+	author = {Wistuba, Martin and Schilling, Nicolas and Schmidt-Thieme, Lars},
+	year = {2018},
+	month = {01},
+	pages = {},
+	title = {Scalable Gaussian process-based transfer surrogates for hyperparameter optimization},
+	volume = {107},
+	journal = {Machine Learning},
+	doi = {10.1007/s10994-017-5684-y}
+}
+
+@misc{activmetal,
+	TITLE = {{ActivMetaL: Algorithm Recommendation with Active Meta Learning}},
+	AUTHOR = {Sun-Hosoya, Lisheng and Guyon, Isabelle and Sebag, Mich{\`e}le},
+	URL = {https://hal.archives-ouvertes.fr/hal-01931262},
+	NOTE = {Poster},
+	HOWPUBLISHED = {{IAL 2018 workshop, ECML PKDD}},
+	YEAR = {2018},
+	MONTH = Sep,
+	PDF = {https://hal.archives-ouvertes.fr/hal-01931262/file/ACTIVMETAL.pdf},
+	HAL_ID = {hal-01931262},
+	HAL_VERSION = {v1},
+}

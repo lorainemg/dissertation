@@ -268,7 +268,7 @@ BO es un algoritmo iterativo, cuya idea clave es modelar el mapeo entre un conju
 
 \quad
 
-La elección del modelo sustituto tiene una gran influencia en el rendimiento de BO y a menudo está relacionado con las propiedades del espacio de búsqueda $\hat{\varLambda}$. 
+Un modelo sustituto es una función que aproxima el comportamiento de la función objetivo lo más fielmente posible, y es computacionalmente más fácil de evaluar. La elección del modelo sustituto tiene una gran influencia en el rendimiento de BO y a menudo está relacionado con las propiedades del espacio de búsqueda $\hat{\varLambda}$. 
 
 Si $\hat{\varLambda}$ es puramente numérico, los procesos guasianos (GPs), son los usados más a menudo. Extensiones para los espacios jerárquicos mezclados que son basados en kernels especiales existen, y el uso de \emph{embeddings} aleatorios ha sido sugerido para los espacios de grandes dimensiones. Más importante, GPs tiene una complejidad de tiempo de ejecución que es cúbica en el número de ejemplos, lo que puede resultar en una sobrecarga significativa cuando el archivo $A$ se vuelve grande.
 
@@ -818,11 +818,12 @@ Las evaluaciones previas también pueden ser usadas para aprender mejores \texti
 
 Uno de los enfoques es usando ANOVA funcional, para seleccionar y optimizar solo los hiperparámetros que son considerados importantes \cite{rijn2018hyp}. En este trabajo usan un \textit{framework} de ANOVA funcional para analizar la importancia de los hiperparámetros, basado en un modelo de regresión que da predicciones para el rendimiento de configuraciones arbitrarias de hierperparámetros.
 
-Otra propuesta consiste en descartar las regiones del espacio de búsqueda que no son probables de contener mejores configuraciones de hiperparámetros transfiriendo conocimiento de experimentos pasados en otros datasets, así como tomando en cuenta las evaluaciones que ya están hechas en el dataset actual \cite{witsuba2015hyper}. El objetivo de esa investigación es añadir un nuevo componente a SMBO, una manera de podar la búsqueda de hiperparámetros, la cual es una manera común de acelerar la búsqueda en muchos dominios, pero no ha sido aplicado aún a la optimización de hiperparámetros. La idea principal de su enfoque es que datasets similares a los nuevos datasets tienen regiones similares, o incluso iguales, que no son interesantes y por lo tanto no valen la pena investigar.
+Otra propuesta consiste en descartar las regiones del espacio de búsqueda que no son probables de contener mejores configuraciones de hiperparámetros, transfiriendo conocimiento de experimentos pasados en otros datasets, así como tomando en cuenta las evaluaciones que ya están hechas en el dataset actual \cite{witsuba2015hyper}. El objetivo de esa investigación es añadir un nuevo componente a SMBO, una manera de podar la búsqueda de hiperparámetros, la cual es una manera común de acelerar la búsqueda en muchos dominios, pero no ha sido aplicado aún a la optimización de hiperparámetros. La idea principal de su enfoque es que datasets similares a los nuevos datasets tienen regiones similares, o incluso iguales, que no son interesantes y por lo tanto no valen la pena investigar.
 
 \subsubsection{Transferencia de la configuración}
 
-Si se quiere dar recomendaciones para una tarea específica $t_{new}$, necesitamos información sobre que tan similar $t_{new}$ es a las tareas anteriores $t_j$. Una manera de hacer esto es evaluando un número de configuraciones recomendadas (o parcialmente aleatorias) en $t_{new}$, dando lugar a nueva evidencia $P_{new}$. Si luego observamos que las evaluaciones de $P_{i,new}$ son similares a $P_{i,j}$, entonces $t_j$ y $t_{new}$ pueden ser consideradas similares, basadas en evidencia empírica. Se puede incluir este conocimiento para entrenar un meta-learner que predice un conjunto de configuraciones recomendadas $\Theta_{new}^*$ para $t_{new}$. Además, cada $\theta^*_{new}$ seleccionado puede ser evaluado y luego incluido en $P_{new}$, repitiendo el ciclo y coleccionando más evidencia empírica para aprender cuales tareas son similares entre sí.
+
+Existen varias maneras de dar recomendaciones de una tarea específica $t_{new}$, pero generalmente necesitamos información sobre qué tan similar $t_{new}$ es a las tareas anteriores $t_j \in T$. Una manera de hacer esto es evaluando un número de configuraciones recomendadas en $t_{new}$, dando lugar a nueva evidencia $P_{new}$. Si luego observamos que las evaluaciones de $P_{i,new}$ son similares a $P_{i,j}$ para el dataset $d_i$, entonces basándose en evidencia empírica $t_j$ y $t_{new}$ pueden ser consideradas similares. Este conocimiento puede ser incluido para entrenar un meta-learner que predice un conjunto de configuraciones recomendadas $\Theta_{new}^*$ para $t_{new}$. Además, cada $\theta^*_{new} \in \Theta_{new}^*$ seleccionado puede ser evaluado y luego incluido en $P_{new}$, repitiendo el ciclo y coleccionando más evidencia empírica para aprender cuales tareas son similares entre sí.
 
 \quad 
 
@@ -841,9 +842,9 @@ Si se quiere dar recomendaciones para una tarea específica $t_{new}$, necesitam
 
 \quad
 
-Una primera medida para la similaridad de las tareas considera las diferencias en el rendimiento relativas (pairwise), también llamadas \textit{relative landmarks}, $RL_{a,b,j} = P_{a,j} - P_{b,j}$ entre dos configuraciones $\theta_a$ y $\theta_b$ en una tarea particular $t_j$. (hablar de los papers que tratan de esto) 
+Una primera medida para la similaridad de las tareas considera las diferencias en el rendimiento relativas (en forma de pares), también llamadas \textit{relative landmarks}. Un ejemplo del uso de esta medida es mediante los \textit{pairwise meta-rules}, ya explicadas con anterioridad \cite{sun2013pairwise}, un método de generación de meta-features, basado en las reglas que comparan el rendimiento de varios algoritmos individuales, guardando entre cada par de algoritmo cuál es el mejor.
 
-Uno de los enfoques para la solución de este problema es mediante el uso de \textit{Active Testing}[poner el link de selecting classification algorithms with active testing...]. \textit{Active Testing} procede de una forma tipo torneo, en cada ronda se selecciona y se prueba el algoritmo que más probablemente superará el mejor algoritmo de la ronda previa en un dataset nuevo. Este competidor `más prometedor' es elegido basado en una historia de duelos previos entre ambos algoritmos en datasets similares. En este trabajo [volver a poner el link de active testing] caracterizan un dataset basado en las diferencias del rendimiento de los algoritmos ejecutados en ellos por pares. Estas caracterizaciones son llamadas \textit{relative landmark} sin embargo, se extiende la noción de los \textit{relative landmarks} a todos los algoritmos, inlcuidos los no simples.
+Uno de los enfoques para la solución de este problema es mediante el uso de \textit{Active Testing} \cite{leite2017selecting}. \textit{Active Testing} procede de una forma tipo torneo, en cada ronda se selecciona y se prueba el algoritmo que más probablemente superará el mejor algoritmo de la ronda previa en un dataset nuevo. Este competidor `más prometedor' es elegido basado en una historia de duelos previos entre ambos algoritmos en datasets similares. En este trabajo [volver a poner el link de active testing] caracterizan un dataset basado en las diferencias del rendimiento de los algoritmos ejecutados en ellos por pares. Estas caracterizaciones son llamadas \textit{relative landmark} sin embargo, se extiende la noción de los \textit{relative landmarks} a todos los algoritmos, inlcuidos los no simples. Una limitación de este método es que solo puede considerar las configuraciones que solo fueron evaluadas en tareas anteriores.
 
 \quad
 
@@ -853,8 +854,8 @@ Uno de los enfoques para la solución de este problema es mediante el uso de \te
 	\item[$\checkmark$] Explicar en qué consiste
 	\item Me falta explicar qué es un modelo sustituto
 	\item Poner ejemplos
-	\item \textit{Collaborative hyperparameter tuning} \cite{bardenet2013hyper}
-	\item \textit{Efficient Transfer Learning Method for Automatic Hyperparameter Tuning} \cite{yogatama2014efficient}
+%	\item \textit{Collaborative hyperparameter tuning} \cite{bardenet2013hyper}
+	\item \textit{Efficient Transfer Learning Method for Automatic Hyperparameter Tuning} \cite{yogatama2014efficient} (NO)
 	\item \textit{Hyperparameter Optimization with Factorized Multilayer Perceptrons} \cite{schilling2015hyp}
 	\item \textit{Scalable Gaussian process-based transfer surrogates for hyperparameter optimization.} \cite{witsuba2018scalable}
 	\item AutoML \begin{itemize}
@@ -867,7 +868,17 @@ Uno de los enfoques para la solución de este problema es mediante el uso de \te
 
 \quad
 
-Una forma más flexible de transferir información es construir un \textit{modelo sustituto} $s_j(\theta_i) = P_{i,j}$ para todas las tareas anteriores $t_j$, entrenadas usando todo el conjunto $P$ disponible. Uno puede definir la similitud entre tareas en términos de error entre $s_j(\theta)$ y $P_{i, new}$: si el modelo sustituto para $t_j$ puede generar predicciones precisas para $t_{new}$, entonces esas tareas son intrínsicamente similares. Esto es realizado usualmente en combinación con la optimización Bayesiana para determinar el siguiente $\theta_i$. 
+Una forma más flexible de transferir información es construir un \textit{modelo sustituto} para todas las tareas anteriores $t_j$, entrenadas usando todo el conjunto $P$ disponible. Uno puede definir la similitud entre tareas $t_i$ y $t_j$ en términos de este modelo sustituto: si el modelo sustituto para $t_i$ puede generar predicciones precisas para $t_{j}$, entonces esas tareas son intrínsicamente similares. Esto es realizado usualmente en combinación con la Optimización Bayesiana para determinar el siguiente $\theta_i$. 
+
+La inclusión de meta-datos en la optimización de hiperparámetros basados en SMBO puede ser lograda de diferentes maneras, siendo el enfoque más usado conmunmente pre-entrenar el modelo sustituto en esas observaciones. Tales modelos, los cuales son preentrenados en los meta-datos, son llamados ``\textit{transfer surrogate models}'' porque ellso son capaces de usar el meta-data para inferir de datasets previamente vistos a unos nuevos \cite{witsuba2018scalable}.
+
+Varios modelos sustitutos han sido usados para el ajuste de hiperparámetros, siendo los Procesos Gausianos (GPs) los más populares. Uno de los enfoques propuestos que usan Procesos Gausianos (GPs) se basa en la idea de en vez de aprender un modelos sustitutos individuales en las observaciones de cada tarea y entonces combinar todos los modelos usando técnicas de \textit{ensemble} \cite{witsuba2015learning, witsuba2018scalable}. Para cada tarea, más uno para $t_{new}$ se crean modelos sustitutos, y los combinan en una suma ponderada y normalizada, con el promedio $\mu$ de $t_{new}$ definido como la suma ponderada de los promedios $\mu_j's$ individuales, obtenido de las tareas anteriores $t_j$. 
+
+Otro enfoque seguido es rankear los hiperparámetros $\theta_j$ en cada tarea $t_i$, por el error de validación $R(A(t_i, \theta_j))$ y tomar  $f: T \times \Theta \rightarrow R$ como la salida del modelo sustituto mediante algoritmos de rankings basado en sustitutos \cite{bardenet2013hyper, yogatama2014efficient}. Esto resulta en un nuevo algoritmo de optimización secuencial basada en modelos (\textit{Sequential Model-Based Optimizatio}, SMBO) que redefine su conjunto de entrenamiento en cada paso, ya que nuevos rankings llevan a nuevos modelos. En este trabajo se presenta un nuevo algoritmo de Optimización Bayesiana, llamado ST por \textit{Surrogate-based Tuning} que es combinado con SCoT por \textit{Surrogate-based Collaborative Tuning} para incorporar conocimiento de experimentos pasados cuando se ajusta simultáneamente un algoritmo de aprendizaje en nuevos probelmas.
+
+
+Otra propuesta de modelos sustitutos son los \textit{Multi-Layer Perceptrons} (MLP), ya que ellos son capaces de modelar superficies de respuesta de hiperpármetros altamente no lineales \cite{schilling2015hyp}. Sin embargo, como las interacciones de los hiperparámetros, datasets y meta-features son aprendidos solo implicitamente en las capas subsecuentes, una propuesta es mejorar el rendimiento de los MLP por medio de un factorización explicita de la interacción de los pesos y llaman al modelo resultante un \textit{factorized multilayer perceptron}.
+
 
 
 

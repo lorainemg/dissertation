@@ -152,7 +152,7 @@
 }
 
 @article{rakotoarison2019automated,
-	title={Automated machine learning with monte-carlo tree search},
+	title={Automated machine learning with Monte-Carlo Tree Search},
 	author={Rakotoarison, Herilalaina and Schoenauer, Marc and Sebag, Mich{\`e}le},
 	journal={arXiv preprint arXiv:1906.00170},
 	year={2019}
@@ -791,4 +791,335 @@
 	PDF = {https://hal.archives-ouvertes.fr/hal-01931262/file/ACTIVMETAL.pdf},
 	HAL_ID = {hal-01931262},
 	HAL_VERSION = {v1},
+}
+
+@article{hospedales2021metalearning,
+	author = {Hospedales, Timothy and Antoniou, Antreas and Micaelli, Paul and Storkey, Amos},
+	year = {2021},
+	month = {05},
+	pages = {1-1},
+	title = {Meta-Learning in Neural Networks: A Survey},
+	volume = {PP},
+	journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+	doi = {10.1109/TPAMI.2021.3079209}
+}
+
+@article{lemke2013metalearning,
+	author = {Lemke, Christiane and Budka, Marcin and Gabrys, Bogdan},
+	year = {2013},
+	month = {06},
+	pages = {},
+	title = {Metalearning: a survey of trends and technologies},
+	volume = {DOI: 10.1007/s10462-013-9406-y},
+	journal = {Artificial Intelligence Review},
+	doi = {10.1007/s10462-013-9406-y}
+}
+
+@article{vilalta2001perspective,
+	author = {Vilalta, Ricardo and Drissi, Youssef},
+	year = {2001},
+	month = {09},
+	pages = {},
+	title = {A Perspective View And Survey Of Meta-Learning},
+	volume = {18},
+	journal = {Artificial Intelligence Review},
+	doi = {10.1023/A:1019956318069}
+}
+
+@inproceedings{giraud2008metalearning,
+	title={Metalearning-a tutorial},
+	author={Giraud-Carrier, Christophe},
+	booktitle={Tutorial at the 7th international conference on machine learning and applications (ICMLA), San Diego, California, USA},
+	year={2008}
+}
+
+@book{bradzil2009metalearning,
+	author = {Brazdil, Pavel and Giraud-Carrier, Christophe and Soares, Carlos and Vilalta, Ricardo},
+	year = {2009},
+	month = {01},
+	pages = {},
+	title = {Metalearning - Applications to Data Mining.},
+	isbn = {978-3-540-73262-4},
+	journal = {Metalearning: Applications to Data Mining, Cognitive Technologies. ISBN 978-3-540-73262-4. Springer Berlin Heidelberg, 2009},
+	doi = {10.1007/978-3-540-73263-1}
+}
+
+@phdthesis{vanschoren2010understanding,
+	author = {Vanschoren, Joaquin},
+	year = {2010},
+	month = {05},
+	pages = {},
+	title = {Understanding Machine Learning Performance with Experiment Databases}
+}
+
+@techreport{wolpert1995no,
+	title={No free lunch theorems for search},
+	author={Wolpert, David H and Macready, William G and others},
+	year={1995},
+	institution={Technical Report SFI-TR-95-02-010, Santa Fe Institute}
+}
+
+@misc{bischl2021hyperparameter,
+	title={Hyperparameter Optimization: Foundations, Algorithms, Best Practices and Open Challenges}, 
+	author={Bernd Bischl and Martin Binder and Michel Lang and Tobias Pielok and Jakob Richter and Stefan Coors and Janek Thomas and Theresa Ullmann and Marc Becker and Anne-Laure Boulesteix and Difan Deng and Marius Lindauer},
+	year={2021},
+	eprint={2107.05847},
+	archivePrefix={arXiv},
+	primaryClass={stat.ML}
+}
+
+@article{scikit-learn,
+	title={Scikit-learn: Machine Learning in {P}ython},
+	author={Pedregosa, F. and Varoquaux, G. and Gramfort, A. and Michel, V.
+	and Thirion, B. and Grisel, O. and Blondel, M. and Prettenhofer, P.
+	and Weiss, R. and Dubourg, V. and Vanderplas, J. and Passos, A. and
+	Cournapeau, D. and Brucher, M. and Perrot, M. and Duchesnay, E.},
+	journal={Journal of Machine Learning Research},
+	volume={12},
+	pages={2825--2830},
+	year={2011}
+}
+
+@inproceedings{wu2021frugal,
+	title={Frugal optimization for cost-related hyperparameters},
+	author={Wu, Qingyun and Wang, Chi and Huang, Silu},
+	booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+	volume={35},
+	number={12},
+	pages={10347--10354},
+	year={2021}
+}
+
+@misc{wu2019practical,
+	title={Practical Multi-fidelity Bayesian Optimization for Hyperparameter Tuning}, 
+	author={Jian Wu and Saul Toscano-Palmerin and Peter I. Frazier and Andrew Gordon Wilson},
+	year={2019},
+	eprint={1903.04703},
+	archivePrefix={arXiv},
+	primaryClass={cs.LG}
+}
+
+@misc{vanschoren2018metalearning,
+	title={Meta-Learning: A Survey}, 
+	author={Joaquin Vanschoren},
+	year={2018},
+	eprint={1810.03548},
+	archivePrefix={arXiv},
+	primaryClass={cs.LG}
+}
+
+@inproceedings{fuerer2015initializing,
+	author = {Feurer, Matthias and Springenberg, Jost Tobias and Hutter, Frank},
+	title = {Initializing Bayesian Hyperparameter Optimization via Meta-Learning},
+	year = {2015},
+	isbn = {0262511290},
+	publisher = {AAAI Press},
+	abstract = {Model selection and hyperparameter optimization is crucial in applying machine learning
+	to a novel dataset. Recently, a sub-community of machine learning has focused on solving
+	this problem with Sequential Model-based Bayesian Optimization (SMBO), demonstrating
+	substantial successes in many applications. However, for computationally expensive
+	algorithms the overhead of hyperparameter optimization can still be prohibitive. In
+	this paper we mimic a strategy human domain experts use: speed up optimization by
+	starting from promising configurations that performed well on similar datasets. The
+	resulting initialization technique integrates naturally into the generic SMBO framework
+	and can be trivially applied to any SMBO method. To validate our approach, we perform
+	extensive experiments with two established SMBO frameworks (Spearmint and SMAC) with
+	complementary strengths; optimizing two machine learning frameworks on 57 datasets.
+	Our initialization procedure yields mild improvements for low-dimensional hyperparameter
+	optimization and substantially improves the state of the art for the more complex
+	combined algorithm selection and hyperparameter optimization problem.},
+	booktitle = {Proceedings of the Twenty-Ninth AAAI Conference on Artificial Intelligence},
+	pages = {1128–1135},
+	numpages = {8},
+	location = {Austin, Texas},
+	series = {AAAI'15}
+}
+
+@article{atomic,
+	author = {Moniz, Nuno and Cerqueira, Vitor},
+	year = {2021},
+	month = {04},
+	pages = {115011},
+	title = {Automated Imbalanced Classification via Meta-learning},
+	volume = {178},
+	journal = {Expert Systems with Applications},
+	doi = {10.1016/j.eswa.2021.115011}
+}
+
+@article{Feurer2020AutoSklearn2T,
+	title={Auto-Sklearn 2.0: The Next Generation},
+	author={Matthias Feurer and Katharina Eggensperger and S. Falkner and M. Lindauer and F. Hutter},
+	journal={ArXiv},
+	year={2020},
+	volume={abs/2007.04074}
+}
+
+@article{borkowski1994optimal,
+	author = {Borkowski, John and Pukelsheim, Friedrich},
+	year = {1994},
+	month = {05},
+	pages = {214},
+	title = {Optimal Design of Experiments},
+	volume = {36},
+	journal = {Technometrics},
+	doi = {10.2307/1270234}
+}
+
+@inbook{makar2011teaching,
+	author = {Makar, Katie and Fielding-Wells, Jill},
+	year = {2011},
+	month = {06},
+	pages = {347-358},
+	title = {Teaching Teachers to Teach Statistical Investigations},
+	isbn = {978-94-007-1130-3},
+	doi = {10.1007/978-94-007-1131-0_33}
+}
+
+@inproceedings{falkner2018bohb,
+	title={BOHB: Robust and efficient hyperparameter optimization at scale},
+	author={Falkner, Stefan and Klein, Aaron and Hutter, Frank},
+	booktitle={International Conference on Machine Learning},
+	pages={1437--1446},
+	year={2018},
+	organization={PMLR}
+}
+
+@article{li2018hyperband,
+	author = {Li, Lisha and Jamieson, Kevin and DeSalvo, Giulia and Rostamizadeh, Afshin and Talwalkar, Ameet},
+	title = {Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization},
+	year = {2017},
+	issue_date = {January 2017},
+	publisher = {JMLR.org},
+	volume = {18},
+	number = {1},
+	issn = {1532-4435},
+	abstract = {Performance of machine learning algorithms depends critically on identifying a good
+	set of hyperparameters. While recent approaches use Bayesian optimization to adaptively
+	select configurations, we focus on speeding up random search through adaptive resource
+	allocation and early-stopping. We formulate hyperparameter optimization as a pure-exploration
+	nonstochastic infinite-armed bandit problem where a predefined resource like iterations,
+	data samples, or features is allocated to randomly sampled configurations. We introduce
+	a novel algorithm, Hyperband, for this framework and analyze its theoretical properties,
+	providing several desirable guarantees. Furthermore, we compare Hyperband with popular
+	Bayesian optimization methods on a suite of hyperparameter optimization problems.
+	We observe that Hyperband can provide over an order-of-magnitude speedup over our
+	competitor set on a variety of deep-learning and kernel-based learning problems.},
+	journal = {J. Mach. Learn. Res.},
+	month = jan,
+	pages = {6765–6816},
+	numpages = {52},
+	keywords = {hyperparameter optimization, deep learning, model selection, online optimization, infinite-armed bandits}
+}
+
+@inproceedings{yang2020automl,
+	title={Automl pipeline selection: Efficiently navigating the combinatorial space},
+	author={Yang, Chengrun and Fan, Jicong and Wu, Ziyang and Udell, Madeleine},
+	booktitle={Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery \& Data Mining},
+	pages={1446--1456},
+	year={2020}
+}
+
+@inproceedings{hutter2011sequential,
+	title={Sequential model-based optimization for general algorithm configuration},
+	author={Hutter, Frank and Hoos, Holger H and Leyton-Brown, Kevin},
+	booktitle={International conference on learning and intelligent optimization},
+	pages={507--523},
+	year={2011},
+	organization={Springer}
+}
+
+@article{wolpert1992stacked,
+	author = {Wolpert, David},
+	year = {1992},
+	month = {12},
+	pages = {241-259},
+	title = {Stacked Generalization},
+	volume = {5},
+	journal = {Neural Networks},
+	doi = {10.1016/S0893-6080(05)80023-1}
+}
+
+@article{breiman1996stacked,
+	author = {Breiman, Leo},
+	title = {Stacked Regressions},
+	year = {1996},
+	issue_date = {July 1996},
+	publisher = {Kluwer Academic Publishers},
+	address = {USA},
+	volume = {24},
+	number = {1},
+	issn = {0885-6125},
+	url = {https://doi.org/10.1023/A:1018046112532},
+	doi = {10.1023/A:1018046112532},
+	journal = {Mach. Learn.},
+	month = jul,
+	pages = {49–64},
+	numpages = {16},
+	keywords = {combinations, trees, stacking, non-negativity, subset regression}
+}
+
+@inproceedings{snoek2012practical,
+	author = {Snoek, Jasper and Larochelle, Hugo and Adams, Ryan P.},
+	title = {Practical Bayesian Optimization of Machine Learning Algorithms},
+	year = {2012},
+	publisher = {Curran Associates Inc.},
+	address = {Red Hook, NY, USA},
+	abstract = {The use of machine learning algorithms frequently involves careful tuning of learning
+	parameters and model hyperparameters. Unfortunately, this tuning is often a "black
+	art" requiring expert experience, rules of thumb, or sometimes brute-force search.
+	There is therefore great appeal for automatic approaches that can optimize the performance
+	of any given learning algorithm to the problem at hand. In this work, we consider
+	this problem through the framework of Bayesian optimization, in which a learning algorithm's
+	generalization performance is modeled as a sample from a Gaussian process (GP). We
+	show that certain choices for the nature of the GP, such as the type of kernel and
+	the treatment of its hyperparameters, can play a crucial role in obtaining a good
+	optimizer that can achieve expertlevel performance. We describe new algorithms that
+	take into account the variable cost (duration) of learning algorithm experiments and
+	that can leverage the presence of multiple cores for parallel experimentation. We
+	show that these proposed algorithms improve on previous automatic procedures and can
+	reach or surpass human expert-level optimization for many algorithms including latent
+	Dirichlet allocation, structured SVMs and convolutional neural networks.},
+	booktitle = {Proceedings of the 25th International Conference on Neural Information Processing Systems - Volume 2},
+	pages = {2951–2959},
+	numpages = {9},
+	location = {Lake Tahoe, Nevada},
+	series = {NIPS'12}
+}
+
+@inproceedings{maclaurin2015gradient,
+	author = {Maclaurin, Dougal and Duvenaud, David and Adams, Ryan P.},
+	title = {Gradient-Based Hyperparameter Optimization through Reversible Learning},
+	year = {2015},
+	publisher = {JMLR.org},
+	abstract = {Tuning hyperparameters of learning algorithms is hard because gradients are usually
+	unavailable. We compute exact gradients of cross-validation performance with respect
+	to all hyperparameters by chaining derivatives backwards through the entire training
+	procedure. These gradients allow us to optimize thousands of hyperparameters, including
+	step-size and momentum schedules, weight initialization distributions, richly parameterized
+	regularization schemes, and neural network architectures. We compute hyperparameter
+	gradients by exactly reversing the dynamics of stochastic gradient descent with momentum.},
+	booktitle = {Proceedings of the 32nd International Conference on International Conference on Machine Learning - Volume 37},
+	pages = {2113–2122},
+	numpages = {10},
+	location = {Lille, France},
+	series = {ICML'15}
+}
+
+@inproceedings{weimar2007cofirank,
+	author = {Weimer, Markus and Karatzoglou, Alexandros and Le, Quoc Viet and Smola, Alex},
+	title = {CofiRank Maximum Margin Matrix Factorization for Collaborative Ranking},
+	year = {2007},
+	isbn = {9781605603520},
+	publisher = {Curran Associates Inc.},
+	address = {Red Hook, NY, USA},
+	abstract = {In this paper, we consider collaborative filtering as a ranking problem. We present
+	a method which uses Maximum Margin Matrix Factorization and optimizes ranking instead
+	of rating. We employ structured output prediction to optimize directly for ranking
+	scores. Experimental results show that our method gives very good ranking scores and
+	scales well on collaborative filtering tasks.},
+	booktitle = {Proceedings of the 20th International Conference on Neural Information Processing Systems},
+	pages = {1593–1600},
+	numpages = {8},
+	location = {Vancouver, British Columbia, Canada},
+	series = {NIPS'07}
 }

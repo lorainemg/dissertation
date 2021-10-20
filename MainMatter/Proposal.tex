@@ -12,10 +12,10 @@ En este capítulo se presenta un método para la selección de ``flujos de algor
 La herramienta de meta-learning creada es capaz de abordar una gran variedad de problemas mediante la selección de meta-features capaces de representarlos. Además, explorando la interacción entre las características de los datasets y la estructura de los flujos, el método propuesto es capaz de identificar flujos con un buen rendimiento sin realizar un análisis computacionalmente costoso. Como sistema de AutoML complementario se eligió AutoGOAL, que destaca por la gran cantidad de técnicas y herramientas que utiliza, permitiéndole resolver una amplia gama de tareas. AutoGOAL es usado para la generación de flujos de algoritmos para crear la base de conocimiento, por lo que, debido a la gran variedad de herramientas de ML que AutoGOAL utiliza, se presenta gran diversidad en los flujos guardados.
 
 
-El enfoque desarrollado se propone como un paso preliminar para otras soluciones más costosas computacionalmente, como por ejemplo, para la inicialización de sistemas de AutoML. En esta investigación AutoGOAL también es usado como herramienta complementaria en el proceso de búsqueda de flujos. Por lo tanto, se describe como se realiza la adición de conocimiento experto a la estrategia de búsqueda utilizada por AutoGOAL: \textit{Probabilistic Grammatical Evolution}, que no había sido usada anteriormente con meta-learning.
+El enfoque desarrollado se propone como un paso preliminar para otras soluciones más costosas computacionalmente, como por ejemplo, para la inicialización de sistemas de AutoML. En esta investigación AutoGOAL también es usado como herramienta complementaria en el proceso de búsqueda de flujos. Por lo tanto, se describe como se realiza la adición de conocimiento experto a la estrategia de búsqueda utilizada por AutoGOAL: \textit{Probabilistic Grammatical Evolution}~\cite{pge2015}, que no había sido usada anteriormente con meta-learning.
 
 
-Este capítulo proporciona una descripción al método de meta-learning propuesto para la selección de flujos y un ejemplo de su incorporación a un sistema de AutoML. La propuesta es descrita explicando cómo ocurre la adquisición de meta-conocimiento, que permite la creación de una base de conocimiento, mostrando las meta-features usadas y cómo los flujos de algoritmos fueron generados y guardados. Luego, se describe como se aplica el meta-conocimiento, mediante la implementación de dos estrategias que tienen el objetivo de recomendar una lista de flujos de algoritmos prometedores para un dataset determinado. Por último, se explica cómo esta lista de flujos resultantes generada por el método propuesto es añadida al proceso de búsqueda de AutoGOAL.
+Este capítulo proporciona una descripción al método de meta-learning propuesto para la selección de flujos (Sección~\ref{sec:proposal}) y un ejemplo de su incorporación a un sistema de AutoML (Sección~\ref{sec:autogoal_imp}). La propuesta es descrita explicando cómo ocurre la adquisición de meta-conocimiento (Subsección \ref{sub:adquisicion}), que permite la creación de una base de conocimiento, mostrando las meta-features usadas y cómo los flujos de algoritmos fueron generados y guardados. Luego, se describe como se aplica el meta-conocimiento (Subsección \ref{sub:aplicacion}), mediante la implementación de dos estrategias que tienen el objetivo de recomendar una lista de flujos de algoritmos prometedores para un dataset determinado. Por último, se explica cómo esta lista de flujos resultantes generada por el método propuesto es añadida al proceso de búsqueda de AutoGOAL (Sección~\ref{sec:autogoal_imp}).
 
 \section{Método propuesto}\label{sec:proposal}
 
@@ -48,7 +48,7 @@ Para extraer meta-features de una tarea de aprendizaje específica es necesario 
 
 % Las meta-features extraídos de cada dataset deben ser suficientes para describir los aspectos principales del mismo, de tal manera que cada dataset pueda ser identificado mediante esta caracterización. Además, deben comprender las características necesarias para distinguir el rendimiento obtenido de diferentes algoritmos de aprendizaje cuando son aplicados. 
 
-Los meta-features se pueden separar en 5 categorías [poner ref al capitulo anterior, la sección de meta-features o link de Bradzil de nuevo...]:
+Los meta-features se pueden separar en 5 categorías \cite{bradzil2009metalearning} (Capítulo \ref{chapter:review}):
 
 \begin{itemize}
 	\item \textit{Simples o generales:} Incluyen información general relacionada a un dataset determinado y, en cierta medida, están concebidas para medir la complejidad del problema subyacente.
@@ -58,7 +58,7 @@ Los meta-features se pueden separar en 5 categorías [poner ref al capitulo ante
 	\item \textit{Landmarking:} Usan el rendimiento de algoritmos de aprendizaje simples y rápidos para caracterizar los datasets.
 \end{itemize}
 
-Debido a la complejidad computacional requerida de los últimos dos tipos de meta-features, estos no fueron implementados. Para evaluar el enfoque seguido se implementaron las siguientes meta-features, tomados varios trabajos del estado del arte [poner link: Meta-Data: Characterization of Input Features for Meta-Learning, paper de sklearn]
+Debido a la complejidad computacional requerida de los últimos dos tipos de meta-features, estos no fueron implementados. Para evaluar el enfoque seguido se implementaron las siguientes meta-features, tomados varios trabajos del estado del arte \cite{castiello2005metadata, fuerer2015efficient}
 
 \begin{itemize}
 	\item \underline{\textsc{Simples}}: \begin{description}
@@ -100,20 +100,20 @@ Debido a la complejidad computacional requerida de los últimos dos tipos de met
 
 \subsubsection{Características de las soluciones}
 
-Además de las meta-features, se extrajo información relacionada con las soluciones de las tareas, que fueron usadas como características para el meta-modelo. En la fase de adquisición de conocimiento, la solución de las tareas deben ser generadas. El enfoque de meta-learning seguido no intenta simplemente determinar un buen algoritmo con sus hiperparametros como solución, sino un "flujo de algoritmos", lo que complejiza la generación de estos. Un flujo $p = <a^1, ..., a^2>$  puede ser visto como un caso especial de algoritmo que aplica cada algoritmo $a^i$ de forma secuencial a la salida del algoritmo anterior en la secuencia. Formalmente, se puede ver como la composición de los algoritmos correspondientes, es decir, $p(x) = a^n(a^{n-1}(...a^1(x)...))$.
+Además de las meta-features, se extrajo información relacionada con las soluciones de las tareas, que fueron usadas como características para el meta-modelo. En la fase de adquisición de conocimiento, la solución de las tareas deben ser generadas. El enfoque de meta-learning seguido no intenta simplemente determinar un buen algoritmo con sus hiperparametros como solución, sino un ``flujo de algoritmos'', lo que complejiza la generación de estos. Un flujo $p = <a^1, ..., a^2>$  puede ser visto como un caso especial de algoritmo que aplica cada algoritmo $a^i$ de forma secuencial a la salida del algoritmo anterior en la secuencia. Formalmente, se puede ver como la composición de los algoritmos correspondientes, es decir, $p(x) = a^n(a^{n-1}(...a^1(x)...))$.
 
-Para la generación de los flujos de algoritmos se usó AutoGOAL. En cada uno de los datasets se ejecutó AutoGOAL y se guardaron las arquitecturas generadas junto con su rendimiento. El formato en el que se guardaron fue dependiente de la estructura en la que AutoGOAL procesa los flujos. Los algoritmos se ponen primero secuencialmente, luego existe una palabra clave \texttt{END} para representar el final de estos. Después, se ponen los hiperparámetros de los algoritmos de la forma '\texttt{algoritmo}\_texttt{hiperparámetro}' para identificarlos. Además de las estructuras de los flujos de algoritmos se guardó el modelo probabílistico que siguió AutoGOAL para la formación de dicho flujo.
+Para la generación de los flujos de algoritmos se usó AutoGOAL. En cada uno de los datasets se ejecutó AutoGOAL y se guardaron las arquitecturas generadas junto con su rendimiento. El formato en el que se guardaron fue dependiente de la estructura en la que AutoGOAL procesa los flujos. Los algoritmos se ponen primero secuencialmente, luego existe una palabra clave \texttt{END} para representar el final de estos. Después, se ponen los hiperparámetros de los algoritmos de la forma  `\texttt{\{algoritmo\}\_\{hiperparámetro\}}' para identificarlos. Además de las estructuras de los flujos de algoritmos, se guardó el modelo probabílistico que siguió AutoGOAL para la formación de dicho flujo.
 
 En una de las estrategias seguidas, se implementa un meta-modelo que usa las meta-features de los datasets de entrenamiento y la representación de los flujos de algoritmos generados como características y el rendimiento de estos flujos como etiquetas. Esta información es usada para su entrenamiento.
 
 Una vez adquirido el meta-conocimiento se procede a la aplicación del mismo.
 
-\subsection{Aplicación de meta-conocimiento}
+\subsection{Aplicación de meta-conocimiento}\label{sub:aplicacion}
 
 %- Explicar qué se hace en esta fase de aplicación de meta-conocimiento, su objetivo es la obtención de una lista de pipelines prometedores para un dataset determinado.  Esto se realiza analizando los datasets similares y recomendando los pipelines que tuvieron un buen rendimiento en dichos datasets. 
 %- Explicar un poco el resto de la sección mencionando las 2 estrategias llevadas a cabo.
 
-En un sistema de meta-learning la aplicación de meta-conocimiento puede ser usado para ayudar a seleccionar un conjunto de algoritmos de aprendizaje de máquinas que obtengan un buen rendimiento en una tarea determinada. Una vez obtenidos los meta-datos necesarios, el objetivo de esta fase es la obtención de una lista de flujos de algoritmos prometedores para un dataset determinado. Esto se realiza analizando los datasets similares a un nuevo dataset y recomendando los flujos que tuvieron un buen rendimiento en estos datasets seleccionados. 
+En un sistema de meta-learning la aplicación de meta-conocimiento puede ser usado para ayudar a seleccionar un conjunto de algoritmos de aprendizaje de máquinas que obtengan un buen rendimiento en una tarea determinada. Una vez obtenidos los meta-datos necesarios, el objetivo de esta fase es la obtención de una lista de flujos de algoritmos prometedores para un dataset determinado. Esto se realiza analizando los datasets similares a un nuevo dataset y recomendando los flujos que tuvieron un buen rendimiento en estos conjuntos de datos seleccionados. 
 
 La selección de algoritmos fue realizada mediante un enfoque de ranking, en el que para un nuevo dataset se seleccionan los \texttt{k} mejores flujos de algoritmos. Para esto se implementaron varias estrategias, que son descritas a continuación.
 
@@ -160,25 +160,30 @@ Los algoritmos contenidos en los flujos de algoritmos que genera AutoGOAL tienen
 
 Se usaron solo los algoritmos sin sus hiperparámetros para que el meta-modelo sepa cuáles algoritmos son buenos, de manera general, para un dataset determinado. Sin embargo, para cada secuencia de algoritmos en un dataset se pueden recuperar los algoritmos con sus hiperparámetros, ya que estos están guardados en la base de conocimiento. En el caso de que exista una secuencia igual de algoritmos en un mismo dataset se puede considerar el flujo con mejor resultado de rendimiento. Al final, cuando el meta-modelo genera un ranking, la secuencia de números es decodificada y los hiperparámetros de los algoritmos que componen el flujo de algoritmos son retornados. Por lo tanto, en el ranking final se recuperan los hiperparámetros de los algoritmos seleccionados.
 
-En la segunda fase de la estrategia, los flujos de algoritmos candidatos pre-procesados son concatenados con el vector de características del nuevo dataset y son presentados al meta-modelo. Como resultado, el meta-modelo retorna un ranking basado en el rendimiento esperado de cada uno de los flujos en el dataset. Se retorna una lista con los \texttt{k} mejores flujos y como se mencionó anteriormente, estos flujos son post-procesados para obtener los hiperparámetros con los que fueron usados en su dataset original.
+En la segunda fase de la estrategia, los flujos de algoritmos candidatos pre-procesados son concatenados con el vector de características del nuevo dataset y son presentados al meta-modelo. Como resultado, el meta-modelo retorna un ranking basado en el rendimiento esperado de cada uno de los flujos en el dataset. Se retorna una lista con los \texttt{k} mejores flujos y, como se mencionó anteriormente, estos flujos son post-procesados para obtener los hiperparámetros con los que fueron usados en su dataset original.
 
 % For the training of our meta-learner, we used XGBoost [7]. More specifically, we used the XGBRanker model with the pairwise rank- ing objective function and shallow trees of 150 estimators. This was done since our problem is in its essence a ranking problem, and previous work [4] has shown that XBGoost is highly suitable for producing ranked lists. Additionally, we used the following hyper- parameters settings: learning rate of 0.1, max depth of 8 and 150 estimators. We set the number of pipelines returned by RankML to k = 10. The algorithm’s parameters were empirically set using the leave-one-out approach.
 
-Como meta-modelo, se usó XGBoost, más específicamente, el modelo XGBRanker con \textit{pairwise ranking} como función objetivo y 
-\texttt{shallow trees} de 150 estimadores. Esto fue hecho ya que el problema seleccionado es en esencia un problema de ranking, y trabajo previo ha demostrado que XGBoost es altamente recomendado para producir listas rankeadas [poner link del paper de RankML]. [explicar cómo funciona XGBRanker]
+Como meta-modelo, se usó XGBoost, más específicamente, el modelo XGBRanker. Esto fue hecho ya que el problema seleccionado es en esencia un problema de ranking, y trabajo previo ha demostrado que XGBoost es altamente recomendado para producir listas rankeadas~\cite{rankml}.
 
-Adicionalmente, se usaron las configuraciones de hiperparámetros siguientes:
-\begin{itemize}
-	\item \texttt{n\_estimators = 110}: Es el número de los gradient boosted trees. Equivalente al número de rondas de boosting. (boosting rounds)
-	\item \texttt{max\_depth = 6}: La profundidad máxima de los árboles para los base learners
-	\item \texttt{learning\_rate = 0.1}: boosting learning rate
-	\item \texttt{objective = `rank:pairwise'}: especifica la tarea de aprendizaje y el correspondiente objetivo de aprendizaje.
-	\item \texttt{booster = `gbtree'}: especifica cuál booster usar: gbtree, gblinear, o dart
-	\item \texttt{tree\_method = `hist'}: especifica cuál método de árbol usar
-	\item \texttt{subsample = 0.75}: proporción de la submuestra de la instancia de entrenamiento.
-	\item \texttt{random\_state = 43}: Número de semilla aleatoria.
-	\item \texttt{predictor = `cpu\_predictor'}: Obliga a XGBoost a usar un predictor en específico, las opciones disponibles son: \texttt{`cpu\_predictor'} y \texttt{`gpu\_predictor'}.
-\end{itemize}
+XGBoost es una biblioteca de aprendizaje automático ampliamente utilizada, que usa técnicas de aumento de gradiente para construir gradualmente un mejor modelo durante la fase de entrenamiento mediante la combinación de múltiples modelos débiles. Los modelos débiles se generan calculando el descenso del gradiente utilizando una función objetivo. El modelo así construido se utiliza luego para la predicción en una futura fase de inferencia. \textit{Learning to rank} (LTR) o Aprender a rankear es una de esas funciones objetivos.
+
+%LTR es una clase de técnicas de técnicas que aplican aprendizaje de máquinas supervisado para resolver problemas de ranking. La principal diferencia entre LTR y ML supervisado tradicional es que ML resuelve un problema de predicción (clasificación o regresión) en una sola instancia en el tiempo. El objetivo de ML tradicional es retornar una clase o una puntuación numérica para esa instancia. Por otro lado, LTR resuelve un problema de ranking retornando una lista de elementos. El objetivo de LTR es proponer una oridenación óptima para esos elementos. Como tal,a LTR no le importa mucho la puntuación exacta que obtiene cada elemento, pero se preocupa más por el orden relativo entre todos los elementos. La aplicación más común de LTR es la clasificación en los motores de búsqueda, pero es útil en cualquier lugar donde necesite producir una lista clasificada de elementos.
+
+XGBoost utiliza el algoritmo de clasificación LambdaMART \cite{burges2010from} para árboles potenciados (o \textit{boosted trees}), que utiliza el enfoque de ranking por pares (\textit{pairwise ranking}). Ranking por pares es uno de los enfoques más comunes en LTR, donde se elige un par de instancias y se predice el orden de esas dos. Al repetir este procedimiento para cada par de instancia se encuentra el orden final. En XGBoost se elige un par de instancias para cada instancia de entrenamiento durante el aprendizaje, y el gradiente se calcula en función del orden relativo entre ellos. % y el gradiente se calcula en función del orden relativo entre ellos.
+
+%Adicionalmente, se usaron las configuraciones de hiperparámetros siguientes:
+%\begin{itemize}
+%	\texttt{n\_estimators = 110}: Es el número de los gradient boosted trees. Equivalente al número de rondas de boosting. (boosting rounds)
+%	\item \texttt{max\_depth = 6}: La profundidad máxima de los árboles para los base learners
+%	\item \texttt{learning\_rate = 0.1}: boosting learning rate
+%	\item \texttt{objective = `rank:pairwise'}: especifica la tarea de aprendizaje y el correspondiente objetivo de aprendizaje.
+%	\item \texttt{booster = `gbtree'}: especifica cuál booster usar: gbtree, gblinear, o dart
+%	\item \texttt{tree\_method = `hist'}: especifica cuál método de árbol usar
+%	\item \texttt{subsample = 0.75}: proporción de la submuestra de la instancia de entrenamiento.
+%	\item \texttt{random\_state = 43}: Número de semilla aleatoria.
+%	\item \texttt{predictor = `cpu\_predictor'}: Obliga a XGBoost a usar un predictor en específico, las opciones disponibles son: \texttt{`cpu\_predictor'} y \texttt{`gpu\_predictor'}.
+%\end{itemize}
 
 \section{Implementación en AutoGOAL}\label{sec:autogoal_imp}
 
@@ -186,7 +191,7 @@ Adicionalmente, se usaron las configuraciones de hiperparámetros siguientes:
 %- Hablar un poco de la estrategia de optimización de AutoGOAL, para describir la estrategia usada para la inicialización del proceso de búsqueda.
 %- Hablar un poco de detalles de implementación, como el conocimiento guardado fue convertido en las estructuras que usa AutoGOAL para su búsqueda.
 
-La estrategia llevada a cabo hasta ahora puede funcionar como un sistema de recomendación de flujos de algoritmos independiente, o puede servir como un paso preliminar para otras soluciones más complejas computacionalmente, como las soluciones presentadas al problema de CASH en el Capítulo [poner link]. Sin embargo, a pesar de que mediante meta-learning se pueden sugerir rápidamente algunas inicializaciones de los algoritmos de ML que probablemente tengan buenos resultados, no es posible obtener información detallada sobre qué tan buen rendimiento tendrá en un dataset nuevo. En contraste, los algoritmos de optimización usados en herramientas de AutoML son lentos al buscar en grandes espacios de hiperparámetros, pero son capaces de obtener información más detallada sobre el rendimiento de los algoritmos de ML en un nuevo dataset [poner link del paper de sklearn]. Es por esto que el enfoque de meta-learning propuesto es complementario al proceso de optimización, usando el ranking de configuraciones elegidas para inicializar un proceso de optimización.
+La estrategia llevada a cabo hasta ahora puede funcionar como un sistema de recomendación de flujos de algoritmos independiente, o puede servir como un paso preliminar para otras soluciones más complejas computacionalmente, como las soluciones presentadas al problema de CASH en el Capítulo~\ref{chapter:review}. Sin embargo, a pesar de que mediante meta-learning se pueden sugerir rápidamente algunas inicializaciones de los algoritmos de ML que probablemente tengan buenos resultados, no es posible obtener información detallada sobre qué tan buen rendimiento tendrá en un dataset nuevo. En contraste, los algoritmos de optimización usados en herramientas de AutoML son lentos al buscar en grandes espacios de hiperparámetros, pero son capaces de obtener información más detallada sobre el rendimiento de los algoritmos de ML en un nuevo dataset~\cite{fuerer2015efficient}. Es por esto que el enfoque de meta-learning propuesto es complementario al proceso de optimización, usando el ranking de configuraciones elegidas para inicializar un proceso de optimización.
 
 Como herramienta de AutoML complementaria a esta solución se eligió el sistema de AutoGOAL, que ha sido diseñado por el grupo de investigación de la Facultad de Matemáticas y Computación, de la que esta tesis forma parte. AutoGOAL tiene la importante característica de que es capaz de abordar una gran variedad de problemas, combinando técnicas y algoritmos de diferentes bibliotecas, incluidos clasificadores lineales, herramientas de procesamiento de lenguaje natural y redes neuronales. Esta característica lo hace ideal como herramienta adicional para la solución del problema propuesto.
 
@@ -194,7 +199,7 @@ Para comprender cómo la técnica de meta-learning propuesta fue añadida a Auto
 
 Dada un problema específico con tipos $T^*_{in}$ , $T^*_{out}$ de entrada y salida respectivamente, una solución consiste en un flujo $p =<a^1, ..., a^n >$ tal que el tipo $T^*_{in} \leq T^p_{in}$ y $T^p_{out} \leq T^*_{out}$. Considerando el grafo construido anteriormente $G_A$, se añaden dos nodos ficticios, el nodo Entrada y el nodo Salida, que representan los tipos de entrada y de salida respectivamente. Los algoritmos con tipos de entrada compatible con el primero tendrán una arista desde el mismo, mientras que los compatibles con la salida presentarán una arista hacia el segundo. En este grafo cualquier camino que comience en el nodo Entrada y termine en el nodo Salida representa un flujo que resuelve dicho problema. 
 
-En AutoGOAL sobre el grafo de algoritmos $G_A$ de un problema específico se realiza un proceso de optimización para descubrir los mejores flujos válidos mediante generación aleatoria. Este proceso de optimización se basa en evolución gramatical probabilistico para gramáticas libres del contexto [poner link], y consiste en un ciclo de generación y evaluación utilizando una gramática construida a partir de $G_A$, dirigida por un modelo probabilistico $\sigma$.
+En AutoGOAL sobre el grafo de algoritmos $G_A$ de un problema específico se realiza un proceso de optimización para descubrir los mejores flujos válidos mediante generación aleatoria. Este proceso de optimización se basa en evolución gramatical probabilistico para gramáticas libres del contexto \cite{pge2015}, y consiste en un ciclo de generación y evaluación utilizando una gramática construida a partir de $G_A$, dirigida por un modelo probabilistico $\sigma$.
 
 Para generar los flujos de algoritmos, primero se debe considerar que, por construcción, cada nodo pertenece a un camino válido. Por tanto, realizando un recorrido aleatorio comenzando por el nodo Entrada, si no se repiten nodos y toda arista tiene probabilidad de cruzarse mayor que 0, entonces se garantiza que este recorrido termina en el nodo Salida. A cada algoritmo $a_i$ en $G_A$ se le asigna un peso (no normalizado) $w_i$, que se utiliza para seleccionar un vecino aleatorio durante la generación de un camino en $G_A$ siguiendo una distribución multinomial Bernoulli.
 

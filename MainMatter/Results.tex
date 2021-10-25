@@ -1,1 +1,116 @@
 \chapter{Resultados}\label{chapter:results}
+
+% - Hacer un overview del capítulo
+
+\subsection{Datasets}
+
+%- Hablar un poco de openml, que fue usado para extraer los datasets
+%
+%- Hablar de cuales fueron los datasets seleccionados y cómo fueron seleccionados
+%
+%- Características de los datasets seleccionados
+%
+%- Hablar de cómo fueron divididos los datasets para la experimentación
+
+Para los experimentos realizados se extrajeron datasets de clasificación de OpenML [link OpenML: Networked science in machine learning]. OpenML es una plataforma de código abierto desarrollada con el objetivo de permitir a los investigadores compartir sus datasets, implementaciones y experimentos de una forma tal que ellas puedan ser fácilmente encontradas y reusadas por otros. OpenML tiene alrededor de 19000 datasets disponibles para descargar y ofrece una API Web [link http://www.openml.org] a través de la cual pueden ser enviados nuevos recursos y resultados. OpenML-Python [link Openml-python: an extensible python api for openml] es una integración al ecosistema popular de Python ML [link https://github.blog/2019-01-24-the-state-of-the-octoverse-machine-learning/], que quita la complejidad del acceso a la API Web proporcionando un fácil acceso en python a todos los datos de OpenML y automatizando el intercambio de nuevos experimentos. Los datasets seleccionados fueron extraídos usando esta API.
+ 
+ Para obtener un conjunto representativo de datasets se consideraron todos los que tenían más de 300  y menos de 500 000 instancias con más 2 atributos y menos de 300 atributos, teminando en un total de 388 datasets. Estos datasets son muy diversos con respecto a su número de instancias, número de características, y número de clases. Características sobre su distribución pueden verse en la Figura ...
+ 
+ Para la evaluación de la propuesta realizada se separaron los 388 datasets en dos conjuntos: $D_{train}$ y $D_{test}$ , donde el primero representa el $80\%$ de los datasets disponibles y el segundo el $20\%$. $D_{train}$ fue usado en el entrenamiento de las estrategias seleccionadas y $D_{test}$ en la prueba de las mismas. El conjunto de datasets de entrenamiento $D_{train}$ fue a su vez dividido en 2, usándose el segundo para la evaluación de los modelos implementados. De $D_train$ se usó el $75\%$ para el entrenamiento y el $25\%$ para la validación de la propuesta.
+ 
+ Ver para poner las características de los datasets: Auto-Sklearn 2.0, ATM
+ 
+ \subsection{Generación de Flujos}
+ 
+% - Introducir la sección hablando de los tipos de algoritmos por los que está compuesto AutoGOAL (las bibliotecas que se usó, etc)
+% - Hablar de cómo fue el proceso de entrenamiento de AutoGOAL para la extracción de solución, hablando de la configuración usada en AutoGOAL para la búsqueda de flujos.
+% - Terminar hablando del tiempo total de entrenamiento, la cantidad total de flujos de algoritmos generados y el promedio de flujos generados por dataset.
+
+Todos los flujos de algoritmos usados durante el entrenamiento y evaluación de la propuesta implementada fueron generadas usando AutoGOAL. Los flujos generados con AutoGOAL consisten en algoritmos que pueden encontrarse en varias bibliotecas de python, entre las que se encuentran: Sklearn [link Scikit-learn: Machine learning in Python.], Pytorch [link Pytorch: An imperative style, high-performance deep learning library.], Keras [link Francois Chollet et al. Keras. https://keras.io, 2015.], NLTK [link NLTK: the natural language toolkit], Gensim [link Gensim 2.0: a customizable process simulation model for software process evaluation.].
+
+AutoGOAL se ejecutó en cada uno de los 388 datasets seleccionados y se guardaron todas las arquitecturas generadas. Para cada uno de los datasets, AutoGOAL se configuró para que realizara la búsqueda de flujos durante 1 hora, teniendo un total de 5 minutos para la evaluación de un flujo de algoritmos. De esta forma, se excluyeron flujos muy complejos y se garantizó la evaluación de al menos 12 flujos por dataset. Esta generación de flujos duró un total de 388 horas y se generaron en promedio ... flujos de algoritmos por dataset, y en total se obtuvieron ...  flujos. 
+
+\subsection{Comparación de diferentes estrategias}
+
+%- Hacer un pequeño resumen de las configuraciones de las estrategias y variantes implementadas
+%
+%- Hacer un resumen del resto de la sección.
+
+Los datasets y los flujos de algoritmos extraídos fueron usados con diferentes estrategias de meta-learning que fueron implementadas:
+
+\begin{description}
+	\item[Estrategia \textit{Nearest Neighbors} Simple:] El ranker de vecinos cercanos, tal como está descrita en la Seccion [link], fue probado usando la distancia L2 estándar. El ranking final que debe generar para un nuevo dataset es de 15 flujos. En esta versión se usó la estrategia simple, en la que se seleccionan \texttt{n} datasets más cercanos y de ellos los \texttt{k} flujos de algoritmos que hayan obtenido un mejor rendimiento, luego el ranking es formado seleccionando a los 15 mejores pipelines. Para la evaluación de esta estrategia se usó \texttt{k = 15} y \texttt{n = 15}.
+	\item[Estrategia \textit{Nearest Neighbors} Ponderado:] El ranker de vecinos cercanos se vuelve a probar, pero usa la otra estrategia explicada en la Sección [link]. Esta estrategia consiste en un mecanismo ponderado entre dos factores: la distancia entre el nuevo dataset y los datasets en el conjunto de entrenamiento, y el valor del resultado del rendimiento de los flujos de algoritmos en los datasets similares. Estos factores son divididos, y el valor obtenido es el usado para generar el nuevo ranking. Al igual que en la estrategia anterior, se genera un ranking final de 15 flujos para una tarea nueva.
+	\item[Estrategia usando un Ranker:] Se uso como meta-modelo XGBRanker de la biblioteca XGBoost para generar los rankings de una nueva tarea. Se usaron las configuraciones de hiperparámetros siguientes: 	
+	\begin{itemize}
+		\item \texttt{objective = `rank:pairwise'}: especifica la tarea de aprendizaje y el correspondiente objetivo de aprendizaje. En este caso, se eligió \textit{rank} porque es una tarea de ranking y \textit{pairwise} porque utiliza el enfoque de ranking por pares (en inglés, \textit{pairwise ranking}).
+		\item \texttt{n\_estimators = 110}: Es el número de los árboles con gradientes aumentados (\textit{gradient boosted trees}) usados en su algoritmo de ranking explicado en la Sección [link sección de xgboost].
+		\item \texttt{tree\_method = `hist'}: especifica el algoritmo de construcción de árboles usados en XGBoost.  cuál método de árbol usar [poner link de tg]. XGBoost dispone de 4 métodos: \texttt{exact}, \texttt{approx}, \texttt{hist}, \texttt{gpu\_hist}. El algoritmo elegido fue \texttt{hist}, que es el histograma más rápido optimizado usando un algoritmo \texttt{greedy} optimizado.
+		\item \texttt{max\_depth = 6}: La profundidad máxima de los árboles usados como modelos básicos. El aumento de este valor hace al modelo más complejo y más probable a sobreajustar (\textit{overfit}).
+		\item \texttt{learning\_rate = 0.1}: especifica la tasa de aprendizaje.
+		\item \texttt{subsample = 0.75}: proporción de la submuestra de la instancia de entrenamiento. El valor 0.75 indica que XGBoost muestrearía al azar el 75\% del conjunto de entrenamiento para prevenir el sobreajuste. Esto se realiza una vez en cada iteración del algoritmo.
+		\item \texttt{colsamplebytree = 0.9}: es la proporción de submuestra de las columnas al construir cada árbol. El submuestreo ocurre una vez para cada árbol construido.
+		% 		\item \texttt{random_state = 43}: Número de semilla aleatoria usado en los procesos aleatorios.
+ 		\item \texttt{predictor = `cpu\_predictor'}: especifica el tipo de algoritmo de predicción a usar. Los algoritmos disponibles proporcionan los mismos resultados, pero permiten el uso de la GPU o la CPU. La configuración usada fue la CPU.
+	\end{itemize}
+\end{description}
+
+
+\subsubsection{Evaluación de la Precisión del Ranking}
+
+%- Explicar que se midió la precisión del ranking obtenido en las diferentes estrategias con diferentes medidas
+%
+%- Explicar cada una de las métricas de evaluación usadas
+%
+%- Explicar cómo se realizó esta experimentación
+%
+%- Poner resultados.
+
+Uno de los indicadores de eficiencia de la propuesta desarrollada es la precisión del ranking obtenida en cada una de las propuestas llevadas a cabo. Para evaluar la eficacia de los modelos se compararon los rankings predichos para un determinado dataset con sus correspondientes etiquetas de ranking. Dados dos conjuntos de rankings de tamaño \texttt{k}: $T = [T_1, T_2, ..., T_k$ y $P = [P_1, P_2, ..., P_k]$, los cuales son objetivos y predicciones respectivamente, las siguientes métricas de evaluación de ranking y funciones fueron usadas en los experimentos realizados:
+
+\begin{description}
+	\item[Coeficiente de Correlación de Rango de Spearman]o \textit{Spearman’s Rank Correlation Coefficient} (SRCC). SRCC evalúa que tan  bien puede ser descrita la relación entre el ranking verdadero y el predicho. Está definido como: $$\rho_{srccc} = 1 - \dfrac{6\sum^k_{i=1}(T_i - P_i)^2}{k(k^2-1)}$$
+	
+	\item[Coeficiente de Rango Ponderado]o Weighted Rank Correlation (WRC). La métrica WRC le da más peso a los mejores candidatos. Ha sido usado en meta-learning en [poner links de Meta-Learning and the Full Model Selection Problem]. Está definido como: $$\rho_{wrc} = 1 - \dfrac{1-\sum^k_{i=1} (T_i - P_i)^2(2k - T_i - P_i + 2) }{k ^4+k^3-k^2-k}$$
+	
+	\item[Ganancia Acumulada Descontada Normalizada]o \textit{Normalized Discounted Cumulative Gain} (NDCG). Es una métrica de efectividad usada a menudo en motores de búsqueda usando una escala de relevancia calificada de elementos en una lista de resultados. Para entender la métrica NDGC es necesario entender primero las métricas de Ganancia Acumulada (\textit{Cumulative Gain}, CG) y Ganancia Acumulada Descontada (\textit{Discounted Cumulative Gain}, DCG).
+	
+	Si cada recomendación tiene una puntuación de relevancia predicha asociada con ella, CG es la suma de los valores de relevancia predichos de todos los resultados en la lista resultante. Matemáticamente, $$CG_p = \sum^k_{i=1}P_i$$
+	
+	El problema de CG es que no tiene en cuenta el ranking del conjunto resultante cuando determina la utilidad del conjunto. En otras palabras, si se reordenase las puntuaciones de relevancias predichas no obtendríamos un mejor conocimiento de un conjunto resultante, ya que CG no cambiará.
+	
+	Para superar esto se introduce DCG. DCG penaliza los documentos altamente relevantes que aparecen más abajo en la búsqueda reduciendo la relevancia predicha en dependencia de la posición del resultado. Formalmente, $$DCG_p = \sum^k_{i=1} \dfrac{2^{P_i} - 1}{log_2(i + 1)}$$
+	
+	Un problema que surge con DCG cuando se quiere comparar el resultado diferentes motores de búsqueda porque la lista de resultados puede variar en longitud. Por lo tanto, normalizando la ganancia acumulada en cada posición se llega a NDCG. Esto se realiza ordenando los valores objetivos por su relevancia relativa, produciendo el máximo valor posible en la posición \texttt{p}. Esta última medida se denomina Ganancia Acumulada Descontada Ideal (\textit{Ideal Discounted Cumulative Gain}, IDCG), que se calcula como: $$\sum^m_{i=1} \dfrac{2^{T_i} - 1}{log_2(i+1)}, $$ donde m es la cantidad de resultados relevantes.
+	Luego, NDCG se calcula como: $$NDCG_p = \frac{DCG_p}{IDCG_p}$$
+\end{description}
+
+La siguiente figura muestra los resultados obtenidos en cada una de las estrategias explicadas en la Sección [link seccion anterior].
+
+[hablar un poco de los que se ve en las gráficas]
+
+\subsubsection{Resultados experimentales}
+
+%- Explicar cómo se realizaron los experimentos.
+%
+%- Hablar de los diferentes aspectos evaluados (flujos inválidos, mejor resultado, iteraciones para el mejor resultado...).
+%
+%- Exponer los resultados.
+
+La eficacia del método implementado no se basa solo en qué tan bueno es para la creación de rankings  de flujos de algoritmos basados en experiencias pasadas. Para la evaluación del método es importante conocer los resultados obtenidos al incorporarse a un sistema de aprendizaje automático de máquinas. Es decir, cómo el ranking de configuraciones elegidas son usadas para inicializar el proceso de optimización, y qué resultados este proceso puede obtener al usar el conocimiento previo adquirido mediante meta-learning. En esa sección se discuten las experimentaciones realizadas para evaluar estos aspectos.
+
+Para la realización de las experimentaciones se ejecutó la búsqueda algoritmos de AutoGOAL con y sin meta-learning, probando los tres métodos de meta-learning mencionados anteriormente: vecinos cercanos con la estrategia simple, con la estrategia usando mecanismos ponderados y usando un ranker. Para estudiar su rendimiento bajo una estricta restricción de tiempo, y además, debido a limitaciones de los recursos computacionales usados, se limitó la búsqueda para cada corrida a 30 minutos. Además, el tiempo de ejecución de un solo modelo se limitó a la sexta parte de este tiempo (5 minutos). Las evaluaciones realizadas en esta sección muestran los resultados obtenidos evaluados en los datasets de prueba, usando los datasets de entrenamiento para entrenar los métodos llevados a cabo. Cada estrategia se ejecutó 3 veces, y los resultados mostrados son el promedio de estas ejecuciones. 
+
+Uno de los aspectos a analizar es la cantidad de flujos de algoritmos inválidos generados durante el proceso de optimización. Los flujos inválidos se encuentran en dos casos: cuando se excede el tiempo de espera predefinido por el investigador, o cuando ocurren errores de tiempo de ejecución impredecibles, como errores de falta de memoria provocados por una combinación inviable de hiperparámetros. Estas circunstancias a menudo son imposibles de predecir de antemano y, como tal, no se pueden tener en cuenta en las gramáticas. Sin embargo, mediante la información adquirida con meta-learning se espera que la cantidad de flujos inválidos disminuya, ya que se utiliza conocimiento sobre problemas similares que usan flujos de algoritmos válidos. En la Figura [link], se muestran los resultados obtenidos usando cada una de las estrategias desarrolladas, incluyendo la versión de AutoGOAL que no utiliza la inicialización de meta-learning.
+
+Otro de los aspectos que puede ser interesante evaluar son las iteraciones necesarias para la obtención del mejor resultado. La Figura [link] muestra los resultados obtenidos a través de las iteraciones en las diferentes versiones evaluadas. Se puede observar que los tres nuevos métodos produjeron mejoras sustanciales con respecto a AutoGOAL sin meta-learning. El resultado más sorprendente es que meta-learning produjo mejoras drásticas a partir de la primera configuración que seleccionó y que se prolongó hasta el final del experimento. La mejora fue más pronunciada al principio y, con el tiempo, AutoGOAL sin meta-learning también encontró buenas soluciones, lo que le permitió alcanzar los mismos resultados obtenidos en las versiones que usan meta-learning en algunos datasets (mejorando así su clasificación general).
+
+En la Figura [link] se muestran los resultados obtenidos en cada uno de los datasets de prueba para las diferentes estrategias. Como se puede ver, los resultados finales entre AutoGOAL sin meta-learning y las estrategias con meta-learning no son tan pronunciadas, esto se cree que se debe a que, a pesar de que mediante meta-learning se obtienen los valores óptimos más rápidos, AutoGOAL es capaz de alcanzar a las versiones con conocimiento experto, y encontrar así mismo buenas soluciones. Además, para cada dataset, a partir de un rendimiento casi óptimo, le es muy difícil mejorar.
+
+\section{Discusión}
+
+- Hacer un overview de lo que se va a hablar.
+
+- Hablar de limitaciones de las estrategias llevadas a cabo.
+
+- Hablar de posibles mejoras.

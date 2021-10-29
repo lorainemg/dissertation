@@ -65,7 +65,7 @@ Debido a la complejidad computacional requerida para el cálculo de los últimos
 		\item[Número de clases:] representa la cantidad de posibles de clases (etiquetas) presentes en el dataset que son posibles predecir.
 		\item[Dimensionalidad de la entrada:] representa el número total de \texttt{m} atributos en el dataset.
 		\item[Dimensionalidad de la salida:] representa el número total de valores de salida en el dataset.
-		\item[Dimesionalidad del dataset:] representa la proporción entre el número de atributos y el número de observaciones del dataset, es decir, $dim_{data} = \dfrac{m}{k}$.
+		\item[Dimensionalidad del dataset:] representa la proporción entre el número de atributos y el número de observaciones del dataset, es decir, $dim_{data} = \dfrac{m}{k}$.
 		\item[Cantidad de características categóricas:] cantidad de atributos del dataset que tienen valores categóricos.
 		\item[Características categóricas:] determina si el dataset tiene atributos que tienen valores categóricos.
 		\item[Cantidad de características numéricas:] cantidad de atributos del dataset que tienen valores numéricos.
@@ -94,7 +94,7 @@ Debido a la complejidad computacional requerida para el cálculo de los últimos
 	\end{description}
 \end{itemize}
 
-\subsubsection{Características de las soluciones}
+\subsubsection{Características de las soluciones}\label{subsub:soluciones}
 
 Además de las meta-features, se extrajo información relacionada con las soluciones de las tareas, que fueron usadas como características para el meta-modelo. En la fase de adquisición de conocimiento, la solución de las tareas deben ser generadas. El enfoque de meta-learning seguido no intenta simplemente determinar un buen algoritmo con sus hiperparámetros como solución, sino un ``flujo de algoritmos'', lo que complejiza la generación de estos. Un flujo $p = <a^1, ..., a^2>$  puede ser visto como un caso especial de algoritmo que aplica cada algoritmo $a^i$ de forma secuencial a la salida del algoritmo anterior en la secuencia. Formalmente, se puede ver como la composición de los algoritmos correspondientes, es decir, $p(x) = a^n(a^{n-1}(...a^1(x)...))$.
 
@@ -113,13 +113,13 @@ En un sistema de meta-learning la aplicación de meta-conocimiento puede ser usa
 
 La selección de algoritmos fue realizada mediante un enfoque de ranking, en el que para un nuevo dataset se seleccionan los \texttt{k} mejores flujos de algoritmos. Para esto se implementaron varias estrategias, que son descritas a continuación.
 
-\subsubsection{Estrategia de \textit{Nearest Neighbors}}
+\subsubsection{Estrategia de Vecinos Más Cercanos}\label{subsub:nn}
 
 %- Explicar de forma general cómo funciona la estrategia de nearest neighbors, mencionar que es de las estrategias más usadas. Consiste en extraer las _k_ instancias más similares a un dataset nuevo, y formar un ranking de recomendación seleccionando los _n_ pipelines de mejor rendimiento de los datasets seleccionados para el nuevo dataset.
 %- Explicar que está compuesta por varios pasos, en el primer paso, dado un dataset nuevo, se computan sus meta-features y se selecciona un conjunto de _k_ instancias en el conjunto de entrenamiento que son similares al dataset actual. Generalmente la similitud está basada en una métrica de distancia, hablar de cuáles fueron las implementadas.
 %- Explicar el segundo paso: se seleccionan los _n_ mejores pipelines de los _k_ mejores datasets y se genera un ranking para el nuevo dataset, explicar cómo se genera ese ranking.
 
-La primera estrategia, de \textit{Nearest Neighbors} o Vecinos Cercanos, consiste en extraer los flujos candidatos para un dataset determinado en dependencia de las características de los \texttt{k} datasets más similares a él. Se extraen los \texttt{n} flujos de algoritmos que hayan tenido mejor rendimiento en cada uno de los \texttt{k} datasets, y estos flujos son combinados para formar un nuevo ranking para el nuevo dataset. Este enfoque puede ser dividido en dos pasos: la búsqueda de los vecinos cercanos y la generación de un ranking.
+La primera estrategia, de \textit{Nearest Neighbors} o Vecinos Más Cercanos, consiste en extraer los flujos candidatos para un dataset determinado en dependencia de las características de los \texttt{k} datasets más similares a él. Se extraen los \texttt{n} flujos de algoritmos que hayan tenido mejor rendimiento en cada uno de los \texttt{k} datasets, y estos flujos son combinados para formar un nuevo ranking para el nuevo dataset. Este enfoque puede ser dividido en dos pasos: la búsqueda de los vecinos cercanos y la generación de un ranking.
 
 En el primer paso, dado un dataset nuevo, se calculan sus meta-features con el objetivo de construir un vector de características. Luego, se selecciona un conjunto de \texttt{k} instancias (vecinos cercanos) en el dataset de entrenamiento que son similares al nuevo dataset. Esta similitud está basada en una medida de distancia (por ejemplo, la distancia euclidiana), que es aplicada entre los vectores de características de los datasets de entrenamiento y el nuevo dataset. La solución seguida soporta cualquier función de similitud, para comprobar el funcionamiento del sistema el siguiente conjunto de medidas fueron implementadas:
 
@@ -137,7 +137,7 @@ El otro método para la generación de rankings consiste en un mecanismo pondera
 
 Este último enfoque tiene una desventaja, y es que los pares dataset-flujo guardados en la base de conocimiento puede ser un número grande. Por lo tanto, para una mayor eficiencia del algoritmo se hace uso de la información referente al tamaño del ranking final. Si se tiene que el resultado final va a ser un ranking de, por ejemplo, 15 flujos, entonces nunca va a ser necesario analizar más de los 15 flujos con mejor rendimiento en cada uno de los datasets. El mismo razonamiento se puede aplicar con la cantidad de datasets, es poco probable que sea útil analizar más allá de los 15 datasets más similares, sin embargo, esta última heurística no funciona siempre. Falla en el caso de que haya poca diferencia en la similitud de los 16 primeros datasets y además los flujos de algoritmos probados tengan una puntuación baja, y luego el dataset 16 tenga un flujo con un alto rendimiento, en cuyo caso, será mejor elegir el último dataset. Por estos razonamientos, esta última heurística no fue implementada. Para cada uno de los datasets se analizan los 15 mejores flujos de algoritmos.
 
-\subsubsection{Estrategia usando un Ranker}
+\subsubsection{Estrategia usando un Ranker}\label{subsub:ranker}
 
 %- Explicar también de forma general cómo funciona esta estrategia. En esta estrategia se usa un algoritmo de ranking para predecir el rendimiento de un par dataset-pipeline sin necesidad de ejecutar dicho pipeline. Midiendo la similitud de los dataset con un nuevo dataset se extraen un conjunto de pipelines recomendados, y estos algoritmos son presentados junto con el dataset nuevo al meta-modelo, obteniendo un ranking de pipelines recomendados.
 %- Esta estrategia también funciona en 2 fases: en la primera fase se computan los meta-features del nuevo y se seleccionan los datasets similares y los pipelines candidatos de una manera similar a la del método anterior.

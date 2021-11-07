@@ -20,10 +20,10 @@ Para los experimentos realizados se extrajeron datasets de clasificación de Ope
  
  \begin{figure}[H]
 \centering
-\includegraphics[scale=.75]{Figures/mtf lineplot.pdf}
+\includegraphics[scale=.75]{Figures/mtf-lineplot.pdf}
 %\includegraphics[scale=.60]{Figures/mtf scatterplot.pdf}
-\label{fig:datasets}
 \caption{Características de los datasets en cuanto al número de instancias, número de características y número de clases.}
+\label{fig:datasets}
 \end{figure}
  
  
@@ -117,9 +117,9 @@ Uno de los aspectos a analizar es la cantidad de flujos de algoritmos inválidos
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.75]{Figures/failed pipelines.pdf}
-\label{fig:failedpipelines}
+\includegraphics[scale=.75]{Figures/failed-pipelines.pdf}
 \caption{Cantidad de flujos de algoritmos inválidos generados en cada uno datasets usando las diferentes estrategias.}
+\label{fig:failedpipelines}
 \end{figure}
 
 %Otro de los aspectos que puede ser interesante evaluar son las iteraciones necesarias para la obtención del mejor resultado. La Figura \ref{fig:maxidx} muestra los resultados obtenidos a través de las iteraciones en las diferentes versiones evaluadas. Se puede observar que las dos estrategias de vecinos cercanos obtuvieron el mejor resultado en menos iteraciones que AutoGOAL sin meta-learning. Sin embargo, la estrategia de XGBRanker no obtuvo el mismo resultado. % El resultado más sorprendente es que meta-learning produjo mejoras drásticas a partir de la primera configuración que seleccionó y que se prolongó hasta el final del experimento. La mejora fue más pronunciada al principio y, con el tiempo, AutoGOAL sin meta-learning también encontró buenas soluciones, lo que le permitió alcanzar los mismos resultados obtenidos en las versiones que usan meta-learning en algunos datasets (mejorando así su clasificación general).
@@ -136,17 +136,17 @@ Otro de los aspectos que puede ser interesante de evaluar es el comportamiento d
 \begin{figure}[H]
 \centering
 \includegraphics[scale=.75]{Figures/performance}
-\label{fig:performance}
 \caption{Resultados de rendimiento obtenidos en los datasets de prueba, se muestra la media y el intervalo de confianza del 95\%.}
+\label{fig:performance}
 \end{figure}
 
 En la Figura \ref{fig:bestfn} se muestra el mejor resultado final obtenido en la búsqueda de los flujos de algoritmos en cada uno de los datasets de prueba para las diferentes estrategias. Como se puede apreciar, se obtienen mejores resultados finales en cada uno de las estrategias seguidas con respecto a AutoGOAL sin meta-learning. La diferencia entre la estrategia de vecinos cercanos simple no es tan pronunciada con respecto a  la versión que no usa meta-learning, y esto se cree que se debe a que, a pesar de que mediante esta estrategia se obtienen los valores óptimos más rápidos, AutoGOAL es capaz de alcanzar a esta versión, y encontrar buenas soluciones. El método de vecinos cercanos ponderado y el que usa XGBRanker, un algoritmo de ranking de XGBoost, sí obtiene resultados un poco más significativos, siendo este último el que mejor resultado final obtiene.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=.75]{Figures/best fn.pdf}
-\label{fig:bestfn}
+\includegraphics[scale=.75]{Figures/best-fn.pdf}
 \caption{Mejor resultado obtenido en la búsqueda de los flujos de algoritmos en cada uno de los datasets de prueba para las diferentes estrategias.}
+\label{fig:bestfn}
 \end{figure}
 
 \section{Discusión}\label{sec:discusion}
@@ -173,7 +173,7 @@ El método propuesto tiene también algunas limitaciones, las cuales se pueden m
 
 Los experimentación llevada a cabo se realizó solo con datasets de clasificación, por lo que solo se estudiaron los resultados obtenidos en esa tarea. Sin embargo, el modelo propuesto es adaptable a cualquier tipo de problema de aprendizaje de máquinas siempre y cuando se tenga una medida para determinar la eficiencia de un flujo de algoritmos en un dataset. Para la realización de varios tipos de tareas, se propone la creación de un modelo diferente para cada tipo de problemas. Es decir, se crearía un modelo para las tareas de clasificación y otro para regresión. De esta manera, para el análisis de un dataset es necesario conocer el tipo de tarea que se quiere resolver, y usar el modelo adecuado para ella.
 
-Meta-learning es muy dependiente de la calidad de los meta-ejemplos que usa para su entrenamiento~\cite{gomes2012combining}. Usualmente es difícil obtener buenos resultados ya que las meta-features son en general bastante ruidosas y el número de problemas disponibles para la generación de meta-ejemplos usualmente es limitada. En este trabajo, se obtienen buenos resultados debido al uso de meta-features que han sido ampliamente usadas en la literatura y a la gran variedad de datasets extraídos. Sin embargo, se cree que un análisis más detallado de la distribución de los datasets y la inclusión de datasets de mayor tamaño puede proporcionar mejores resultados. De igual manera, un estudio de las meta-features para la eliminación de aquellas que proporcionen información poco útil puede proporcionar mejoras en el método propuesto.
+Meta-learning es muy dependiente de la calidad de los meta-ejemplos que usa para su entrenamiento~\cite{gomes2012combining}. Usualmente es difícil obtener buenos resultados ya que las meta-características son en general bastante ruidosas y el número de problemas disponibles para la generación de meta-ejemplos usualmente es limitada. En este trabajo, se obtienen buenos resultados debido al uso de meta-características que han sido ampliamente usadas en la literatura y a la gran variedad de datasets extraídos. Sin embargo, se cree que un análisis más detallado de la distribución de los datasets y la inclusión de datasets de mayor tamaño puede proporcionar mejores resultados. De igual manera, un estudio de las meta-características para la eliminación de aquellas que proporcionen información poco útil puede proporcionar mejoras en el método propuesto.
 
 La generación de rankings en la estrategia de vecinos cercanos es otro de los aspectos que necesita ser estudiado más detalladamente. El método de generación de ranking mediante el mecanismo ponderado, en el que se tiene en cuenta la distancia entre el dataset a analizar y los datasets de la base de conocimiento y el valor del rendimiento de un flujo de algoritmos, puede ser mejorado. En la versión utilizada, se le da la misma importancia a ambos factores, quizá dándole más peso a uno de los dos componentes mejoren los resultados obtenidos. De esta forma, para la generación de rankings, por ejemplo, los resultados de rendimiento de los flujos de algoritmos pueden considerarse más importantes, priorizando este factor en el ranking resultante.
 

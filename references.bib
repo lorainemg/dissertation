@@ -1373,13 +1373,6 @@ numpages = {15}
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
-@inproceedings{hutter2011SequentialMO,
-  title={Sequential Model-Based Optimization for General Algorithm Configuration},
-  author={Frank Hutter and Holger H. Hoos and Kevin Leyton-Brown},
-  booktitle={LION},
-  year={2011}
-}
-
 @article{peng2020comprehensive,
   author    = {Huimin Peng},
   title     = {A Comprehensive Overview and Survey of Recent Advances in Meta-Learning},
@@ -1491,3 +1484,154 @@ year = {1985}
 	journal = {Human factors in computing systems}, 
 	author = {Doris Xin, Eva Yiwei}
 }
+
+@article{zoph2017learning,
+	author    = {Barret Zoph and
+	Vijay Vasudevan and
+	Jonathon Shlens and
+	Quoc V. Le},
+	title     = {Learning Transferable Architectures for Scalable Image Recognition},
+	journal   = {CoRR},
+	volume    = {abs/1707.07012},
+	year      = {2017},
+	url       = {http://arxiv.org/abs/1707.07012},
+	eprinttype = {arXiv},
+	eprint    = {1707.07012},
+	timestamp = {Mon, 13 Aug 2018 16:48:00 +0200},
+	biburl    = {https://dblp.org/rec/journals/corr/ZophVSL17.bib},
+	bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{witsuba2019nas,
+	author    = {Martin Wistuba and
+	Ambrish Rawat and
+	Tejaswini Pedapati},
+	title     = {A Survey on Neural Architecture Search},
+	journal   = {CoRR},
+	volume    = {abs/1905.01392},
+	year      = {2019},
+	url       = {http://arxiv.org/abs/1905.01392},
+	eprinttype = {arXiv},
+	eprint    = {1905.01392},
+	timestamp = {Mon, 27 May 2019 13:15:00 +0200},
+	biburl    = {https://dblp.org/rec/journals/corr/abs-1905-01392.bib},
+	bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{hutter2011sequential,
+	author="Hutter, Frank
+	and Hoos, Holger H.
+	and Leyton-Brown, Kevin",
+	editor="Coello, Carlos A. Coello",
+	title="Sequential Model-Based Optimization for General Algorithm Configuration",
+	booktitle="Learning and Intelligent Optimization",
+	year="2011",
+	publisher="Springer Berlin Heidelberg",
+	address="Berlin, Heidelberg",
+	pages="507--523",
+	abstract="State-of-the-art algorithms for hard computational problems often expose many parameters that can be modified to improve empirical performance. However, manually exploring the resulting combinatorial space of parameter settings is tedious and tends to lead to unsatisfactory outcomes. Recently, automated approaches for solving this algorithm configuration problem have led to substantial improvements in the state of the art for solving various problems. One promising approach constructs explicit regression models to describe the dependence of target algorithm performance on parameter settings; however, this approach has so far been limited to the optimization of few numerical algorithm parameters on single instances. In this paper, we extend this paradigm for the first time to general algorithm configuration problems, allowing many categorical parameters and optimization for sets of instances. We experimentally validate our new algorithm configuration procedure by optimizing a local search and a tree search solver for the propositional satisfiability problem (SAT), as well as the commercial mixed integer programming (MIP) solver CPLEX. In these experiments, our procedure yielded state-of-the-art performance, and in many cases outperformed the previous best configuration approach.",
+	isbn="978-3-642-25566-3"
+}
+
+@book{rasmussen2005gaussian,
+	author = {Rasmussen, Carl Edward and Williams, Christopher K. I.},
+	title = {Gaussian Processes for Machine Learning (Adaptive Computation and Machine Learning)},
+	year = {2005},
+	isbn = {026218253X},
+	publisher = {The MIT Press}
+}
+
+@inproceedings{bergstra2011algorithms,
+	author = {Bergstra, James and Bardenet, R\'{e}mi and Bengio, Yoshua and K\'{e}gl, Bal\'{a}zs},
+	title = {Algorithms for Hyper-Parameter Optimization},
+	year = {2011},
+	isbn = {9781618395993},
+	publisher = {Curran Associates Inc.},
+	address = {Red Hook, NY, USA},
+	abstract = {Several recent advances to the state of the art in image classification benchmarks
+	have come from better configurations of existing techniques rather than novel approaches
+	to feature learning. Traditionally, hyper-parameter optimization has been the job
+	of humans because they can be very efficient in regimes where only a few trials are
+	possible. Presently, computer clusters and GPU processors make it possible to run
+	more trials and we show that algorithmic approaches can find better results. We present
+	hyper-parameter optimization results on tasks of training neural networks and deep
+	belief networks (DBNs). We optimize hyper-parameters using random search and two new
+	greedy sequential methods based on the expected improvement criterion. Random search
+	has been shown to be sufficiently efficient for learning neural networks for several
+	datasets, but we show it is unreliable for training DBNs. The sequential algorithms
+	are applied to the most difficult DBN learning problems from [1] and find significantly
+	better results than the best previously reported. This work contributes novel techniques
+	for making response surface models P(y|x) in which many elements of hyper-parameter
+	assignment (x) are known to be irrelevant given particular values of other elements.},
+	booktitle = {Proceedings of the 24th International Conference on Neural Information Processing Systems},
+	pages = {2546–2554},
+	numpages = {9},
+	location = {Granada, Spain},
+	series = {NIPS'11}
+}
+
+@misc{lasagne,
+	author = {Sander Dieleman and
+	Jan Schlüter and
+	Colin Raffel and
+	Eben Olson and
+	Søren Kaae Sønderby and
+	Daniel Nouri and
+	Daniel Maturana and
+	Martin Thoma and
+	Eric Battenberg and
+	Jack Kelly and
+	Jeffrey De Fauw and
+	Michael Heilman and
+	Diogo Moitinho de Almeida and
+	Brian McFee and
+	Hendrik Weideman and
+	Gábor Takács and
+	Peter de Rivaz and
+	Jon Crall and
+	Gregory Sanders and
+	Kashif Rasul and
+	Cong Liu and
+	Geoffrey French and
+	Jonas Degrave},
+	title        = {Lasagne: First release.},
+	month        = aug,
+	year         = 2015,
+	doi          = {10.5281/zenodo.27878},
+	url          = {http://dx.doi.org/10.5281/zenodo.27878}
+}
+
+@ARTICLE{theano2016theano,
+	author = {{Theano Development Team}},
+	title = "{Theano: A {Python} framework for fast computation of mathematical expressions}",
+	journal = {arXiv e-prints},
+	volume = {abs/1605.02688},
+	primaryClass = "cs.SC",
+	keywords = {Computer Science - Symbolic Computation, Computer Science - Learning, Computer Science - Mathematical Software},
+	year = 2016,
+	month = may,
+	url = {http://arxiv.org/abs/1605.02688},
+}
+
+@article{MEKA,
+	author = {Read, Jesse and Reutemann, Peter and Pfahringer, Bernhard and Holmes, Geoff},
+	title = {{MEKA}: A Multi-label/Multi-target Extension to {Weka}},
+	journal = {Journal of Machine Learning Research},
+	year = {2016},
+	volume = {17},
+	number = {21},
+	pages = {1--5},
+	url = {http://jmlr.org/papers/v17/12-164.html},
+}
+
+@phdthesis{dai2020lower,
+	title={Lower the barrier of machine learning: meta learning for transfer learning and AutoML},
+	author={Dai, Wenyuan},
+	year={2020},
+	institution={Hong Kong University of Science and Technology},
+	url={http://hdl.handle.net/1783.1/104960}
+}
+
+ @misc{web-mlpipe, 
+ 	title={What is a machine learning pipeline?}, url={https://valohai.com/machine-learning-pipeline/}, 
+ 	journal={What is a Machine Learning Pipeline?}} 

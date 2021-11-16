@@ -1,4 +1,6 @@
 \documentclass[10pt,oneside]{uhthesis}
+ \usepackage{caption}
+ \usepackage{algorithmicx}%
 \usepackage{subfigure}
 \usepackage[ruled,lined,linesnumbered,titlenumbered,algochapter,english]{algorithm2e}
 \usepackage{amsmath}
@@ -16,15 +18,76 @@
 \restylefloat{table}
 \usepackage{graphicx}
 \usepackage{longtable}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    commentstyle=\color{eclipseStrings}, % style of comment
+    stringstyle=\color{olive}, % style of strings
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+%    frame=lines,
+%    backgroundcolor=\color{gray}, %only if you like
+    string=[s]{"}{"},
+    comment=[l]{:\ "},
+    morecomment=[l]{:"},
+    literate=
+    *{0}{{{\color{numb}0}}}{1}
+    {1}{{{\color{numb}1}}}{1}
+    {2}{{{\color{numb}2}}}{1}
+    {3}{{{\color{numb}3}}}{1}
+    {4}{{{\color{numb}4}}}{1}
+    {5}{{{\color{numb}5}}}{1}
+    {6}{{{\color{numb}6}}}{1}
+    {7}{{{\color{numb}7}}}{1}
+    {8}{{{\color{numb}8}}}{1}
+    {9}{{{\color{numb}9}}}{1}
+}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+%	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
 
 %\newtheorem{definition}{Definition}[section]
 
 \renewcommand{\tablename}{Tabla}
+
 \renewcommand{\listalgorithmcfname}{Índice de Algoritmos}%
 %\dontprintsemicolon
 \SetAlgoNoEnd
 \DeclareUnicodeCharacter{00A0}{ }
-
 
 \title{Una estrategia de Meta-Learning para flujos genéricos de AutoML}
 \author{Loraine Monteagudo García}
@@ -50,7 +113,7 @@
 \newcommand{\minn}[1]{\min\left\{ #1 \right\} }
 \newcommand{\lldpcf}{1.25}
 \newcommand{\nnorm}[1]{\left\lvert #1 \right\rvert }
-
+\newcommand{\var}[1]{{\ttfamily#1}}% variable
 
 \begin{document}
 

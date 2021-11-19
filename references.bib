@@ -20,7 +20,7 @@
 	year = {2016}}
 
 @inproceedings{bergstra2013hyperopt,
-	author = {Bergstra, James and Yamins, Dan and Cox, David D and others},
+	author = {Bergstra, James and Yamins, Dan and Cox, David D},
 	booktitle = {Proceedings of the 12th Python in science conference},
 	organization = {Citeseer},
 	pages = {20},
@@ -386,7 +386,7 @@
 	gap and we show its applicability in a scenario of algorithm recommendation for regression
 	problems.},
 	address = {Aachen, DEU},
-	author = {Pinto, F\'{a}bio and Soares, Carlos and Mendes-Moreira, Jo\~{a}o},
+	author = {Pinto, F\'{a}bio and Soares, Carlos and Jo{\~a}o Mendes-Moreira},
 	booktitle = {Proceedings of the 2014 International Conference on Meta-Learning and Algorithm Selection - Volume 1201},
 	isbn = {16130073},
 	location = {Prague, Czech Republic},
@@ -1434,21 +1434,6 @@ year = {1985}
 	to use AutoML in their work.}
 }
 
-@article{xin2019automl,
-	author    = {Xin He and
-	Kaiyong Zhao and
-	Xiaowen Chu},
-	title     = {AutoML: {A} Survey of the State-of-the-Art},
-	journal   = {CoRR},
-	volume    = {abs/1908.00709},
-	year      = {2019},
-	url       = {http://arxiv.org/abs/1908.00709},
-	eprinttype = {arXiv},
-	eprint    = {1908.00709},
-	timestamp = {Thu, 28 Oct 2021 13:52:50 +0200},
-	biburl    = {https://dblp.org/rec/journals/corr/abs-1908-00709.bib},
-	bibsource = {dblp computer science bibliography, https://dblp.org}
-}
 
 @inproceedings{dyrmishi2019decision,
 	author = {Dyrmishi, Salijona and El Shawi, Radwa and Sakr, Sherif},
@@ -1635,3 +1620,66 @@ year = {1985}
  @misc{web-mlpipe, 
  	title={What is a machine learning pipeline?}, url={https://valohai.com/machine-learning-pipeline/}, 
  	journal={What is a Machine Learning Pipeline?}} 
+
+
+@inproceedings{autogoal,
+	title = "Automatic Discovery of Heterogeneous Machine Learning Pipelines: An Application to Natural Language Processing",
+	author = "Estevez-Velarde, Suilan  and
+	Guti{\'e}rrez, Yoan  and
+	Montoyo, Andres  and
+	Almeida Cruz, Yudivi{\'a}n",
+	booktitle = "Proceedings of the 28th International Conference on Computational Linguistics",
+	month = dec,
+	year = "2020",
+	address = "Barcelona, Spain (Online)",
+	publisher = "International Committee on Computational Linguistics",
+	url = "https://aclanthology.org/2020.coling-main.317",
+	doi = "10.18653/v1/2020.coling-main.317",
+	pages = "3558--3568",
+	abstract = "This paper presents AutoGOAL, a system for automatic machine learning (AutoML) that uses heterogeneous techniques. In contrast with existing AutoML approaches, our contribution can automatically build machine learning pipelines that combine techniques and algorithms from different frameworks, including shallow classifiers, natural language processing tools, and neural networks. We define the heterogeneous AutoML optimization problem as the search for the best sequence of algorithms that transforms specific input data into the desired output. This provides a novel theoretical and practical approach to AutoML. Our proposal is experimentally evaluated in diverse machine learning problems and compared with alternative approaches, showing that it is competitive with other AutoML alternatives in standard benchmarks. Furthermore, it can be applied to novel scenarios, such as several NLP tasks, where existing alternatives cannot be directly deployed. The system is freely available and includes in-built compatibility with a large number of popular machine learning frameworks, which makes our approach useful for solving practical problems with relative ease and effort.",
+}
+
+@inbook{bradzil2017metalearning,
+	author = {Brazdil, Pavel and Vilalta, Ricardo and Giraud-Carrier, Christophe and Soares, Carlos},
+	year = {2017},
+	month = {01},
+	pages = {},
+	title = {Metalearning},
+	doi = {10.1007/978-1-4899-7687-1_543}
+}
+
+@article{he2021automl,
+	title={AutoML: A survey of the state-of-the-art},
+	volume={212},
+	ISSN={0950-7051},
+	url={http://dx.doi.org/10.1016/j.knosys.2020.106622},
+	DOI={10.1016/j.knosys.2020.106622},
+	journal={Knowledge-Based Systems},
+	publisher={Elsevier BV},
+	author={He, Xin and Zhao, Kaiyong and Chu, Xiaowen},
+	year={2021},
+	month={Jan},
+	pages={106622}
+}
+
+@inbook{fuerer2019hyperparameter,
+	author = {Feurer, Matthias and Hutter, Frank},
+	year = {2019},
+	month = {05},
+	pages = {3-33},
+	title = {Hyperparameter Optimization},
+	isbn = {978-3-030-05317-8},
+	doi = {10.1007/978-3-030-05318-5_1}
+}
+
+@inproceedings{franceschi2017forward,
+	author = {Franceschi, Luca and Donini, Michele and Frasconi, Paolo and Pontil, Massimiliano},
+	title = {Forward and Reverse Gradient-Based Hyperparameter Optimization},
+	year = {2017},
+	abstract = {We study two procedures (reverse-mode and forward-mode) for computing the gradient of the validation error with respect to the hyperparameters of any iterative learning algorithm such as stochastic gradient descent. These procedures mirror two methods of computing gradients for recurrent neural networks and have different trade-offs in terms of running time and space requirements. Our formulation of the reverse-mode procedure is linked to previous work by Maclaurin et al. (2015) but does not require reversible dynamics. The forward-mode procedure is suitable for real-time hyperparameter updates, which may significantly speed up hyperparameter optimization on large datasets. We present experiments on data cleaning and on learning task interactions. We also present one large-scale experiment where the use of previous gradient-based methods would be prohibitive.},
+	booktitle = {Proceedings of the 34th International Conference on Machine Learning - Volume 70},
+	pages = {1165–1173},
+	numpages = {9},
+	location = {Sydney, NSW, Australia},
+	series = {ICML'17}
+}

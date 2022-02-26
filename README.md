@@ -1,5 +1,9 @@
 # Dissertation
-This repo contains my bachelor dissertation in Computer Science. It's about Artificial Intelligence, specifically about the fields of machine learning, AutoML and Meta-Learning.
+This repo contains my bachelor dissertation in Computer Science titled, *Una estrategia de Meta-Learning para flujos genéricos de AutoML*. It's about Artificial Intelligence, specifically about the fields of machine learning, AutoML and Meta-Learning.
+
+Code can be found in https://github.com/lorainemg/autogoal.
+
+Experimentation can be found in https://github.com/lorainemg/experiments-thesis.
 
 ## Abstract
 
